@@ -1,0 +1,144 @@
+/*
+  localizable.strings
+  iShare
+ 
+  Created by Jin Jin on 12-8-4.
+  Copyright (c) 2012年Jin Jin. All rights reserved.
+  */
+"btn_title_operate" = "編輯";
+"btn_title_cancel" = "取消";
+"btn_title_confirm" = "確定";
+"btn_title_ok" = "OK";
+"btn_title_delete" = "刪除";
+"btn_title_move" = "移動";
+"btn_title_copyto" = "複製到";
+"btn_title_selectall" = "全選";
+"btn_title_disconnect" = "斷開連接";
+"btn_title_unlink" = "註銷";
+"btn_title_nowplaying" = "正在播放";
+"btn_title_showimagepicker" = "相簿中的照​​片";
+"btn_title_showfilepicker" = "本地文件";
+"btn_title_back" = "返回";
+
+"label_title_choosecontent" = "選擇你想要分享的內容";
+"label_title_sending" = "發送中";
+"label_title_receiving" = "接收中";
+
+"title_receivedfrombluetooth" = "接收自藍牙";
+
+"tab_title_home" = "主目錄";
+"tab_title_myfiles" = "我的文件";
+"tab_title_music" = "音樂";
+"tab_title_share" = "分享";
+"tab_title_config" = "設置";
+
+"nav_title_connectedwith" = "已與%@連接";
+"nav_title_bluetooth" = "藍牙共享";
+"nav_title_wificontrol" = "HTTP共享";
+"nav_title_passcodesetting" = "密碼保護";
+
+"alert_message_filealreadyexists" = "同名文件已存在，想要覆蓋它嗎？";
+"alert_title_inputdirectoryname" = "請輸入新文件夾的名字";
+"alert_title_inputtextfilename" = "請輸入新的文本文件名";
+"alert_title_deleteconfirm" = "刪除文件";
+"alert_title_rename" = "重命名";
+"alert_title_error" = "錯誤";
+"alert_title_dropboxauthfailed" = "失敗";
+"alert_message_dropboxauthfailed" = "Dropbox認證失敗";
+"alert_message_deleteconfirm" = "刪除的文件無法恢復，確認刪除嗎?";
+"alert_message_nosuitableapp" = "沒有App可以打開這個文件";
+"alert_message_nomailaccount" = "您的設備上沒有可用的郵件帳號，所以無法發送郵件";
+"alert_message_renamefailed" = "重命名失敗";
+"alert_message_shareserviceerror" = "好像有哪裡不對";
+"alert_message_filereceivingfinished" = "文件被保存到了\"接收自藍牙\"文件夾";
+"alert_message_photoreceivingfinished" = "照片被保存到了相冊中";
+"alert_message_sendingfinished" = "發送結束";
+"alert_message_fileisstored" = "%@已經被存儲到了'Inbox'";
+"btn_title_iknow" = "知道了";
+
+"status_message_newfoldercreated" = "文件夾創建成功";
+"status_message_newfoldercreatefailed" = "文件夾創建失敗";
+"status_message_newimagecreated" = "圖片創建成功";
+"status_message_newimagecreatefailed" = "圖片創建失敗";
+"status_message_newtextcreated" = "文本文件創建成功";
+"status_message_newtextcreatefailed" = "文本文件創建失敗";
+"status_message_savingimage" = "保存圖像...";
+"status_message_savingfailed" = "保存失敗!";
+"status_message_savingsuccess" = "圖像已保存";
+"status_message_httpserverstartfinished" = "WIFI共享啟動成功";
+"status_message_httpserverstartfailed" = "無法啟動WIFI共享！請檢查你的WIFI設置";
+"status_message_httpserverstopfinished" = "WIFI共享已停止";
+"status_message_httpserverstopfailed" = "WIFI共享無法停止!";
+
+"actionsheet_cancel" = "取消";
+"actionsheet_save" = "保存";
+"actionsheet_copy" = "複製";
+"actionsheet_email" = "郵件";
+
+"progress_message_uploadingfiles" = "上傳文件";
+"progress_message_zipping" = "正在壓縮文件，請稍候";
+"progress_message_unzipping" = "解壓文件";
+"progress_message_unzippingfailed" = "解壓失敗";
+"progress_message_loadingcontent" = "加載內容";
+"progress_message_deleting" = "刪除文件";
+"progress_message_creatingfolder" = "創建文件夾";
+"progress_message_actionfailed" = "操作失敗";
+"progress_message_addtodownloadqueue" = "已加入到下載隊列";
+"progress_message_startdownloadingfile" = "開始下載文件";
+"progress_message_uploadingfinished" = "文件上傳結束";
+"progress_message_uploadingfailed" = "文件上傳失敗";
+"progress_message_downloadfinished" = "文件下載結束";
+"progress_message_downloadfailed" = "文件下載失敗";
+"progress_message_noicloudsetup" = "這台設備上沒有iCloud支持";
+"progress_message_dropboxunlinked" = "Dropbox已解除綁定";
+"progress_message_passcodeisenabled" = "密碼已啟用";
+"progress_message_passcodeischanged" = "密碼已修改";
+"progress_message_passcodeisdisabled" = "密碼已禁用";
+
+"section_title_localshare" = "本地分享";
+"section_title_cloudstorageservice" = "雲存儲服務";
+"section_title_transferqueue" = "傳輸隊列";
+"section_title_wificonfig" = "共享的開關打開後，您可以通過在瀏覽器地址欄中輸入%@ 來訪問您的設備上的文件。推薦使用Safari，Chrome和Firefox來訪問";
+
+"cell_title_upload" = "上傳";
+"cell_title_download" = "下載";
+"cell_title_wifishare" = "通過WIFI共享";
+"cell_title_bluetooth" = "通過藍牙共享";
+
+"cell_title_enablehttp" = "啟用共享";
+"cell_title_httpport" = "HTTP端口";
+"cell_title_authenable" = "身份驗證";
+"cell_title_authusername" = "用戶名";
+"cell_title_authpassword" = "密碼";
+
+"cell_title_notconnected" = "未連接";
+"cell_title_addsong" = "輕觸此處添加歌曲";
+"cell_title_removefromplaylist" = "移除";
+
+"cell_title_disablepasscode" = "關閉密碼保護";
+"cell_title_enablepasscode" = "啟用密碼保護";
+"cell_title_changepasscode" = "更改密碼";
+
+"cell_title_passcodeenabled" = "已啟用";
+"cell_title_passcodedisabled" = "未啟用";
+
+"config_title_appearence" = "外觀";
+"config_title_enableThumbnail" = "啟用縮略圖";
+"config_title_security" = "安全性";
+"config_title_enablepassword" = "密碼保護";
+"config_title_rememberwifishare" = "記住WIFI共享狀態";
+
+"search_placeholder" = "搜索";
+
+"seg_title_name" = "名稱";
+"seg_title_type" = "種類";
+"seg_title_date" = "日期";
+
+"menu_title_delete" = "刪除";
+"menu_title_download" = "下載到...";
+
+"newimagename_template" = "新圖片%@";
+
+"refresh_title" = "下拉刷新";
+"refresh_readytitle" = "放開刷新";
+"refresh_refreshtitle" = "刷新中...";

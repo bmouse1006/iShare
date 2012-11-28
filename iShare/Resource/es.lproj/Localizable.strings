@@ -1,0 +1,146 @@
+/*
+ Localizable.strings
+ iShare
+
+ Creado por Jin Jin en 12-8-4.
+ Copyright (c) 2012 年 Jin Jin. Todos los derechos reservados.
+*/
+
+"btn_title_operate" = "Editar";
+"btn_title_cancel" = "Cancelar";
+"btn_title_confirm" = "Confirmar";
+"btn_title_ok" = "OK";
+"btn_title_delete" = "Eliminar";
+"btn_title_move" = "Mover";
+"btn_title_copyto" = "Copiar";
+"btn_title_selectall" = "Seleccionar todo";
+"btn_title_disconnect" = "Desconectar";
+"btn_title_unlink" = "Desvincular";
+"btn_title_nowplaying" = "Reproducción en curso";
+"btn_title_showimagepicker" = "Álbum de fotos";
+"btn_title_showfilepicker" = "Archivos locales";
+"btn_title_back" = "Volver";
+
+"labeltitle_choosecontent" = "Seleccione el contenido que desea compartir";
+"labeltitle_sending" = "Enviando";
+"labeltitle_receiving" = "recepción";
+
+"title_receivedfrombluetooth" = "Se ha recibido de la conexión Bluetooth";
+
+"tab_title_home" = "Home";
+"tab_title_myfiles" = "Mis archivos";
+"tab_title_music" = "Música";
+"tab_title_share" = "Share";
+"tab_title_config" = "Config";
+
+"nav_title_connectedwith" = "Conectado con @%";
+"nav_title_bluetooth" = "Bluetooth compartir";
+"nav_title_wificontrol" = "compartir HTTP";
+"nav_title_passcodesetting" = "protección de contraseña";
+
+"alert_message_filealreadyexists" = "El archivo con el mismo nombre ya existe, desea sobreescribirlo?";
+"alert_title_inputdirectoryname" = "Introduzca el nombre de la nueva carpeta";
+"alert_title_inputtextfilename" = "Por favor ingrese un nombre de archivo de texto nuevo";
+"alert_title_deleteconfirm" = "Eliminar archivos";
+"alert_title_rename" = "Cambiar nombre";
+"alert_title_error" = "Error";
+"alert_title_dropboxauthfailed" = "Error";
+"alert_message_dropboxauthfailed" = "Autenticación de Dropbox no";
+"alert_message_deleteconfirm" = ". Los archivos borrados no se pueden recuperar Foro de confirmar la eliminación?";
+"alert_message_nosuitableapp" = "No Aplicación puede abrir este archivo";
+"alert_message_nomailaccount" = "No tienes cuenta de correo está disponible en su dispositivo";
+"alert_message_renamefailed" = "El cambio de nombre no";
+"alert_message_shareserviceerror" = "Parece mal ...";
+"alert_message_filereceivingfinished" = "Los archivos se guardan en 'Recibido de Bluetooth' carpeta";
+"alert_message_photoreceivingfinished" = "Las fotos se guardan en disco";
+"alert_message_sendingfinished" = "Fin de transimission";
+"alert_message_fileisstored" = "%@ se ha almacenado en la 'Bandeja de entrada'";
+"btn_title_iknow" = "Yo sé";
+
+"status_message_newfoldercreated" = "La carpeta se crea";
+"status_message_newfoldercreatefailed" = "Falló la creación de carpetas";
+"status_message_newimagecreated" = "La imagen se crea";
+"status_message_newimagecreatefailed" = "Falló la creación de imágenes";
+"status_message_newtextcreated" = "Archivo de texto se crea";
+"status_message_newtextcreatefailed" = "Archivo de texto creatioin fracasado";
+"status_message_savingimage" = "Guardar imagen ...";
+"status_message_savingfailed" = "Guardar fallado!";
+"status_message_savingsuccess" = "Imagen se ha guardado";
+"status_message_httpserverstartfinished" = "WIFI compartir arranque éxito";
+"status_message_httpserverstartfailed" = "No se puede iniciar el uso compartido WIFI Compruebe que ajuste WIFI!";
+"status_message_httpserverstopfinished" = "compartir WIFI ha parado";
+"status_message_httpserverstopfailed" = "compartir WIFI no se puede detener!";
+
+"actionsheet_cancel" = "Cancelar";
+"actionsheet_save" = "Guardar";
+"actionsheet_copy" = "Copiar";
+"actionsheet_email" = "Correo electrónico";
+
+"progress_message_uploadingfiles" = "Cargar archivos";
+"progress_message_zipping" = "Comprimir archivos ahora, por favor espera";
+"progress_message_unzipping" = "Extraer archivo";
+"progress_message_unzippingfailed" = "no descompresión";
+"progress_message_loadingcontent" = "Cargar contenido";
+"progress_message_deleting" = "Eliminar archivo";
+"progress_message_creatingfolder" = "Crear carpeta";
+"progress_message_actionfailed" = "Error en la operación";
+"progress_message_addtodownloadqueue" = "se ha añadido a la cola de descarga";
+"progress_message_startdownloadingfile" = "Iniciar la descarga del archivo";
+"progress_message_uploadingfinished" = "subida de archivos terminado";
+"progress_message_uploadingfailed" = "Error cargando archivo";
+"progress_message_downloadfailed" = "Error al descargar el archivo";
+"progress_message_downloadfinished" = "Archivo donwloading terminado";
+"progress_message_noicloudsetup" = "No hay soporte de iCloud en este dispositivo";
+"progress_message_dropboxunlinked" = "Dropbox unbind";
+"progress_message_passcodeisenabled" = "Código de acceso permitido";
+"progress_message_passcodeischanged" = "Código de acceso cambiado";
+"progress_message_passcodeisdisabled" = "Código de acceso diabled";
+
+"section_title_localshare" = "Share Local";
+"section_title_cloudstorageservice" = "Servicios de almacenamiento en la nube";
+"section_title_transferqueue" = "Transmisión de cola";
+"section_title_wificonfig" = "Shared interruptor está activado, puede acceder a los archivos en el dispositivo a través del navegador web, la dirección es%@ Se recomienda utilizar Safari, Chrome y Firefox para acceder a él.";
+
+"cell_title_upload" = "Upload";
+"cell_title_download" = "Descargar";
+"cell_title_wifishare" = "Shared via WIFI";
+"cell_title_bluetooth" = "Shared via Bluetooth";
+
+"cell_title_enablehttp" = "Activar compartir";
+"cell_title_httpport" = "Puerto HTTP";
+"cell_title_authenable" = "Autenticación";
+"cell_title_authusername" = "Nombre de usuario";
+"cell_title_authpassword" = "contraseña";
+
+"cell_title_notconnected" = "No conectado";
+
+"cell_title_addsong" = "Toque aquí para agregar canciones";
+"cell_title_removefromplaylist" = "Eliminar";
+
+"cell_title_disablepasscode" = "Desactivar código";
+"cell_title_enablepasscode" = "Activar código de acceso";
+"cell_title_changepasscode" = "Cambiar contraseña";
+
+"cell_title_passcodeenabled" = "activado";
+"cell_title_passcodedisabled" = "No habilitado";
+
+"config_title_appearence" = "Apariencia";
+"config_title_enableThumbnail" = "Activar imagen";
+"config_title_security" = "Seguridad";
+"config_title_enablepassword" = "Código de acceso protegido";
+"config_title_rememberwifishare" = "Recordar estado compartido WIFI";
+
+"search_placeholder" = "Buscar";
+
+"seg_title_name" = "Nombre";
+"seg_title_type" = "Tipo";
+"seg_title_date" = "fecha";
+
+"menu_title_delete" = "Eliminar";
+"menu_title_download" = "Descargado a ...";
+
+"newimagename_template" = "Nueva imagen%@";
+
+"refresh_title" = "Drog hacia abajo para actualizar";
+"refresh_readytitle" = "Versión para refrescar";
+"refresh_refreshtitle" = "Refrescante";

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>httpSharePort</key>
+	<integer>1080</integer>
+	<key>httpShareUsername</key>
+	<string>admin</string>
+	<key>httpSharePassword</key>
+	<string>admin</string>
+	<key>enableThumbnail</key>
+	<true/>
+	<key>rememberWIFIShare</key>
+	<true/>
+</dict>
+</plist>

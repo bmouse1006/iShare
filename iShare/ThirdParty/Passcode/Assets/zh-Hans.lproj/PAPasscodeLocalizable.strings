@@ -1,0 +1,20 @@
+/*
+ PAPasscodeLocalizable.strings
+ iShare
+ 
+ Created by Jin Jin on 12-11-1.
+ Copyright (c) 2012年 Jin Jin. All rights reserved.
+ */
+"Set Passcode" = "设置密码";
+"Enter a passcode" = "输入一个密码";
+"Re-enter your passcode" = "重新输入你的密码";
+"Enter Passcode" = "输入密码";
+"Enter your passcode" = "输入你的密码";
+"Change Passcode" = "更改密码";
+"Enter your old passcode" = "输入你的旧密码";
+"Enter your new passcode" = "输入你的新密码";
+"Re-enter your new passcode" = "重新输入你的新密码";
+"Passcodes did not match. Try again." = "密码不匹配，请重试";
+"1 Failed Passcode Attempt" = "密码尝试失败1次";
+"%d Failed Passcode Attempts" = "密码尝试失败%d次";
+"Next" = "下一步";

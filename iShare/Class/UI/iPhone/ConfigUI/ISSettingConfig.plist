@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>name</key>
+		<string>config_title_appearence</string>
+		<key>configs</key>
+		<array>
+			<dict>
+				<key>identifier</key>
+				<string>enableThumbnail</string>
+				<key>name</key>
+				<string>config_title_enableThumbnail</string>
+				<key>type</key>
+				<string>switch</string>
+			</dict>
+		</array>
+	</dict>
+	<dict>
+		<key>name</key>
+		<string>config_title_security</string>
+		<key>configs</key>
+		<array>
+			<dict>
+				<key>identifier</key>
+				<string>passcodeEnabled</string>
+				<key>name</key>
+				<string>config_title_enablepassword</string>
+				<key>type</key>
+				<string>more</string>
+				<key>next</key>
+				<string>ISPasscodeProtectionController</string>
+				<key>nextIdentifier</key>
+				<string>isPasscodeEnabled</string>
+			</dict>
+			<dict>
+				<key>identifier</key>
+				<string>rememberWIFIShare</string>
+				<key>name</key>
+				<string>config_title_rememberwifishare</string>
+				<key>type</key>
+				<string>switch</string>
+			</dict>
+		</array>
+	</dict>
+</array>
+</plist>

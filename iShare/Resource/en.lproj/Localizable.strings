@@ -1,0 +1,148 @@
+
+
+/*
+ Localizable.strings
+ iShare
+ 
+ Created by Jin Jin on 12-8-4.
+ Copyright (c) 2012年 Jin Jin. All rights reserved.
+ */
+
+"btn_title_operate" = "Edit";
+"btn_title_cancel" = "Cancel";
+"btn_title_confirm" = "Confirm";
+"btn_title_ok" = "OK";
+"btn_title_delete" = "Delete";
+"btn_title_move" = "Move";
+"btn_title_copyto" = "Copy to";
+"btn_title_selectall" = "Select all";
+"btn_title_disconnect" = "Disconnect";
+"btn_title_unlink" = "Unlink";
+"btn_title_nowplaying" = "Now playing";
+"btn_title_showimagepicker" = "Photo album";
+"btn_title_showfilepicker" = "Local files";
+"btn_title_back" = "Back";
+
+"label_title_choosecontent" = "Select the content you want to share";
+"label_title_sending" = "Sending";
+"label_title_receiving" = "Reception";
+
+"title_receivedfrombluetooth" = "Received from the Bluetooth";
+
+"tab_title_home" = "Home";
+"tab_title_myfiles" = "My Files";
+"tab_title_music" = "Music";
+"tab_title_share" = "Share";
+"tab_title_config" = "Config";
+
+"nav_title_connectedwith" = "Connected with %@";
+"nav_title_bluetooth" = "Bluetooth sharing";
+"nav_title_wificontrol" = "HTTP sharing";
+"nav_title_passcodesetting" = "Passcode protection";
+
+"alert_message_filealreadyexists" = "File of the same name already exists, you want to overwrite it?";
+"alert_title_inputdirectoryname" = "Please enter the name of the new folder";
+"alert_title_inputtextfilename" = "Please enter a new text file name";
+"alert_title_deleteconfirm" = "Delete files";
+"alert_title_rename" = "Rename";
+"alert_title_error" = "Error";
+"alert_title_dropboxauthfailed" = "Failed";
+"alert_message_dropboxauthfailed" = "Authentication for Dropbox failed";
+"alert_message_deleteconfirm" = "Deleted files can't be restored. Do you confirm deletion?";
+"alert_message_nosuitableapp" = "No App can open this file";
+"alert_message_nomailaccount" = "No mail account is available on your device";
+"alert_message_renamefailed" = "The rename fails";
+"alert_message_shareserviceerror" = "Seems wrong...";
+"alert_message_filereceivingfinished" = "Files are saved to \"Received from Bluetooth\" folder";
+"alert_message_photoreceivingfinished" = "Photos are saved to album";
+"alert_message_sendingfinished" = "End of transimission";
+"alert_message_fileisstored" = "%@ has been stored to the 'Inbox'";
+"btn_title_iknow" = "I know";
+
+"status_message_newfoldercreated" = "Folder is created";
+"status_message_newfoldercreatefailed" = "Folder creation failed";
+"status_message_newimagecreated" = "The image is created";
+"status_message_newimagecreatefailed" = "Image creation failed";
+"status_message_newtextcreated" = "Text file is created";
+"status_message_newtextcreatefailed" = "Text file creatioin failed";
+"status_message_savingimage" = "Save image...";
+"status_message_savingfailed" = "Save failed!";
+"status_message_savingsuccess" = "Image has been saved";
+"status_message_httpserverstartfinished" = "WIFI sharing startup success";
+"status_message_httpserverstartfailed" = "Can't start WIFI sharing! Please check you WIFI setting";
+"status_message_httpserverstopfinished" = "WIFI sharing has stopped";
+"status_message_httpserverstopfailed" = "WIFI sharing can't be stopped!";
+
+"actionsheet_cancel" = "Cancel";
+"actionsheet_save" = "Save";
+"actionsheet_copy" = "Copy";
+"actionsheet_email" = "Email";
+
+"progress_message_uploadingfiles" = "Upload files";
+"progress_message_zipping" = "Compressing file now, please waiting";
+"progress_message_unzipping" = "Extracting file";
+"progress_message_unzippingfailed" = "Decompression failed";
+"progress_message_loadingcontent" = "Loading content";
+"progress_message_deleting" = "Delete file";
+"progress_message_creatingfolder" = "Creating folder";
+"progress_message_actionfailed" = "Operation failed";
+"progress_message_addtodownloadqueue" = "Has been added to the download queue";
+"progress_message_startdownloadingfile" = "Start downloading file";
+"progress_message_uploadingfinished" = "File uploading finished";
+"progress_message_uploadingfailed" = "File uploading failed";
+"progress_message_downloadfailed" = "File downloading failed";
+"progress_message_downloadfinished" = "File donwloading finished";
+"progress_message_noicloudsetup" = "No iCloud support on this device";
+"progress_message_dropboxunlinked" = "Dropbox unbind";
+"progress_message_passcodeisenabled" = "Passcode enabled";
+"progress_message_passcodeischanged" = "Passcode changed";
+"progress_message_passcodeisdisabled" = "Passcode diabled";
+
+"section_title_localshare" = "Local Share";
+"section_title_cloudstorageservice" = "Cloud Storage Services";
+"section_title_transferqueue" = "Transmission Queue";
+"section_title_wificonfig" = "Shared switch is turned on, you can access the files on your device via web browser, address is %@. Recommend using Safari, Chrome and Firefox to access";
+
+"cell_title_upload" = "Upload";
+"cell_title_download" = "Download";
+"cell_title_wifishare" = "Shared via WIFI";
+"cell_title_bluetooth" = "Shared via Bluetooth";
+
+"cell_title_enablehttp" = "Enable share";
+"cell_title_httpport" = "HTTP port";
+"cell_title_authenable" = "Authentication";
+"cell_title_authusername" = "Username";
+"cell_title_authpassword" = "Password";
+
+"cell_title_notconnected" = "Not connected";
+
+"cell_title_addsong" = "Touch here to add songs";
+"cell_title_removefromplaylist" = "Remove";
+
+"cell_title_disablepasscode" = "Disable passcode";
+"cell_title_enablepasscode" = "Enable passcode";
+"cell_title_changepasscode" = "Change passcode";
+
+"cell_title_passcodeenabled" = "enabled";
+"cell_title_passcodedisabled" = "Not enabled";
+
+"config_title_appearence" = "Appearence";
+"config_title_enableThumbnail" = "Enable thumbnail";
+"config_title_security" = "Security";
+"config_title_enablepassword" = "Passcode protected";
+"config_title_rememberwifishare" = "Remember WIFI sharing state";
+
+"search_placeholder" = "Search";
+
+"seg_title_name" = "Name";
+"seg_title_type" = "Type";
+"seg_title_date" = "Date";
+
+"menu_title_delete" = "Delete";
+"menu_title_download" = "Downloaded to...";
+
+"newimagename_template" = "New picture %@";
+
+"refresh_title" = "Drog-down to refresh";
+"refresh_readytitle" = "Release to refresh";
+"refresh_refreshtitle" = "Refreshing";

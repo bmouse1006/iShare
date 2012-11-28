@@ -1,0 +1,20 @@
+/* 
+  PAPasscodeLocalizable.strings
+  iShare
+
+  Created by Jin Jin on 12-11-1.
+  Copyright (c) 2012年 Jin Jin. All rights reserved.
+*/
+"Set Passcode" = "パスコードを設定する";
+"Enter a passcode" = "パスコードを入力してください";
+"Re-enter your passcode" = "パスコードを再入力";
+"Enter Passcode" = "パスコードを入力してください";
+"Enter your passcode" = "あなたのパスコードを入力してください";
+"Change Passcode" = "パスコードを変更する";
+"Enter your old passcode" = "古いパスコードを入力してください";
+"Enter your new passcode" = "あなたの新しいパスコードを入力してください";
+"Re-enter your new passcode" = "あなたの新しいパスワードを再入力してください";
+"Passcodes did not match. Try again." = "パスコードが一致しませんでした。もう一度やり直してください。";
+"1 Failed Passcode Attempt" = "1失敗したパスコードを試み";
+"%d Failed Passcode Attempts" = "%dはパスコードの試みに失敗した";
+"Next" = "次の";
