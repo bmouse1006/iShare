@@ -58,10 +58,6 @@
     [super viewDidAppear:animated];
 }
 
--(ISShareServiceBaseDataSource*)createModel{
-    return [[ISDropBoxDataSource alloc] initWithWorkingPath:self.workingPath];
-}
-
 -(void)setupDropboxSession{
     [DBSession sharedSession].delegate = self;
 }
@@ -112,7 +108,7 @@
 }
 
 -(void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error{
-
+    [self uploadFailed:error];
 }
 
 -(NSLock*)uploadLock{
@@ -140,6 +136,10 @@
 }
 
 #pragma mark - override super class
+-(ISShareServiceBaseDataSource*)createModel{
+    return [[ISDropBoxDataSource alloc] initWithWorkingPath:self.workingPath];
+}
+
 -(BOOL)serviceAutherized{
     return [[DBSession sharedSession] isLinked];
 }

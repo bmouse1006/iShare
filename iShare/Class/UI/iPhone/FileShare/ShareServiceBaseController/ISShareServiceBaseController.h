@@ -39,6 +39,7 @@
 -(void)downloadRemoteFile:(NSString*)remotePath toFolder:(NSString*)folder;
 -(void)uploadSelectedFiles:(NSArray*)selectedFiles;
 
+//operation call back
 -(void)deleteFinished;
 -(void)deleteFailed:(NSError*)error;
 -(void)downloadFinished;

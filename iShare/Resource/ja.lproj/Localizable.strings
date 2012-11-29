@@ -55,6 +55,7 @@
 "alert_message_photoreceivingfinished" = "アルバムに写真を保存";
 "alert_message_sendingfinished" = "伝送終了";
 "alert_message_fileisstored" = "%@は'受信トレイ'に保存されている";
+"alert_message_authfailed" = "認証に失敗しました";
 "btn_title_iknow" = "私は知っている";
 
 "status_message_newfoldercreated" = "フォルダが正常に作成さ";
@@ -92,6 +93,7 @@
 "progress_message_downloadfailed" = "ファイルのダウンロードの終わり";
 "progress_message_noicloudsetup" = "このデバイスは、iCloudのをサポートしていません";
 "progress_message_dropboxunlinked" = "Dropboxのアンバインド";
+"progress_message_googledriveunlinked" = "GoogleドライブUNBIND";
 "progress_message_passcodeisenabled" = "パスワードを有効";
 "progress_message_passcodeischanged" = "パスワードが変更されました";
 "progress_message_passcodeisdisabled" = "パスワードが無効になっています";

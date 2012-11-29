@@ -13,7 +13,9 @@
 @property (nonatomic, strong) IBOutlet UITableView* tableView;
 
 @property (nonatomic, strong) IBOutlet UIButton* unlinkButton;
+@property (nonatomic, strong) IBOutlet UIButton* gdUnlinkButton;
 
 -(IBAction)unlinkDropbox:(id)sender;
+-(IBAction)unlinkGoogleDrive:(id)sender;
 
 @end

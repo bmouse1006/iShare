@@ -8,7 +8,9 @@
 
 #import "TextEditorViewController.h"
 
-@interface TextEditorViewController ()
+@interface TextEditorViewController (){
+    BOOL _keyboardShows;
+}
 
 @property (nonatomic, strong) NSString* filePath;
 @property (nonatomic, strong) UIDocumentInteractionController* documentInteractionController;
@@ -17,11 +19,19 @@
 
 @implementation TextEditorViewController
 
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 -(id)initWithFilePath:(NSString *)filePath{
     self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil];
     
     if (self){
         self.filePath = filePath;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillChangeFrameNotification object:nil];
+
     }
     
     return self;
@@ -56,7 +66,9 @@
 
 -(void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
-    self.textView.frame = self.view.bounds;
+    if (!_keyboardShows){
+        self.textView.frame = self.view.bounds;
+    }
 }
 
 -(IBAction)openInButtonClicked:(id)sender{
@@ -78,8 +90,55 @@
                               error:NULL];
 }
 
-#pragma mark - document interaction delegate
+#pragma mark - keyboard change 
+- (void)keyboardWillShow:(NSNotification *)notification {
+    
+    /*
+     Reduce the size of the text view so that it's not obscured by the keyboard.
+     Animate the resize so that it's in sync with the appearance of the keyboard.
+     */
+    
+    NSDictionary *userInfo = [notification userInfo];
+    
+    // Get the origin of the keyboard when it's displayed.
+    NSValue* aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    
+    // Get the top of the keyboard as the y coordinate of its origin in self's view's coordinate system. The bottom of the text view's frame should align with the top of the keyboard's final position.
+    CGRect keyboardRect = [aValue CGRectValue];
+    
+    // Get the duration of the animation.
+    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration ;
+    [animationDurationValue getValue:&animationDuration];
+    
+    CGRect frame = self.view.frame;
+    frame.size.height -= keyboardRect.size.height - 45;
+    
+    [UIView animateWithDuration:animationDuration animations:^{
+        self.textView.frame = frame;
+    }];
+    
+    _keyboardShows = YES;
+}
 
 
+- (void)keyboardWillHide:(NSNotification *)notification {
+    
+    NSDictionary* userInfo = [notification userInfo];
+    
+    /*
+     Restore the size of the text view (fill self's view).
+     Animate the resize so that it's in sync with the disappearance of the keyboard.
+     */
+    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration;
+    [animationDurationValue getValue:&animationDuration];
+    
+    [UIView animateWithDuration:animationDuration animations:^{
+        self.textView.frame = self.view.frame;
+    }];
+    
+    _keyboardShows = NO;
+}
 
 @end

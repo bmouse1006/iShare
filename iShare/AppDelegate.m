@@ -60,7 +60,11 @@
         NSString* alertMessage = [NSString stringWithFormat:NSLocalizedString(@"alert_message_fileisstored", nil), filename];
         [SVProgressHUD showSuccessWithStatus:alertMessage duration:2.0f];
     }
-//    NSString* home = [FileOperationWrap homePath];
+    
+    if ([scheme hasPrefix:@"db"]){
+        return [[DBSession sharedSession] handleOpenURL:url];
+    }
+    //    NSString* home = [FileOperationWrap homePath];
 //    
 //    NSMutableString* path = [NSMutableString stringWithString:[url relativePath]];
 //    NSRange range = [path rangeOfString:@"/private"];
@@ -93,12 +97,6 @@
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-	if ([[DBSession sharedSession] handleOpenURL:url]) {
-//		if ([[DBSession sharedSession] isLinked]) {
-//			[navigationController pushViewController:rootViewController.photoViewController animated:YES];
-//		}
-		return YES;
-	}
 	
 	return NO;
 }

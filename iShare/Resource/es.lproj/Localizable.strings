@@ -21,9 +21,9 @@
 "btn_title_showfilepicker" = "Archivos locales";
 "btn_title_back" = "Volver";
 
-"labeltitle_choosecontent" = "Seleccione el contenido que desea compartir";
-"labeltitle_sending" = "Enviando";
-"labeltitle_receiving" = "recepción";
+"label_title_choosecontent" = "Seleccione el contenido que desea compartir";
+"label_title_sending" = "Enviando";
+"label_title_receiving" = "recepción";
 
 "title_receivedfrombluetooth" = "Se ha recibido de la conexión Bluetooth";
 
@@ -55,6 +55,7 @@
 "alert_message_photoreceivingfinished" = "Las fotos se guardan en disco";
 "alert_message_sendingfinished" = "Fin de transimission";
 "alert_message_fileisstored" = "%@ se ha almacenado en la 'Bandeja de entrada'";
+"alert_message_authfailed" = "Error de autenticación";
 "btn_title_iknow" = "Yo sé";
 
 "status_message_newfoldercreated" = "La carpeta se crea";
@@ -92,6 +93,7 @@
 "progress_message_downloadfinished" = "Archivo donwloading terminado";
 "progress_message_noicloudsetup" = "No hay soporte de iCloud en este dispositivo";
 "progress_message_dropboxunlinked" = "Dropbox unbind";
+"progress_message_googledriveunlinked" = "Google Drive unbind";
 "progress_message_passcodeisenabled" = "Código de acceso permitido";
 "progress_message_passcodeischanged" = "Código de acceso cambiado";
 "progress_message_passcodeisdisabled" = "Código de acceso diabled";

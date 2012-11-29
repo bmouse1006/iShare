@@ -35,6 +35,8 @@ NSString* extractParamValue(const char* bytes, int length, NSStringEncoding enco
 
 - (id) initWithData:(NSData *)data contentEncoding:(NSStringEncoding)encoding {
 
+    self = [super init];
+    
 	params = [[NSMutableDictionary alloc] initWithCapacity:1];
 
 	char* bytes = (char*)data.bytes;

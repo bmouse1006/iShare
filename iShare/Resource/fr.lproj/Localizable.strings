@@ -55,6 +55,7 @@
 "alert_message_photoreceivingfinished" = "Les photos sont enregistrées à l'album";
 "alert_message_sendingfinished" = "Fin de transimission";
 "alert_message_fileisstored" = "%@ a été stocké à la 'Boîte de réception'";
+"alert_message_authfailed" = "L'authentification a échoué";
 "btn_title_iknow" = "Je sais";
 
 "status_message_newfoldercreated" = "dossier est créé";
@@ -92,6 +93,7 @@
 "progress_message_downloadfinished" = "Fichier les téléchargeant fini";
 "progress_message_noicloudsetup" = "Pas de support iCloud sur cet appareil";
 "progress_message_dropboxunlinked" = "Dropbox unbind";
+"progress_message_googledriveunlinked" = "Google Drive unbind";
 "progress_message_passcodeisenabled" = "Code d'accès activé";
 "progress_message_passcodeischanged" = "Code d'accès a changé";
 "progress_message_passcodeisdisabled" = "Code d'accès diabled";

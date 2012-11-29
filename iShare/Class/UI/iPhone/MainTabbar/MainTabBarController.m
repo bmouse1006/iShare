@@ -11,6 +11,7 @@
 #import "ISMusicPlayerController.h"
 #import "ISFileShareController.h"
 #import "ISConfigUIController.h"
+#import "ISNeighbourViewController.h"
 
 @interface MainTabBarController ()
 
@@ -55,7 +56,9 @@
     ISMusicPlayerController* musicPlayer = [[ISMusicPlayerController alloc] init];
     ISFileShareController* fileShare = [[ISFileShareController alloc] init];
     ISConfigUIController* configUI = [[ISConfigUIController alloc] init];
+    ISNeighbourViewController* neighbour = [[ISNeighbourViewController alloc] init];
     
+//    NSArray* controllers = @[fileBrowser, neighbour, musicPlayer, fileShare, configUI];
     NSArray* controllers = @[fileBrowser, musicPlayer, fileShare, configUI];
     
     NSMutableArray* navController = [NSMutableArray array];

@@ -54,6 +54,7 @@
 "alert_message_photoreceivingfinished" = "照片被保存到了相册中";
 "alert_message_sendingfinished" = "发送结束";
 "alert_message_fileisstored" = "%@已经被存储到了'Inbox'";
+"alert_message_authfailed" = "身份认证失败";
 "btn_title_iknow" = "知道了";
 
 "status_message_newfoldercreated" = "文件夹创建成功";
@@ -91,6 +92,7 @@
 "progress_message_downloadfailed" = "文件下载失败";
 "progress_message_noicloudsetup" = "这台设备上没有iCloud支持";
 "progress_message_dropboxunlinked" = "Dropbox已解除绑定";
+"progress_message_googledriveunlinked" = "Google Drive已解除绑定";
 "progress_message_passcodeisenabled" = "密码已启用";
 "progress_message_passcodeischanged" = "密码已修改";
 "progress_message_passcodeisdisabled" = "密码已禁用";

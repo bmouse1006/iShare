@@ -11,7 +11,7 @@
 #import "ISWifiViewController.h"
 #import "ISDropBoxViewController.h"
 #import "ISiCloudServiceViewController.h"
-#import "ISSkydriveViewController.h"
+#import "ISGoogleDriveViewController.h"
 #import "JJHTTPSerivce.h"
 #import "BWStatusBarOverlay.h"
 #import "CustomUIComponents.h"
@@ -52,9 +52,12 @@
     [super viewDidLoad];
     
     [CustomUIComponents customizeButtonWithFixedBackgroundImages:self.unlinkButton];
+    [CustomUIComponents customizeButtonWithFixedBackgroundImages:self.gdUnlinkButton];
     
     [self.unlinkButton setTitle:NSLocalizedString(@"btn_title_unlink", nil) forState:UIControlStateNormal];
-    self.unlinkButton.titleLabel.font = [UIFont boldSystemFontOfSize:14];
+    self.unlinkButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
+    [self.gdUnlinkButton setTitle:NSLocalizedString(@"btn_title_unlink", nil) forState:UIControlStateNormal];
+    self.gdUnlinkButton.titleLabel.font = [UIFont boldSystemFontOfSize:12];
     
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -140,7 +143,8 @@
                     break;
                 case 2://Google Drive
                 {
-                    
+                    ISGoogleDriveViewController* googleDrive = [[ISGoogleDriveViewController alloc] initWithWorkingPath:@"/"];
+                    [self.navigationController pushViewController:googleDrive animated:YES];
                     /*
                     ISSkydriveViewController* skydriveController = [[ISSkydriveViewController alloc] initWithWorkingPath:@"/me/skydrive"];
                     [self.navigationController pushViewController:skydriveController animated:YES];
@@ -195,7 +199,8 @@
             return 2;
             break;
         case kCloudServiceSection:
-            return 3;
+//            return 3;
+            return 2;
             break;
         case kTransferQueue:
             return 2;
@@ -280,6 +285,9 @@
                 {
                     cell.textLabel.text = @"Google Drive";
                     cell.imageView.image = [UIImage imageNamed:@"cell_googledrive"];
+                    if ([ISGoogleDriveViewController canAutherize]){
+                        cell.accessoryView = self.gdUnlinkButton;
+                    }
                 }
                     break;
                 default:
@@ -346,6 +354,12 @@
 -(IBAction)unlinkDropbox:(id)sender{
     [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"progress_message_dropboxunlinked", nil) duration:1.5];
     [[DBSession sharedSession] unlinkAll];
+    [self.tableView reloadData];
+}
+
+-(IBAction)unlinkGoogleDrive:(id)sender{
+    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"progress_message_googledriveunlinked", nil) duration:1.5];
+    [ISGoogleDriveViewController removeAutherize];
     [self.tableView reloadData];
 }
 
