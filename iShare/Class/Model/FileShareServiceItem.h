@@ -26,5 +26,8 @@ typedef enum {
 @property (nonatomic, assign) BOOL isDirectory;
 
 @property (nonatomic, copy) NSString* filePath;
+@property (nonatomic, copy) NSString* originalFileName;
+
+@property (readonly) NSString* filename;
 
 @end

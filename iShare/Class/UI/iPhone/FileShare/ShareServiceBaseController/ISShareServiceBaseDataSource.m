@@ -46,7 +46,7 @@
         }else if (!item1.isDirectory && item2.isDirectory){
             result = NSOrderedDescending;
         }else{
-            result = [[[item1.filePath lastPathComponent] lowercaseString] compare:[[item2.filePath lastPathComponent] lowercaseString]];
+            result = [[item1.filename lowercaseString] compare:[item2.filename lowercaseString]];
         }
         
         return result;
@@ -94,7 +94,7 @@
     ISShareServiceTableViewCell* cell = [[ISShareServiceTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
     FileShareServiceItem* item = [self.items objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = [item.filePath lastPathComponent];
+    cell.textLabel.text = item.filename;
     
 //    if ([FileOperationWrap fileTypeWithFilePath:item.filePath] == FileContentTypeDirectory){
     if (item.isDirectory){

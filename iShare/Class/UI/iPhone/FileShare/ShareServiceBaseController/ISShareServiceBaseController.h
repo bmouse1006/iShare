@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ISShareServiceBaseDataSource.h"
 #import "FilePickerViewController.h"
+#import "FileShareServiceItem.h"
 
 @interface ISShareServiceBaseController : UIViewController<UITableViewDelegate, UIAlertViewDelegate, ISShareServiceBaseDataSourceDelegate, UINavigationControllerDelegate, FilePickerViewControllerDelegate>
 
@@ -36,7 +37,7 @@
 -(void)autherizeFailed;
 -(void)deleteFileAtPath:(NSString*)filePath;
 -(void)createNewFolder:(NSString*)folderName;
--(void)downloadRemoteFile:(NSString*)remotePath toFolder:(NSString*)folder;
+-(void)downloadRemoteFile:(FileShareServiceItem*)fileItem toFolder:(NSString*)folder;
 -(void)uploadSelectedFiles:(NSArray*)selectedFiles;
 
 //operation call back

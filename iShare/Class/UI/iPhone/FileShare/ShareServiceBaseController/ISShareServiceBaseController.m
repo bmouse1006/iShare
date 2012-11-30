@@ -316,7 +316,7 @@
         FileShareServiceItem* item = [self.dataSource objectAtIndexPath:self.selectedIndexPath];
         self.selectedIndexPath = nil;
         
-        [self downloadRemoteFile:item.filePath toFolder:[selectedFolder lastObject]];
+        [self downloadRemoteFile:item toFolder:[selectedFolder lastObject]];
         [self dismissViewControllerAnimated:YES completion:NULL];
     };
     
@@ -327,7 +327,7 @@
     [self presentViewController:filePicker animated:YES completion:NULL];
 }
 
--(void)downloadRemoteFile:(NSString*)remotePath toFolder:(NSString*)folder{
+-(void)downloadRemoteFile:(FileShareServiceItem*)fileItem toFolder:(NSString*)folder{
     
 }
 

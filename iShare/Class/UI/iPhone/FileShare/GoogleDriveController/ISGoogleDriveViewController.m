@@ -16,6 +16,7 @@
 static NSString *const kKeychainItemName = @"Superb Share Google Drive";
 static NSString *const kClientID = @"568917835566.apps.googleusercontent.com";
 static NSString *const kClientSecret = @"0hiTKsfO6EIguEojJBjk3ibR";
+static NSString *const kGoogleDriveAPIKey = @"AIzaSyAXGBe70QE-o0SFVXwgzf317fbgYE8Rv_0";
 
 @interface ISGoogleDriveViewController ()
 
@@ -49,7 +50,7 @@ static NSString *const kClientSecret = @"0hiTKsfO6EIguEojJBjk3ibR";
 - (GTMOAuth2ViewControllerTouch *)createAuthController
 {
     GTMOAuth2ViewControllerTouch *authController;
-    authController = [[ISGoogleAuth2ViewController alloc] initWithScope:kGTLAuthScopeDriveFile
+    authController = [[ISGoogleAuth2ViewController alloc] initWithScope:kGTLAuthScopeDrive
                                                                 clientID:kClientID
                                                             clientSecret:kClientSecret
                                                         keychainItemName:kKeychainItemName
@@ -72,11 +73,17 @@ static NSString *const kClientSecret = @"0hiTKsfO6EIguEojJBjk3ibR";
 
 #pragma mark - override super class
 -(ISShareServiceBaseDataSource*)createModel{
-    ISGoogleDriveDataSource* datasource = [[ISGoogleDriveDataSource alloc] initWithWorkingPath:self.workingPath];
+
+    GTMOAuth2Authentication* auth = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName
+                                                                                                                          clientID:kClientID
+                                                                                                                      clientSecret:kClientSecret];
     self.driveService = [[GTLServiceDrive alloc] init];
-    self.driveService.authorizer = [GTMOAuth2ViewControllerTouch authForGoogleFromKeychainForName:kKeychainItemName
-                                                                                         clientID:kClientID
-                                                                                     clientSecret:kClientSecret];
+    self.driveService.authorizer = auth;
+    //specify to fetch all result
+    self.driveService.shouldFetchNextPages = YES;
+    self.driveService.retryEnabled = YES;
+    
+    ISGoogleDriveDataSource* datasource = [[ISGoogleDriveDataSource alloc] initWithWorkingPath:self.workingPath];
     datasource.driveSerivce = self.driveService;
     
     return datasource;
@@ -94,20 +101,19 @@ static NSString *const kClientSecret = @"0hiTKsfO6EIguEojJBjk3ibR";
 }
 
 -(UIViewController*)controllerForChildFolder:(NSString *)folderPath{
-    
+    return [[ISGoogleDriveViewController alloc] initWithWorkingPath:folderPath];
 }
 
 -(void)deleteFileAtPath:(NSString *)filePath{
+    
 }
 
 -(void)createNewFolder:(NSString *)folderName{
 
 }
 
--(void)downloadRemoteFile:(NSString*)remotePath toFolder:(NSString*)folder{
-}
-
--(void)downloadDropboxFile:(NSString*)dropboxFilepath toFolder:(NSString*)folder needOverride:(BOOL)needOverride{
+-(void)downloadRemoteFile:(FileShareServiceItem*)item toFolder:(NSString*)folder{
+    
 }
 
 -(void)uploadSelectedFiles:(NSArray *)selectedFiles{

@@ -92,16 +92,16 @@
     }
 }
 
--(void)downloadRemoteFile:(NSString*)remotePath toFolder:(NSString*)folder{
-    NSString* destinationFile = [folder stringByAppendingPathComponent:[remotePath lastPathComponent]];
+-(void)downloadRemoteFile:(FileShareServiceItem*)fileItem toFolder:(NSString*)folder{
+    NSString* destinationFile = [folder stringByAppendingPathComponent:[fileItem.filePath lastPathComponent]];
     if ([[NSFileManager defaultManager] fileExistsAtPath:destinationFile]){
-        self.downloadFilepath = remotePath;
+        self.downloadFilepath = fileItem.filePath;
         self.downloadToFolder = folder;
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"alert_message_filealreadyexists", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"btn_title_cancel", nil) otherButtonTitles:NSLocalizedString(@"btn_title_confirm", nil), nil];
         alert.tag = kDownloadAlertViewTag;
         [alert show];
     }else{
-        [self downloadiCloudFile:remotePath toFolder:folder needOverride:NO];
+        [self downloadiCloudFile:fileItem.filePath toFolder:folder needOverride:NO];
     }
 }
 

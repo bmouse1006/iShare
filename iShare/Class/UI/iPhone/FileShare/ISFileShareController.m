@@ -143,7 +143,7 @@
                     break;
                 case 2://Google Drive
                 {
-                    ISGoogleDriveViewController* googleDrive = [[ISGoogleDriveViewController alloc] initWithWorkingPath:@"/"];
+                    ISGoogleDriveViewController* googleDrive = [[ISGoogleDriveViewController alloc] initWithWorkingPath:@""];
                     [self.navigationController pushViewController:googleDrive animated:YES];
                     /*
                     ISSkydriveViewController* skydriveController = [[ISSkydriveViewController alloc] initWithWorkingPath:@"/me/skydrive"];
@@ -199,8 +199,8 @@
             return 2;
             break;
         case kCloudServiceSection:
-//            return 3;
-            return 2;
+            return 3;
+//            return 2;
             break;
         case kTransferQueue:
             return 2;

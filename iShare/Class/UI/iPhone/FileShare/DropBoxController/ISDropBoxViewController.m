@@ -167,16 +167,16 @@
     [self.dbClient createFolder:[self.workingPath stringByAppendingPathComponent:folderName]];
 }
 
--(void)downloadRemoteFile:(NSString*)remotePath toFolder:(NSString*)folder{
-    NSString* destinationFilepath = [folder stringByAppendingPathComponent:[remotePath lastPathComponent]];
+-(void)downloadRemoteFile:(FileShareServiceItem*)item toFolder:(NSString*)folder{
+    NSString* destinationFilepath = [folder stringByAppendingPathComponent:[item.filePath lastPathComponent]];
     if ([[NSFileManager defaultManager] fileExistsAtPath:destinationFilepath]){
-        self.downloadFilepath = remotePath;
+        self.downloadFilepath = item.filePath;
         self.downloadToFolder = folder;
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"alert_message_filealreadyexists", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"btn_title_cancel", nil) otherButtonTitles:NSLocalizedString(@"btn_title_confirm", nil), nil];
         alert.tag = kDropboxDownloadAlertViewTag;
         [alert show];
     }else{
-        [self downloadDropboxFile:remotePath toFolder:folder needOverride:NO];
+        [self downloadDropboxFile:item.filePath toFolder:folder needOverride:NO];
     }
 }
 

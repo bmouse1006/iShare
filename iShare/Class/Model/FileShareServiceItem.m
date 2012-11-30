@@ -10,4 +10,8 @@
 
 @implementation FileShareServiceItem
 
+-(NSString*)filename{
+    return (self.originalFileName)?self.originalFileName:[self.filePath lastPathComponent];
+}
+
 @end

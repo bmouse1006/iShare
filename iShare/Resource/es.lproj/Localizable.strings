@@ -139,7 +139,7 @@
 "seg_title_date" = "fecha";
 
 "menu_title_delete" = "Eliminar";
-"menu_title_download" = "Descargado a ...";
+"menu_title_download" = "Descargar para ...";
 
 "newimagename_template" = "Nueva imagen%@";
 
