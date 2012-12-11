@@ -1,0 +1,20 @@
+/* 
+  PAPasscodeLocalizable.strings
+  iShare
+
+  Created by Jin Jin on 12-11-1.
+  Copyright (c) 2012年 Jin Jin. All rights reserved.
+*/
+"Set Passcode" = "Impostare il codice di accesso";
+"Enter a passcode" = "Immettere un codice di accesso";
+"Re-enter your passcode" = "Immettere nuovamente il codice di accesso";
+"Enter Passcode" = "Immettere il codice di accesso";
+"Enter your passcode" = "Inserisci il tuo codice di accesso";
+"Change Passcode" = "Cambia codice di accesso";
+"Enter your old passcode" = "Inserisci il tuo codice di accesso vecchio";
+"Enter your new passcode" = "Immettere il nuovo codice di accesso";
+"Re-enter your new passcode" = "Re-inserisci il tuo nuovo codice di accesso";
+"Passcodes did not match. Try again." = "Codici di accesso non ha prodotto risultati. riprovare.";
+"1 Failed Passcode Attempt" = "1 Tentativo codice di accesso non riuscito";
+"%d Failed Passcode Attempts" = "%d tentativi falliti codice di accesso";
+"Next" = "Prossimo";

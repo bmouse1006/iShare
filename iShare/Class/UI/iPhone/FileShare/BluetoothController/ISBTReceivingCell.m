@@ -52,9 +52,9 @@
     long long receivedBytes = [[self.receivingInfo objectForKey:@"receivedBytes"] longLongValue];
     long long size = [[self.receivingInfo objectForKey:@"size"] longLongValue];
     if (receivedBytes == 0){
-        self.detailTextLabel.text = [FileOperationWrap normalizedSize:size];
+        self.detailTextLabel.text = [[FileOperationWrap sharedWrap] normalizedSize:size];
     }else{
-        self.detailTextLabel.text = [NSString stringWithFormat:@"%@/%@", [FileOperationWrap normalizedSize:receivedBytes], [FileOperationWrap normalizedSize:size]];
+        self.detailTextLabel.text = [NSString stringWithFormat:@"%@/%@", [[FileOperationWrap sharedWrap] normalizedSize:receivedBytes], [[FileOperationWrap sharedWrap] normalizedSize:size]];
     }
 }
 

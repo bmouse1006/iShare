@@ -22,7 +22,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [CustomUIComponents customizeUI];
-    [FileOperationWrap clearTempFolder];
+    [[FileOperationWrap sharedWrap] clearTempFolder];
     
     //dropbox init
     NSString* appKey = @"u4pqeo7i6pfxnx1";
@@ -64,7 +64,7 @@
     if ([scheme hasPrefix:@"db"]){
         return [[DBSession sharedSession] handleOpenURL:url];
     }
-    //    NSString* home = [FileOperationWrap homePath];
+    //    NSString* home = [[FileOperationWrap sharedWrap] homePath];
 //    
 //    NSMutableString* path = [NSMutableString stringWithString:[url relativePath]];
 //    NSRange range = [path rangeOfString:@"/private"];

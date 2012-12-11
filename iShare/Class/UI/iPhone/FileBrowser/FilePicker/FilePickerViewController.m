@@ -117,7 +117,7 @@
 -(void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated{
     NSMutableString* workingPath = [NSMutableString stringWithString:[self currentDirectory]];
     NSRange range = {0, [workingPath length]};
-    [workingPath replaceOccurrencesOfString:[FileOperationWrap homePath] withString:@"" options:NSLiteralSearch range:range];
+    [workingPath replaceOccurrencesOfString:[[FileOperationWrap sharedWrap] homePath] withString:@"" options:NSLiteralSearch range:range];
     if (workingPath.length == 0){
         [workingPath appendString:@"/"];
     }

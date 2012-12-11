@@ -73,7 +73,7 @@ typedef enum {
 }
 
 -(NSString*)storePath{
-    return [[FileOperationWrap homePath] stringByAppendingPathComponent:NSLocalizedString(@"title_receivedfrombluetooth", nil)];
+    return [[[FileOperationWrap sharedWrap] homePath] stringByAppendingPathComponent:NSLocalizedString(@"title_receivedfrombluetooth", nil)];
 }
 
 -(void)cancelSending{
@@ -240,7 +240,7 @@ static BTSenderType ReceivingType = BTSenderTypeUnknown;
 
 #pragma mark - receiving file
 -(void)startReceivingFile:(NSString*)name{
-    NSString* filePath = [FileOperationWrap validFilePathForFilename:name atPath:self.storePath];
+    NSString* filePath = [[FileOperationWrap sharedWrap] validFilePathForFilename:name atPath:self.storePath];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:self.storePath] == NO){
         [[NSFileManager defaultManager] createDirectoryAtPath:self.storePath withIntermediateDirectories:NO attributes:nil error:NULL];
@@ -260,7 +260,7 @@ static BTSenderType ReceivingType = BTSenderTypeUnknown;
 #pragma mark - receiving photo
 -(void)startReceivingPhoto{
     //create temp file
-    NSString* tempFile = [[FileOperationWrap tempFolder] stringByAppendingPathComponent:@"receivingImage"];
+    NSString* tempFile = [[[FileOperationWrap sharedWrap] tempFolder] stringByAppendingPathComponent:@"receivingImage"];
     [[NSFileManager defaultManager] removeItemAtPath:tempFile error:NULL];
     [[NSFileManager defaultManager] createFileAtPath:tempFile contents:nil attributes:nil];
     
@@ -273,7 +273,7 @@ static BTSenderType ReceivingType = BTSenderTypeUnknown;
     [self.writeStream close];
     self.writeStream = nil;
     
-    NSString* tempFile = [[FileOperationWrap tempFolder] stringByAppendingPathComponent:@"receivingImage"];
+    NSString* tempFile = [[[FileOperationWrap sharedWrap] tempFolder] stringByAppendingPathComponent:@"receivingImage"];
     NSData* imageData = [NSData dataWithContentsOfFile:tempFile];
     UIImage* image = [UIImage imageWithData:imageData];
     UIImageWriteToSavedPhotosAlbum(image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);

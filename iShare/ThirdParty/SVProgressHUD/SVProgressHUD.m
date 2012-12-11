@@ -17,6 +17,7 @@
 
 @property (nonatomic, strong, readonly) UIWindow *overlayWindow;
 @property (nonatomic, strong, readonly) UIView *hudView;
+@property (nonatomic, strong, readonly) UIButton* closeButton;
 @property (nonatomic, strong, readonly) UILabel *stringLabel;
 @property (nonatomic, strong, readonly) UIImageView *imageView;
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *spinnerView;
@@ -38,7 +39,7 @@
 
 @implementation SVProgressHUD
 
-@synthesize overlayWindow, hudView, maskType, fadeOutTimer, stringLabel, imageView, spinnerView, visibleKeyboardHeight;
+@synthesize overlayWindow, hudView, maskType, fadeOutTimer, stringLabel, imageView, spinnerView, visibleKeyboardHeight, closeButton;
 
 - (void)dealloc {
 	self.fadeOutTimer = nil;
@@ -123,7 +124,7 @@
 - (id)initWithFrame:(CGRect)frame {
 	
     if ((self = [super initWithFrame:frame])) {
-		self.userInteractionEnabled = NO;
+		self.userInteractionEnabled = YES;
         self.backgroundColor = [UIColor clearColor];
 		self.alpha = 0;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -329,12 +330,18 @@
 - (void)moveToPoint:(CGPoint)newCenter rotateAngle:(CGFloat)angle {
     self.hudView.transform = CGAffineTransformMakeRotation(angle); 
     self.hudView.center = newCenter;
+    CGPoint hudOrigin = self.hudView.frame.origin;
+    hudOrigin.x += 2;
+    hudOrigin.y += 2;
+    self.closeButton.center = hudOrigin;
+    [self bringSubviewToFront:self.closeButton];
 }
 
 #pragma mark - Master show/dismiss methods
 
 - (void)showWithStatus:(NSString*)string maskType:(SVProgressHUDMaskType)hudMaskType networkIndicator:(BOOL)show {
 //    dispatch_async(dispatch_get_main_queue(), ^{
+    
         if(!self.superview)
             [self.overlayWindow addSubview:self];
         
@@ -350,6 +357,12 @@
         } else {
             self.overlayWindow.userInteractionEnabled = NO;
         }
+    
+    if (self.maskType == SVProgressHUDMaskTypeGradient){
+        self.closeButton.hidden = NO;
+    }else{
+        self.closeButton.hidden = YES;
+    }
         
         [self.overlayWindow makeKeyAndVisible];
         [self positionHUD:nil];
@@ -383,6 +396,7 @@
         if(self.alpha != 1)
             return;
         
+        self.closeButton.hidden = YES;
         if(error)
             self.imageView.image = [UIImage imageNamed:@"SVProgressHUD.bundle/error.png"];
         else
@@ -398,7 +412,6 @@
 
 - (void)dismiss {
     dispatch_async(dispatch_get_main_queue(), ^{
-
         [UIView animateWithDuration:0.15
                               delay:0
                             options:UIViewAnimationCurveEaseIn | UIViewAnimationOptionAllowUserInteraction
@@ -463,6 +476,19 @@
         [self addSubview:hudView];
     }
     return hudView;
+}
+
+-(UIButton*)closeButton{
+    if (!closeButton){
+        closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        closeButton.frame = CGRectMake(0, 0, 30, 30);
+        closeButton.backgroundColor = [UIColor clearColor];
+        [closeButton setImage:[UIImage imageNamed:@"btn_close"] forState:UIControlStateNormal];
+        [closeButton addTarget:self action:@selector(closeButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:closeButton];
+    }
+    
+    return closeButton;
 }
 
 - (UILabel *)stringLabel {
@@ -537,6 +563,14 @@
         return foundKeyboard.bounds.size.height;
     
     return 0;
+}
+
+#pragma mark - close button action
+-(void)closeButtonClicked:(id)sender{
+    //dismiss hud view and let delegate now, if any
+    if ([self.delegate respondsToSelector:@selector(userDismissedHUD:)]){
+        [self.delegate userDismissedHUD:self];
+    }
 }
 
 @end

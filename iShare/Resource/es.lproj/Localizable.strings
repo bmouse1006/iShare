@@ -56,6 +56,8 @@
 "alert_message_sendingfinished" = "Fin de transimission";
 "alert_message_fileisstored" = "%@ se ha almacenado en la 'Bandeja de entrada'";
 "alert_message_authfailed" = "Error de autenticación";
+"alert_message_raruncompressfailed" = "Abrir archivo RAR fracasado";
+"alert_message_pleaseinputpassword" = "Por favor, introduzca la contraseña";
 "btn_title_iknow" = "Yo sé";
 
 "status_message_newfoldercreated" = "La carpeta se crea";
@@ -86,7 +88,8 @@
 "progress_message_creatingfolder" = "Crear carpeta";
 "progress_message_actionfailed" = "Error en la operación";
 "progress_message_addtodownloadqueue" = "se ha añadido a la cola de descarga";
-"progress_message_startdownloadingfile" = "Iniciar la descarga del archivo";
+"progress_message_startdownloadingfile" = "Preparación para la descarga de archivos";
+"progress_message_havedownloaded" = "han descargado: ";
 "progress_message_uploadingfinished" = "subida de archivos terminado";
 "progress_message_uploadingfailed" = "Error cargando archivo";
 "progress_message_downloadfailed" = "Error al descargar el archivo";

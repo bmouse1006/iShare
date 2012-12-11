@@ -56,6 +56,8 @@
 "alert_message_sendingfinished" = "伝送終了";
 "alert_message_fileisstored" = "%@は'受信トレイ'に保存されている";
 "alert_message_authfailed" = "認証に失敗しました";
+"alert_message_raruncompressfailed" ="オープニングRARファイルには、失敗しました";
+"alert_message_pleaseinputpassword" = "パスワード入力してください";
 "btn_title_iknow" = "私は知っている";
 
 "status_message_newfoldercreated" = "フォルダが正常に作成さ";
@@ -86,7 +88,8 @@
 "progress_message_creatingfolder" = "フォルダーを作成する";
 "progress_message_actionfailed" = "操作は失敗し";
 "progress_message_addtodownloadqueue" = "ダウンロードキューに追加されました";
-"progress_message_startdownloadingfile" = "ダウンロードの開始";
+"progress_message_startdownloadingfile" = "ファイルをダウンロードするための準備";
+"progress_message_havedownloaded" = "ダウンロードした: ";
 "progress_message_uploadingfinished" = "ファイルアップロードの終わり";
 "progress_message_uploadingfailed" = "ファイルのアップロードに失敗しました";
 "progress_message_downloadfinished" = "文件下载结束";

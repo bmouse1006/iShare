@@ -143,7 +143,7 @@
                     break;
                 case 2://Google Drive
                 {
-                    ISGoogleDriveViewController* googleDrive = [[ISGoogleDriveViewController alloc] initWithWorkingPath:@""];
+                    ISGoogleDriveViewController* googleDrive = [[ISGoogleDriveViewController alloc] initWithWorkingPath:@"root"];
                     [self.navigationController pushViewController:googleDrive animated:YES];
                     /*
                     ISSkydriveViewController* skydriveController = [[ISSkydriveViewController alloc] initWithWorkingPath:@"/me/skydrive"];

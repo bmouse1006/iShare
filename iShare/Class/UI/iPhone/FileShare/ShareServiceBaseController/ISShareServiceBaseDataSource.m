@@ -96,13 +96,13 @@
     
     cell.textLabel.text = item.filename;
     
-//    if ([FileOperationWrap fileTypeWithFilePath:item.filePath] == FileContentTypeDirectory){
+//    if ([[FileOperationWrap sharedWrap] fileTypeWithFilePath:item.filePath] == FileContentTypeDirectory){
     if (item.isDirectory){
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.imageView.image = [UIImage imageNamed:@"fileicon_folder"];
     }else{
         cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.imageView.image = [FileOperationWrap thumbnailForFile:item.filePath previewEnabled:NO];
+        cell.imageView.image = [[FileOperationWrap sharedWrap] thumbnailForFile:item.filename previewEnabled:NO];
     }
     
     return cell;

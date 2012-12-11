@@ -111,6 +111,12 @@
     [self uploadFailed:error];
 }
 
+- (void)restClient:(DBRestClient*)client loadProgress:(CGFloat)progress forFile:(NSString*)destPath{
+    //load process call back
+    DebugLog(@"Load process for %@ is %.2f", destPath, progress);
+    [self downloadFinishedWithProgress:progress];
+}
+
 -(NSLock*)uploadLock{
     static NSLock* lock = nil;
     static dispatch_once_t onceToken;
@@ -128,7 +134,7 @@
             [self autherizeFailed];
             break;
         case kDropboxDownloadAlertViewTag:
-            [self downloadDropboxFile:self.downloadFilepath toFolder:self.downloadToFolder needOverride:(buttonIndex == 1)];
+            [self downloadDropboxFile:self.downloadFileItem.filePath toFolder:self.downloadToFolder needOverride:(buttonIndex == 1)];
             break;
         default:
             break;
@@ -136,6 +142,11 @@
 }
 
 #pragma mark - override super class
+-(void)operationCancelled{
+    [self.dbClient cancelAllRequests];
+    [self.uploadDbClients makeObjectsPerformSelector:@selector(cancelAllRequests)];
+}
+
 -(ISShareServiceBaseDataSource*)createModel{
     return [[ISDropBoxDataSource alloc] initWithWorkingPath:self.workingPath];
 }
@@ -153,11 +164,11 @@
     return [[ISDropBoxViewController alloc] initWithWorkingPath:folderPath];
 }
 
--(void)deleteFileAtPath:(NSString *)filePath{
+-(void)deleteFileItems:(FileShareServiceItem*)item{
     [self.dbClient cancelAllRequests];
     self.dbClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];
     self.dbClient.delegate = self;
-    [self.dbClient deletePath:filePath];
+    [self.dbClient deletePath:item.filePath];
 }
 
 -(void)createNewFolder:(NSString *)folderName{
@@ -170,7 +181,7 @@
 -(void)downloadRemoteFile:(FileShareServiceItem*)item toFolder:(NSString*)folder{
     NSString* destinationFilepath = [folder stringByAppendingPathComponent:[item.filePath lastPathComponent]];
     if ([[NSFileManager defaultManager] fileExistsAtPath:destinationFilepath]){
-        self.downloadFilepath = item.filePath;
+        self.downloadFileItem = item;
         self.downloadToFolder = folder;
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"alert_message_filealreadyexists", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"btn_title_cancel", nil) otherButtonTitles:NSLocalizedString(@"btn_title_confirm", nil), nil];
         alert.tag = kDropboxDownloadAlertViewTag;
@@ -185,7 +196,7 @@
     if (needOverride){
         [[NSFileManager defaultManager] removeItemAtPath:destinationFile error:NULL];
     }else if ([[NSFileManager defaultManager] fileExistsAtPath:destinationFile]){
-        [self downloadFinished];
+        [self userDismissedHUD:nil];
         return;
     }
     
@@ -198,7 +209,6 @@
 -(void)uploadSelectedFiles:(NSArray *)selectedFiles{
     self.uploadDbClients = [NSMutableArray array];
     _uploadFileCount = [selectedFiles count];
-    
     
     for (FileItem* fileItem in selectedFiles){
         DBRestClient* restClient = [[DBRestClient alloc] initWithSession:[DBSession sharedSession]];

@@ -23,6 +23,7 @@
 @implementation ISShareServiceBaseController
 
 -(void)dealloc{
+    [SVProgressHUD sharedView].delegate = nil;
     [SVProgressHUD dismiss];
 }
 
@@ -31,6 +32,7 @@
     if (self){
         self.workingPath = workingPath;
         _firstAppear = YES;
+        [SVProgressHUD sharedView].delegate = self;
     }
     
     return self;
@@ -173,7 +175,7 @@
     return controller;
 }
 
--(void)deleteFileAtPath:(NSString *)filePath{
+-(void)deleteFileItems:(FileShareServiceItem*)item{
     
 }
 
@@ -181,7 +183,15 @@
     [SVProgressHUD dismissWithSuccess:NSLocalizedString(@"progress_message_downloadfinished", nil) afterDelay:1];
 }
 
+-(void)downloadFinishedWithProgress:(CGFloat)progress{
+    NSString* title = NSLocalizedString(@"progress_message_havedownloaded", nil);
+    NSString* completeTitle = [title stringByAppendingFormat:@"%.0f%%", progress*100];
+    
+    [SVProgressHUD showWithStatus:completeTitle maskType:SVProgressHUDMaskTypeGradient];
+}
+
 -(void)downloadFailed:(NSError*)error{
+    DebugLog(@"Downloading failed!! Error is %@", [error localizedDescription]);
     [SVProgressHUD dismissWithError:NSLocalizedString(@"progress_message_downloadfailed", nil) afterDelay:1];
 }
 
@@ -191,6 +201,7 @@
 }
 
 -(void)uploadFailed:(NSError*)error{
+    DebugLog(@"Uploading failed!! Error is %@", [error localizedDescription]);
     [SVProgressHUD dismissWithSuccess:NSLocalizedString(@"progress_message_uploadingfinished", nil) afterDelay:1];
 }
 
@@ -251,7 +262,7 @@
 }
 
 -(void)filePicker:(FilePickerViewController *)filePicker finishedWithPickedPaths:(NSArray *)pickedPaths{
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"progress_message_uploadingfiles", nil) maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"progress_message_uploadingfiles", nil) maskType:SVProgressHUDMaskTypeGradient];
     [filePicker dismissViewControllerAnimated:YES completion:NULL];
     [self uploadSelectedFiles:pickedPaths];
 }
@@ -264,8 +275,14 @@
             UITextField* nameField = [alertView textFieldAtIndex:0];
             if (buttonIndex == 1){
                 //ok button
-                [SVProgressHUD showWithStatus:NSLocalizedString(@"progress_message_creatingfolder", nil)];
-                [self createNewFolder:nameField.text];
+                NSString* folderName = [nameField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+                //if folder name is empty, don't create
+                if (folderName.length == 0){
+                    return;
+                }else{
+                    [SVProgressHUD showWithStatus:NSLocalizedString(@"progress_message_creatingfolder", nil)];
+                    [self createNewFolder:nameField.text];
+                }
             }
         }
             break;
@@ -297,13 +314,15 @@
 
 -(void)deleteAction:(id)sender{
     //delete remote files
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"progress_message_deleting", nil) maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"progress_message_deleting", nil)
+                         maskType:SVProgressHUDMaskTypeGradient];
     FileShareServiceItem* item = [self.dataSource objectAtIndexPath:self.selectedIndexPath];
-    [self deleteFileAtPath:item.filePath];
+    [self deleteFileItems:item];
 }
 
 -(void)renameAction:(id)sender{
-    [SVProgressHUD showWithStatus:NSLocalizedString(@"progress_message_deleting", nil) maskType:SVProgressHUDMaskTypeClear];
+    [SVProgressHUD showWithStatus:NSLocalizedString(@"progress_message_deleting", nil)
+                         maskType:SVProgressHUDMaskTypeGradient];
 }
 
 -(void)downloadAction:(id)sender{
@@ -311,7 +330,7 @@
     FilePickerViewController* filePicker = [[FilePickerViewController alloc] initWithFilePath:nil filterType:FileContentTypeDirectory];
     self.selectedIndexPath = [self.tableView indexPathForSelectedRow];
     filePicker.completionBlock = ^(NSArray* selectedFolder){
-        [SVProgressHUD showWithStatus:NSLocalizedString(@"progress_message_startdownloadingfile", nil) maskType:SVProgressHUDMaskTypeClear];
+        [SVProgressHUD showWithStatus:NSLocalizedString(@"progress_message_startdownloadingfile", nil) maskType:SVProgressHUDMaskTypeGradient];
         //start download
         FileShareServiceItem* item = [self.dataSource objectAtIndexPath:self.selectedIndexPath];
         self.selectedIndexPath = nil;
@@ -335,9 +354,20 @@
     
 }
 
+-(void)operationCancelled{
+    
+}
+
 #pragma mark - scroll delegate
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
+}
+
+#pragma mark - SVProgressHUD delegate
+-(void)userDismissedHUD:(SVProgressHUD *)hud{
+    DebugLog(@"user clicked close button");
+    [SVProgressHUD dismiss];
+    [self operationCancelled];
 }
 
 @end

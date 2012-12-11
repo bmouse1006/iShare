@@ -27,7 +27,7 @@
         BOOL exists = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
         
         if (filePath == nil || exists == NO || (exists == YES && isDirectory == NO)){
-            self.filePath = [FileOperationWrap homePath];
+            self.filePath = [[FileOperationWrap sharedWrap] homePath];
             self.title = NSLocalizedString(@"tab_title_home", nil);
         }else{
             self.filePath = filePath;

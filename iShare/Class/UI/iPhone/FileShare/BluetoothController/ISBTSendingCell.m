@@ -44,9 +44,9 @@
 
 -(void)updateCell{
     if ([self.sender isExecuting]){
-        self.detailTextLabel.text = [NSString stringWithFormat:@"%@/%@", [FileOperationWrap normalizedSize:self.sender.finishedSize], [FileOperationWrap normalizedSize:[self.sender sizeOfObject]]];
+        self.detailTextLabel.text = [NSString stringWithFormat:@"%@/%@", [[FileOperationWrap sharedWrap] normalizedSize:self.sender.finishedSize], [[FileOperationWrap sharedWrap] normalizedSize:[self.sender sizeOfObject]]];
     }else{
-        self.detailTextLabel.text = [NSString stringWithFormat:@"%@", [FileOperationWrap normalizedSize:[self.sender sizeOfObject]]];
+        self.detailTextLabel.text = [NSString stringWithFormat:@"%@", [[FileOperationWrap sharedWrap] normalizedSize:[self.sender sizeOfObject]]];
     }
 }
 

@@ -110,7 +110,7 @@ static NSString* CurrentFilePath = @"";
 	{
         //重新刷新index？
         if (self.postType == PostMethodTypeFileOperation){
-            return [self indexResponseWithFilepath:[[FileOperationWrap homePath] stringByAppendingPathComponent:CurrentFilePath]];
+            return [self indexResponseWithFilepath:[[[FileOperationWrap sharedWrap] homePath] stringByAppendingPathComponent:CurrentFilePath]];
         }else if (self.postType == PostMethodTypeUploadFile){
             NSString* responseFilePath = [[NSBundle mainBundle] pathForResource:@"UploadResponse" ofType:nil];
             return [[HTTPFileResponse alloc] initWithFilePath:responseFilePath forConnection:self];
@@ -118,7 +118,7 @@ static NSString* CurrentFilePath = @"";
 	}
 	if( [method isEqualToString:@"GET"]) {
         //如果文件存在，就下载文件
-        NSString* filePath = [[FileOperationWrap homePath] stringByAppendingPathComponent:path];
+        NSString* filePath = [[[FileOperationWrap sharedWrap] homePath] stringByAppendingPathComponent:path];
         BOOL isDir;
         BOOL itemExists = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDir];
         if (itemExists && !isDir){
@@ -140,7 +140,7 @@ static NSString* CurrentFilePath = @"";
         _uploadFinished = NO;
         //open stream
         NSString* filename = [[request headerField:@"X-File-Name"] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        NSString* validFilePath = [FileOperationWrap validFilePathForFilename:filename atPath:[[FileOperationWrap homePath] stringByAppendingPathComponent:CurrentFilePath]];
+        NSString* validFilePath = [[FileOperationWrap sharedWrap] validFilePathForFilename:filename atPath:[[[FileOperationWrap sharedWrap] homePath] stringByAppendingPathComponent:CurrentFilePath]];
         [self createWriteStreamWithFilePath:validFilePath];
     }else{
         self.cacheData = [NSMutableData dataWithCapacity:contentLength];   
@@ -161,7 +161,7 @@ static NSString* CurrentFilePath = @"";
     //write to file
     NSLog(@"file upload finished");
     
-    NSString* fullPath = [[FileOperationWrap homePath] stringByAppendingPathComponent:CurrentFilePath];
+    NSString* fullPath = [[[FileOperationWrap sharedWrap] homePath] stringByAppendingPathComponent:CurrentFilePath];
     
     [[self fileLock] lock];
     
@@ -188,10 +188,10 @@ static NSString* CurrentFilePath = @"";
             }
         }else if ([operation isEqualToString:@"rename"]){
             //rename file
-            [[NSFileManager defaultManager] moveItemAtPath:originalPath toPath:[FileOperationWrap validFilePathForFilename:targetName atPath:fullPath] error:NULL];
+            [[NSFileManager defaultManager] moveItemAtPath:originalPath toPath:[[FileOperationWrap sharedWrap] validFilePathForFilename:targetName atPath:fullPath] error:NULL];
         }else if ([operation isEqualToString:@"create"]){
             //create folder
-            [FileOperationWrap createDirectoryWithName:targetName path:fullPath];
+            [[FileOperationWrap sharedWrap] createDirectoryWithName:targetName path:fullPath];
         }
     }
     
@@ -252,7 +252,7 @@ static NSString* CurrentFilePath = @"";
             fileString = [fileString stringByReplacingOccurrencesOfString:@"#FILEMODIFICATIONDATE#" withString:[attribute shortLocalizedModificationDate]];
             fileString = [fileString stringByReplacingOccurrencesOfString:@"#FILESIZE#" withString:[NSString stringWithFormat:@"%@", [attribute normalizedFileSize]]];
             fileString = [fileString stringByReplacingOccurrencesOfString:@"#FILENAMEHREF#" withString:[CurrentFilePath stringByAppendingPathComponent:filename]];
-            fileString = [fileString stringByReplacingOccurrencesOfString:@"#FILEICON#" withString:[[FileOperationWrap thumbnailNameForFile:filename] stringByAppendingPathExtension:@"png"]];
+            fileString = [fileString stringByReplacingOccurrencesOfString:@"#FILEICON#" withString:[[[FileOperationWrap sharedWrap] thumbnailNameForFile:filename] stringByAppendingPathExtension:@"png"]];
             [fileItemsString appendString:fileString];
         }
     }

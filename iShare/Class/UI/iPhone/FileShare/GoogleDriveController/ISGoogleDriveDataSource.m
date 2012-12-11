@@ -27,6 +27,7 @@
         
         [fileList.items enumerateObjectsUsingBlock:^(GTLDriveFile* file, NSUInteger idx, BOOL* stop){
             FileShareServiceItem* item = [[FileShareServiceItem alloc] init];
+            item.originalFileObject = file;
             item.serviceType = FileShareServiceTypeGDrive;
             item.filePath = (file.downloadUrl)?file.downloadUrl:file.identifier;
             item.originalFileName = (file.originalFilename)?file.originalFilename:file.title;

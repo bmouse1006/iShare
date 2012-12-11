@@ -34,12 +34,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/Class/Model/FileOperationWrap.m"
-         timestampString = "373726969.392682"
+         timestampString = "376758716.886046"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "219"
-         endingLineNumber = "219"
-         landmarkName = "+fileTypeWithFilePath:"
+         startingLineNumber = "285"
+         endingLineNumber = "285"
+         landmarkName = "-fileTypeWithFilePath:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -60,13 +60,13 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/Class/Model/FileOperationWrap.m"
-         timestampString = "373726969.392682"
+         timestampString = "376758716.886046"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "198"
-         endingLineNumber = "198"
-         landmarkName = "+allFilesWithFileContentType:inFolder:"
-         landmarkType = "5">
+         startingLineNumber = "264"
+         endingLineNumber = "264"
+         landmarkName = "@implementation FileOperationWrap"
+         landmarkType = "3">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -138,12 +138,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/Class/Model/FileOperationWrap.m"
-         timestampString = "373703996.083071"
+         timestampString = "376651195.132162"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "30"
-         endingLineNumber = "30"
-         landmarkName = "+createDirectoryWithName:path:"
+         startingLineNumber = "42"
+         endingLineNumber = "42"
+         landmarkName = "-createDirectoryWithName:path:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -201,11 +201,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/Class/UI/iPhone/FileShare/ShareServiceBaseController/ISShareServiceBaseController.m"
-         timestampString = "371121392.266971"
+         timestampString = "376121659.810259"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "242"
-         endingLineNumber = "242"
+         startingLineNumber = "253"
+         endingLineNumber = "253"
          landmarkName = "-uploadButtonClicked:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -214,12 +214,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/Class/Model/FileOperationWrap.m"
-         timestampString = "373726969.392682"
+         timestampString = "376758716.886046"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "111"
-         endingLineNumber = "111"
-         landmarkName = "+thumbnailForFile:previewEnabled:"
+         startingLineNumber = "175"
+         endingLineNumber = "175"
+         landmarkName = "-unrarFileAtFilePath:toFolder:withPassword:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -227,12 +227,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/Class/Model/FileOperationWrap.m"
-         timestampString = "373726969.392682"
+         timestampString = "376758716.886046"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "208"
-         endingLineNumber = "208"
-         landmarkName = "+fileTypeWithFilePath:"
+         startingLineNumber = "274"
+         endingLineNumber = "274"
+         landmarkName = "-allFilesWithFileContentType:inFolder:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -279,12 +279,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/Class/Model/FileOperationWrap.m"
-         timestampString = "373726969.392682"
+         timestampString = "376758716.886046"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "110"
-         endingLineNumber = "110"
-         landmarkName = "+thumbnailForFile:previewEnabled:"
+         startingLineNumber = "174"
+         endingLineNumber = "174"
+         landmarkName = "-unrarFileAtFilePath:toFolder:withPassword:"
          landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
@@ -314,9 +314,18 @@
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
+   <SymbolicBreakpoints>
+      <SymbolicBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         symbolName = "malloc_error_break"
+         moduleName = "">
+      </SymbolicBreakpoint>
+   </SymbolicBreakpoints>
    <ExceptionBreakpoints>
       <ExceptionBreakpoint
-         shouldBeEnabled = "Yes"
+         shouldBeEnabled = "No"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          scope = "0"

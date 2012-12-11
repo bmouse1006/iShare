@@ -27,6 +27,8 @@ typedef enum {
 
 @property (nonatomic, copy) NSString* filePath;
 @property (nonatomic, copy) NSString* originalFileName;
+//represents original file object
+@property (nonatomic, strong) id originalFileObject;
 
 @property (readonly) NSString* filename;
 

@@ -7,49 +7,60 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RARExtractException.h"
 
 typedef void(^FileOperationCompletionBlock)(BOOL);
 
 typedef enum{
     FileContentTypeDirectory = 1 << 0,
     FileContentTypeImage = 1 << 1,
-    FileContentTypeMovie = 1 << 2,
+    FileContentTypeAppleMovie = 1 << 2,
     FileContentTypeMusic = 1 << 3,
     FileContentTypeText = 1 << 4,
     FileContentTypePDF = 1 << 5,
     FileContentTypeDocument = 1 << 6,
-    FileContentTypeCompress = 1 << 7,
+    FileContentTypeZip = 1 << 7,
     FileContentTypeSourceCode = 1 << 8,
-    FileContentTypeOther = 1 << 9,
-    FileContentTypeAll = (1 << 10) - 1
+    FileContentTypeRAR = 1 << 9,
+    FileContentType7Zip = 1 << 10,
+    FileContentTypeOther = 1 << 14,
+    FileContentTypeAll = (1 << 15) - 1
 } FileContentType;
 
 @interface FileOperationWrap : NSObject
 
-+(void)removeFileItems:(NSArray*)fileItems withCompletionBlock:(FileOperationCompletionBlock)block;
++(id)sharedWrap;
 
-+(UIImage*)thumbnailForFile:(NSString*)filePath previewEnabled:(BOOL)previewEnabled;
-+(NSString*)thumbnailNameForFile:(NSString*)filePath;
+-(void)removeFileItems:(NSArray*)fileItems withCompletionBlock:(FileOperationCompletionBlock)block;
 
-+(BOOL)createDirectoryWithName:(NSString*)name path:(NSString*)path;
-+(BOOL)createFileWithName:(NSString*)name path:(NSString*)path;
-+(BOOL)saveFile:(NSData*)fileData withName:(NSString*)name path:(NSString*)path;
+-(UIImage*)thumbnailForFile:(NSString*)filePath previewEnabled:(BOOL)previewEnabled;
+-(NSString*)thumbnailNameForFile:(NSString*)filePath;
 
-+(NSArray*)allImagePathsInFolder:(NSString*)folder;
-+(NSArray*)allFilesWithFileContentType:(FileContentType)type inFolder:(NSString*)folder;
+-(BOOL)createDirectoryWithName:(NSString*)name path:(NSString*)path;
+-(BOOL)createFileWithName:(NSString*)name path:(NSString*)path;
+-(BOOL)saveFile:(NSData*)fileData withName:(NSString*)name path:(NSString*)path;
 
-+(NSString*)zipFileAtFilePath:(NSString*)filePath toPath:(NSString*)path;
-+(BOOL)unzipFileAtFilePath:(NSString*)filePath toPath:(NSString*)path;
+-(NSArray*)allImagePathsInFolder:(NSString*)folder;
+-(NSArray*)allFilesWithFileContentType:(FileContentType)type inFolder:(NSString*)folder;
 
-+(NSString*)validFilePathForFilename:(NSString*)filename atPath:(NSString*)path;
-+(NSString*)homePath;
-+(NSString*)tempFolder;
+-(NSString*)zipFileAtFilePath:(NSString*)filePath toPath:(NSString*)path;
+-(BOOL)isEncryptedZipFile:(NSString*)filePath;
+-(BOOL)unzipFileAtFilePath:(NSString*)filePath
+                    toPath:(NSString*)path
+              withPassword:(NSString*)password;
+-(BOOL)unrarFileAtFilePath:(NSString*)filePath
+                  toFolder:(NSString*)folderPath
+              withPassword:(NSString*)password;
 
-+(FileContentType)fileTypeWithFilePath:(NSString*)filePath;
+-(NSString*)validFilePathForFilename:(NSString*)filename atPath:(NSString*)path;
+-(NSString*)homePath;
+-(NSString*)tempFolder;
 
-+(void)openFileItemAtPath:(NSString*)filePath withController:(UIViewController*)controller;
-+(void)clearTempFolder;
+-(FileContentType)fileTypeWithFilePath:(NSString*)filePath;
 
-+(NSString*)normalizedSize:(long long)size;
+-(void)openFileItemAtPath:(NSString*)filePath withController:(UIViewController*)controller;
+-(void)clearTempFolder;
+
+-(NSString*)normalizedSize:(long long)size;
 
 @end

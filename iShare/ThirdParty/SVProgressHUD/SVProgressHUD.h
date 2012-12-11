@@ -19,7 +19,18 @@ enum {
 
 typedef NSUInteger SVProgressHUDMaskType;
 
+@class SVProgressHUD;
+
+@protocol SVProgressHUDDelegate <NSObject>
+
+@optional
+-(void)userDismissedHUD:(SVProgressHUD*)hud;
+
+@end
+
 @interface SVProgressHUD : UIView
+
++ (SVProgressHUD*)sharedView;
 
 + (void)show;
 + (void)showWithStatus:(NSString*)status;
@@ -40,5 +51,7 @@ typedef NSUInteger SVProgressHUDMaskType;
 + (void)dismissWithError:(NSString*)errorString afterDelay:(NSTimeInterval)seconds;
 
 + (BOOL)isVisible;
+
+@property (nonatomic, weak) id<SVProgressHUDDelegate> delegate;
 
 @end

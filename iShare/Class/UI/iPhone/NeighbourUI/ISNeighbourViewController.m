@@ -39,7 +39,6 @@
     self.afpBrowser.delegate = self;
     //aftovertcp is service for apple file sharing
     [self.afpBrowser searchForServicesOfType:@"_afpovertcp._tcp" inDomain:@""];
-//    [self.serviceBrowser searchForServicesOfType:@"_smb._tcp" inDomain:@""];
     //smb is service for microsoft file sharing
     self.smbBrowser = [[NSNetServiceBrowser alloc] init];
     self.smbBrowser.delegate = self;
@@ -70,6 +69,14 @@
     [self.services insertObject:aNetService atIndex:0];
     [self.tableView beginUpdates];
     [self.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [self.tableView endUpdates];
+}
+
+- (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didRemoveService:(NSNetService *)aNetService moreComing:(BOOL)moreComing{
+    NSInteger index = [self.services indexOfObject:aNetService];
+    [self.services removeObjectAtIndex:index];
+    [self.tableView beginUpdates];
+    [self.tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationAutomatic];
     [self.tableView endUpdates];
 }
 

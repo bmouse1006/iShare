@@ -42,7 +42,7 @@
         item.filePath = [self.filePath stringByAppendingPathComponent:filename];
         item.type = FileItemTypeFilePath;
         
-        if (self.filterType & [FileOperationWrap fileTypeWithFilePath:item.filePath]){
+        if (self.filterType & [[FileOperationWrap sharedWrap] fileTypeWithFilePath:item.filePath]){
             [allItems addObject:item];
         }
     }];

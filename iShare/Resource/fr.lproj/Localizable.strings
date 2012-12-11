@@ -56,6 +56,8 @@
 "alert_message_sendingfinished" = "Fin de transimission";
 "alert_message_fileisstored" = "%@ a été stocké à la 'Boîte de réception'";
 "alert_message_authfailed" = "L'authentification a échoué";
+"alert_message_raruncompressfailed" = "Ouverture fichier RAR a échoué";
+"alert_message_pleaseinputpassword" = "S'il vous plaît mot de passe d'entrée";
 "btn_title_iknow" = "Je sais";
 
 "status_message_newfoldercreated" = "dossier est créé";
@@ -86,7 +88,8 @@
 "progress_message_creatingfolder" = "Création du dossier";
 "progress_message_actionfailed" = "L'opération a échoué";
 "progress_message_addtodownloadqueue" = "a été ajouté à la file d'attente de téléchargement";
-"progress_message_startdownloadingfile" = "file téléchargement Démarrer";
+"progress_message_startdownloadingfile" = "Préparation de télécharger des fichiers";
+"progress_message_havedownloaded" = "avez téléchargé: ";
 "progress_message_uploadingfinished" = "Le chargement de fichiers fini";
 "progress_message_uploadingfailed" = "L'ajout du fichier a échoué";
 "progress_message_downloadfailed" = "téléchargement du fichier a échoué";

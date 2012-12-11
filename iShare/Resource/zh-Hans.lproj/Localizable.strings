@@ -55,6 +55,8 @@
 "alert_message_sendingfinished" = "发送结束";
 "alert_message_fileisstored" = "%@已经被存储到了'Inbox'";
 "alert_message_authfailed" = "身份认证失败";
+"alert_message_raruncompressfailed"="打开RAR文件失败";
+"alert_message_pleaseinputpassword"="请输入密码";
 "btn_title_iknow" = "知道了";
 
 "status_message_newfoldercreated" = "文件夹创建成功";
@@ -85,7 +87,8 @@
 "progress_message_creatingfolder" = "创建文件夹";
 "progress_message_actionfailed" = "操作失败";
 "progress_message_addtodownloadqueue" = "已加入到下载队列";
-"progress_message_startdownloadingfile" = "开始下载文件";
+"progress_message_startdownloadingfile" = "准备下载文件";
+"progress_message_havedownloaded" = "已下载: ";
 "progress_message_uploadingfinished" = "文件上传结束";
 "progress_message_uploadingfailed" = "文件上传失败";
 "progress_message_downloadfinished" = "文件下载结束";

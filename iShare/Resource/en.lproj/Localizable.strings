@@ -58,6 +58,8 @@
 "alert_message_sendingfinished" = "End of transimission";
 "alert_message_fileisstored" = "%@ has been stored to the 'Inbox'";
 "alert_message_authfailed" = "Authentication failed";
+"alert_message_raruncompressfailed" = "Opening RAR file failed";
+"alert_message_pleaseinputpassword" = "Please input password";
 
 "btn_title_iknow" = "I know";
 
@@ -89,7 +91,8 @@
 "progress_message_creatingfolder" = "Creating folder";
 "progress_message_actionfailed" = "Operation failed";
 "progress_message_addtodownloadqueue" = "Has been added to the download queue";
-"progress_message_startdownloadingfile" = "Start downloading file";
+"progress_message_startdownloadingfile" = "Preparing to download files";
+"progress_message_havedownloaded" = "Have downloaded: ";
 "progress_message_uploadingfinished" = "File uploading finished";
 "progress_message_uploadingfailed" = "File uploading failed";
 "progress_message_downloadfailed" = "File downloading failed";

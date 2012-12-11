@@ -8,7 +8,7 @@
 
 #import "ISShareServiceBaseController.h"
 
-@interface ISGoogleDriveViewController : ISShareServiceBaseController
+@interface ISGoogleDriveViewController : ISShareServiceBaseController<NSURLConnectionDataDelegate>
 
 +(BOOL)canAutherize;
 +(void)removeAutherize;

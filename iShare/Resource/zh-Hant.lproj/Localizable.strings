@@ -55,6 +55,8 @@
 "alert_message_sendingfinished" = "發送結束";
 "alert_message_fileisstored" = "%@已經被存儲到了'Inbox'";
 "alert_message_authfailed" = "驗證失敗";
+"alert_message_raruncompressfailed"="打開RAR文件失敗";
+"alert_message_pleaseinputpassword"="請輸入密碼";
 "btn_title_iknow" = "知道了";
 
 "status_message_newfoldercreated" = "文件夾創建成功";
@@ -85,7 +87,8 @@
 "progress_message_creatingfolder" = "創建文件夾";
 "progress_message_actionfailed" = "操作失敗";
 "progress_message_addtodownloadqueue" = "已加入到下載隊列";
-"progress_message_startdownloadingfile" = "開始下載文件";
+"progress_message_startdownloadingfile" = "準備下載文件";
+"progress_message_havedownloaded" = "已下载: ";
 "progress_message_uploadingfinished" = "文件上傳結束";
 "progress_message_uploadingfailed" = "文件上傳失敗";
 "progress_message_downloadfinished" = "文件下載結束";

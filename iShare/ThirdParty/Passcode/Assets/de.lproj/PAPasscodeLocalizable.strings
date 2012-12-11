@@ -1,0 +1,20 @@
+/*
+   PAPasscodeLocalizable.strings
+   iShare
+
+   Erstellt von Jin Jin auf 12-11-1.
+   Copyright (c) 2012 年 Jin Jin. Alle Rechte vorbehalten.
+*/
+"Set Passcode" = "Set Passcode";
+"Geben Sie ein Kennwort" = "Geben Sie ein Kennwort";
+"Re-geben Sie das Kennwort" = "Re-geben Sie das Kennwort";
+"Enter Passcode" = "Passcode";
+"Geben Sie Ihren Passcode" = "Geben Sie Ihren Passcode";
+"Change Passcode" = "Change Passcode";
+"Geben Sie Ihr altes Passwort" = "Geben Sie Ihr altes Passwort";
+"Geben Sie das neue Kennwort" = "Geben Sie das neue Kennwort";
+"Re-geben Sie Ihr neues Passwort" = "Re-geben Sie Ihr neues Passwort";
+"Passcodes stimmen nicht überein. Versuchen Sie es erneut." = "Passcodes brachte keine Ergebnisse Versuchen Sie es erneut.";
+"1 Failed Passcode Versuch" = "1 fehlgeschlagen Passcode Versuch";
+"% d fehlgeschlagen Passcode Versuche" = "% d fehlgeschlagen Passcode Versuche";
+"Next" = "Weiter";
