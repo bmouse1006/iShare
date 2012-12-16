@@ -23,7 +23,7 @@
 #import "ISFileBrowserMenuCell.h"
 #import "TextEditorViewController.h"
 #import "ISFileBrowserCellInterface.h"
-//#import "JJMediaPlayerController.h"
+//#import "JJMoviePlayerController.h"
 #import "LZMAExtractor.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <MessageUI/MessageUI.h>
@@ -265,7 +265,7 @@ static CGFloat kMessageTransitionDuration = 1.5f;
                 //当前先调用系统自带视频播放器
                 MPMoviePlayerViewController* moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:item.filePath]];
                 [self presentMoviePlayerViewControllerAnimated:moviePlayer];
-//                JJMediaPlayerController* controller = [[JJMediaPlayerController alloc] initWithFilepath:item.filePath];
+//                JJMoviePlayerController* controller = [[JJMoviePlayerController alloc] initWithFilepath:item.filePath];
 //                [self.navigationController pushViewController:controller animated:YES];
             }
                 break;
@@ -297,7 +297,7 @@ static CGFloat kMessageTransitionDuration = 1.5f;
                     ISFileQuickPreviewController* previewController = [[ISFileQuickPreviewController alloc] initWithPreviewItems:@[item]];
                     [self.navigationController pushViewController:previewController animated:YES];
                 }/*else{
-                    JJMediaPlayerController* controller = [[JJMediaPlayerController alloc] initWithFilepath:item.filePath];
+                    JJMoviePlayerController* controller = [[JJMoviePlayerController alloc] initWithFilepath:item.filePath];
                     [self.navigationController pushViewController:controller animated:YES];
                 }*/
             }

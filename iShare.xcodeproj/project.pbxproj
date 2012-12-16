@@ -67,6 +67,7 @@
 		22184CBD15EA724700BED798 /* ISShareServiceBaseDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22184CBC15EA724700BED798 /* ISShareServiceBaseDataSource.m */; };
 		221CF8FD16453C8D000C64A0 /* ISPasscodeProtectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 221CF8FB16453C8D000C64A0 /* ISPasscodeProtectionController.m */; };
 		221CF8FE16453C8D000C64A0 /* ISPasscodeProtectionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 221CF8FC16453C8D000C64A0 /* ISPasscodeProtectionController.xib */; };
+		221FD61E1676DF9100B4E422 /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 221FD6171676DF5300B4E422 /* libGTLTouchStaticLib.a */; };
 		22287E1515CCA0AC000C1395 /* PDFReaderLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22287E1715CCA0AC000C1395 /* PDFReaderLocalizable.strings */; };
 		22287E1E15CCA43C000C1395 /* ic_tab_myfiles@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22287E1D15CCA43C000C1395 /* ic_tab_myfiles@2x.png */; };
 		22287E2415CCA743000C1395 /* ic_tab_music@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22287E2315CCA743000C1395 /* ic_tab_music@2x.png */; };
@@ -572,7 +573,6 @@
 		22688F2016665F2700159DF4 /* ISGoogleAuth2ViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 22688F1D16665F2700159DF4 /* ISGoogleAuth2ViewController.h */; };
 		22688F2116665F2700159DF4 /* ISGoogleAuth2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22688F1E16665F2700159DF4 /* ISGoogleAuth2ViewController.m */; };
 		22688F2216665F2700159DF4 /* ISGoogleAuth2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22688F1F16665F2700159DF4 /* ISGoogleAuth2ViewController.xib */; };
-		22688F2316665FC000159DF4 /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22688F1816665EB700159DF4 /* libGTLTouchStaticLib.a */; };
 		226CF0EF15F74F38003BCCEE /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = 226CF0CC15F74F38003BCCEE /* DDData.m */; };
 		226CF0F015F74F38003BCCEE /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 226CF0CE15F74F38003BCCEE /* DDNumber.m */; };
 		226CF0F115F74F38003BCCEE /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 226CF0D015F74F38003BCCEE /* DDRange.m */; };
@@ -739,8 +739,8 @@
 		22FD8D711675E8C90022D4E8 /* AudioPlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FD8D571675E8C90022D4E8 /* AudioPlay.m */; };
 		22FD8D7A1675E8C90022D4E8 /* FFMPEGMovieExtractor.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD8D691675E8C90022D4E8 /* FFMPEGMovieExtractor.h */; };
 		22FD8D7B1675E8C90022D4E8 /* FFMPEGMovieExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FD8D6A1675E8C90022D4E8 /* FFMPEGMovieExtractor.m */; };
-		22FD8D7C1675E8C90022D4E8 /* JJMediaPlayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD8D6B1675E8C90022D4E8 /* JJMediaPlayerController.h */; };
-		22FD8D7D1675E8C90022D4E8 /* JJMediaPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FD8D6C1675E8C90022D4E8 /* JJMediaPlayerController.m */; };
+		22FD8D7C1675E8C90022D4E8 /* JJMoviePlayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD8D6B1675E8C90022D4E8 /* JJMoviePlayerController.h */; };
+		22FD8D7D1675E8C90022D4E8 /* JJMoviePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FD8D6C1675E8C90022D4E8 /* JJMoviePlayerController.m */; };
 		22FD8D7E1675E8C90022D4E8 /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD8D6E1675E8C90022D4E8 /* Utilities.h */; };
 		22FD8D7F1675E8C90022D4E8 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FD8D6F1675E8C90022D4E8 /* Utilities.m */; };
 		22FD8D901675E9E50022D4E8 /* libSDL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD8D8B1675E9C80022D4E8 /* libSDL.a */; };
@@ -845,37 +845,37 @@
 			remoteGlobalIDString = D2AAC07D0554694100DB518D;
 			remoteInfo = Unrar4iOS;
 		};
-		22688F1516665EB700159DF4 /* PBXContainerItemProxy */ = {
+		221FD6141676DF5300B4E422 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 22688F0A16665EB700159DF4 /* GTL.xcodeproj */;
+			containerPortal = 221FD60A1676DF5300B4E422 /* GTL.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 4F38F6A60B66E91D00B24B81;
 			remoteInfo = GTLFramework;
 		};
-		22688F1716665EB700159DF4 /* PBXContainerItemProxy */ = {
+		221FD6161676DF5300B4E422 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 22688F0A16665EB700159DF4 /* GTL.xcodeproj */;
+			containerPortal = 221FD60A1676DF5300B4E422 /* GTL.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 4F12027C11A4CA2F00BEB470;
 			remoteInfo = GTLTouchStaticLib;
 		};
-		22688F1916665EB700159DF4 /* PBXContainerItemProxy */ = {
+		221FD6181676DF5300B4E422 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 22688F0A16665EB700159DF4 /* GTL.xcodeproj */;
+			containerPortal = 221FD60A1676DF5300B4E422 /* GTL.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 4F12027D11A4CA2F00BEB470;
 			remoteInfo = GTLUnitTests;
 		};
-		22688F1B16665EB700159DF4 /* PBXContainerItemProxy */ = {
+		221FD61A1676DF5300B4E422 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 22688F0A16665EB700159DF4 /* GTL.xcodeproj */;
+			containerPortal = 221FD60A1676DF5300B4E422 /* GTL.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 4F1AD9020B71603F00DC0485;
 			remoteInfo = DevelopmentTestTool;
 		};
-		22688F2416665FC600159DF4 /* PBXContainerItemProxy */ = {
+		221FD61C1676DF7C00B4E422 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 22688F0A16665EB700159DF4 /* GTL.xcodeproj */;
+			containerPortal = 221FD60A1676DF5300B4E422 /* GTL.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = 4F1C6E0E1027B3CE00B46459;
 			remoteInfo = GTLTouchStaticLib;
@@ -989,6 +989,7 @@
 		221CF8FA16453C8D000C64A0 /* ISPasscodeProtectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISPasscodeProtectionController.h; sourceTree = "<group>"; };
 		221CF8FB16453C8D000C64A0 /* ISPasscodeProtectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISPasscodeProtectionController.m; sourceTree = "<group>"; };
 		221CF8FC16453C8D000C64A0 /* ISPasscodeProtectionController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISPasscodeProtectionController.xib; sourceTree = "<group>"; };
+		221FD60A1676DF5300B4E422 /* GTL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTL.xcodeproj; path = ../../../../../GoogleDrive/Source/GTL.xcodeproj; sourceTree = "<group>"; };
 		22287E1615CCA0AC000C1395 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PDFReaderLocalizable.strings; sourceTree = "<group>"; };
 		22287E1815CCA0B0000C1395 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/PDFReaderLocalizable.strings"; sourceTree = "<group>"; };
 		22287E1D15CCA43C000C1395 /* ic_tab_myfiles@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tab_myfiles@2x.png"; sourceTree = "<group>"; };
@@ -1404,7 +1405,6 @@
 		2267A61A15D79A9000F59717 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2267A61F15D7CB0B00F59717 /* ISFileQuickPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISFileQuickPreviewController.h; sourceTree = "<group>"; };
 		2267A62015D7CB0D00F59717 /* ISFileQuickPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISFileQuickPreviewController.m; sourceTree = "<group>"; };
-		22688F0A16665EB700159DF4 /* GTL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTL.xcodeproj; path = ../../../../../GoogleDrive/Source/GTL.xcodeproj; sourceTree = "<group>"; };
 		22688F1D16665F2700159DF4 /* ISGoogleAuth2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISGoogleAuth2ViewController.h; sourceTree = "<group>"; };
 		22688F1E16665F2700159DF4 /* ISGoogleAuth2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISGoogleAuth2ViewController.m; sourceTree = "<group>"; };
 		22688F1F16665F2700159DF4 /* ISGoogleAuth2ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISGoogleAuth2ViewController.xib; sourceTree = "<group>"; };
@@ -1661,8 +1661,8 @@
 		22FD8D571675E8C90022D4E8 /* AudioPlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioPlay.m; sourceTree = "<group>"; };
 		22FD8D691675E8C90022D4E8 /* FFMPEGMovieExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFMPEGMovieExtractor.h; sourceTree = "<group>"; };
 		22FD8D6A1675E8C90022D4E8 /* FFMPEGMovieExtractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFMPEGMovieExtractor.m; sourceTree = "<group>"; };
-		22FD8D6B1675E8C90022D4E8 /* JJMediaPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJMediaPlayerController.h; sourceTree = "<group>"; };
-		22FD8D6C1675E8C90022D4E8 /* JJMediaPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJMediaPlayerController.m; sourceTree = "<group>"; };
+		22FD8D6B1675E8C90022D4E8 /* JJMoviePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJMoviePlayerController.h; sourceTree = "<group>"; };
+		22FD8D6C1675E8C90022D4E8 /* JJMoviePlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJMoviePlayerController.m; sourceTree = "<group>"; };
 		22FD8D6E1675E8C90022D4E8 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		22FD8D6F1675E8C90022D4E8 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		22FD8D801675E9C80022D4E8 /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "../../../../../SDL/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
@@ -1757,7 +1757,6 @@
 				2267A61B15D79A9000F59717 /* MobileCoreServices.framework in Frameworks */,
 				22FC34EF15C7E80E0051AA21 /* ImageIO.framework in Frameworks */,
 				22FC34E915C7E7D00051AA21 /* MessageUI.framework in Frameworks */,
-				22688F2316665FC000159DF4 /* libGTLTouchStaticLib.a in Frameworks */,
 				22FC34E715C7E7AA0051AA21 /* QuartzCore.framework in Frameworks */,
 				2253856F15C7B6F900D8B4B7 /* UIKit.framework in Frameworks */,
 				2253857115C7B6F900D8B4B7 /* Foundation.framework in Frameworks */,
@@ -1765,6 +1764,7 @@
 				220C6417162426B900AF89F0 /* DropboxSDK.framework in Frameworks */,
 				22FD8D901675E9E50022D4E8 /* libSDL.a in Frameworks */,
 				2216C8B61672BB4900D7641B /* libUnrar4iOS.a in Frameworks */,
+				221FD61E1676DF9100B4E422 /* libGTLTouchStaticLib.a in Frameworks */,
 				22436EBB1676D432008B8A12 /* libavcodec.a in Frameworks */,
 				22436EBC1676D432008B8A12 /* libavutil.a in Frameworks */,
 				22436EBD1676D432008B8A12 /* libswresample.a in Frameworks */,
@@ -1805,7 +1805,7 @@
 		2208461E1665050700436434 /* GoogleDrive */ = {
 			isa = PBXGroup;
 			children = (
-				22688F0A16665EB700159DF4 /* GTL.xcodeproj */,
+				221FD60A1676DF5300B4E422 /* GTL.xcodeproj */,
 				22CCF8DC1666077C004C5D39 /* GTMOAuth2ViewTouch.xib */,
 			);
 			path = GoogleDrive;
@@ -1957,6 +1957,17 @@
 				221CF8FC16453C8D000C64A0 /* ISPasscodeProtectionController.xib */,
 			);
 			path = PasscodeProtection;
+			sourceTree = "<group>";
+		};
+		221FD60B1676DF5300B4E422 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				221FD6151676DF5300B4E422 /* GTL.framework */,
+				221FD6171676DF5300B4E422 /* libGTLTouchStaticLib.a */,
+				221FD6191676DF5300B4E422 /* GTLUnitTests.octest */,
+				221FD61B1676DF5300B4E422 /* DevelopmentTestTool */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		22287E3015CCBB0A000C1395 /* QuadCurveMenu */ = {
@@ -2808,17 +2819,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		22688F0B16665EB700159DF4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				22688F1616665EB700159DF4 /* GTL.framework */,
-				22688F1816665EB700159DF4 /* libGTLTouchStaticLib.a */,
-				22688F1A16665EB700159DF4 /* GTLUnitTests.octest */,
-				22688F1C16665EB700159DF4 /* DevelopmentTestTool */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		226CF0C815F74F19003BCCEE /* HTTPServer */ = {
 			isa = PBXGroup;
 			children = (
@@ -3197,8 +3197,8 @@
 				22FD8D581675E8C90022D4E8 /* ffmpeg */,
 				22FD8D691675E8C90022D4E8 /* FFMPEGMovieExtractor.h */,
 				22FD8D6A1675E8C90022D4E8 /* FFMPEGMovieExtractor.m */,
-				22FD8D6B1675E8C90022D4E8 /* JJMediaPlayerController.h */,
-				22FD8D6C1675E8C90022D4E8 /* JJMediaPlayerController.m */,
+				22FD8D6B1675E8C90022D4E8 /* JJMoviePlayerController.h */,
+				22FD8D6C1675E8C90022D4E8 /* JJMoviePlayerController.m */,
 				22FD8D6D1675E8C90022D4E8 /* SDL */,
 				22FD8D6E1675E8C90022D4E8 /* Utilities.h */,
 				22FD8D6F1675E8C90022D4E8 /* Utilities.m */,
@@ -3380,8 +3380,7 @@
 				22436EB91676D432008B8A12 /* libavdevice.a */,
 				22436EBA1676D432008B8A12 /* libavformat.a */,
 			);
-			name = "Release-iphoneos";
-			path = "Release-iphonesos";
+			path = "Release-iphoneos";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3591,7 +3590,7 @@
 				2216C91C167483D100D7641B /* 7zAlloc.h in Headers */,
 				22FD8D701675E8C90022D4E8 /* AudioPlay.h in Headers */,
 				22FD8D7A1675E8C90022D4E8 /* FFMPEGMovieExtractor.h in Headers */,
-				22FD8D7C1675E8C90022D4E8 /* JJMediaPlayerController.h in Headers */,
+				22FD8D7C1675E8C90022D4E8 /* JJMoviePlayerController.h in Headers */,
 				22FD8D7E1675E8C90022D4E8 /* Utilities.h in Headers */,
 				22FD8DD41675EA500022D4E8 /* avcodec.h in Headers */,
 				22FD8DD51675EA500022D4E8 /* avfft.h in Headers */,
@@ -3672,9 +3671,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				221FD61D1676DF7C00B4E422 /* PBXTargetDependency */,
 				22FD8D8F1675E9DC0022D4E8 /* PBXTargetDependency */,
 				2216C8B81672BBC400D7641B /* PBXTargetDependency */,
-				22688F2516665FC600159DF4 /* PBXTargetDependency */,
 			);
 			name = iShare;
 			productName = iShare;
@@ -3728,8 +3727,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 22688F0B16665EB700159DF4 /* Products */;
-					ProjectRef = 22688F0A16665EB700159DF4 /* GTL.xcodeproj */;
+					ProductGroup = 221FD60B1676DF5300B4E422 /* Products */;
+					ProjectRef = 221FD60A1676DF5300B4E422 /* GTL.xcodeproj */;
 				},
 				{
 					ProductGroup = 22FD8D811675E9C80022D4E8 /* Products */;
@@ -3756,32 +3755,32 @@
 			remoteRef = 2216C8B21672BA9400D7641B /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		22688F1616665EB700159DF4 /* GTL.framework */ = {
+		221FD6151676DF5300B4E422 /* GTL.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = GTL.framework;
-			remoteRef = 22688F1516665EB700159DF4 /* PBXContainerItemProxy */;
+			remoteRef = 221FD6141676DF5300B4E422 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		22688F1816665EB700159DF4 /* libGTLTouchStaticLib.a */ = {
+		221FD6171676DF5300B4E422 /* libGTLTouchStaticLib.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
 			path = libGTLTouchStaticLib.a;
-			remoteRef = 22688F1716665EB700159DF4 /* PBXContainerItemProxy */;
+			remoteRef = 221FD6161676DF5300B4E422 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		22688F1A16665EB700159DF4 /* GTLUnitTests.octest */ = {
+		221FD6191676DF5300B4E422 /* GTLUnitTests.octest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = GTLUnitTests.octest;
-			remoteRef = 22688F1916665EB700159DF4 /* PBXContainerItemProxy */;
+			remoteRef = 221FD6181676DF5300B4E422 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		22688F1C16665EB700159DF4 /* DevelopmentTestTool */ = {
+		221FD61B1676DF5300B4E422 /* DevelopmentTestTool */ = {
 			isa = PBXReferenceProxy;
 			fileType = "compiled.mach-o.executable";
 			path = DevelopmentTestTool;
-			remoteRef = 22688F1B16665EB700159DF4 /* PBXContainerItemProxy */;
+			remoteRef = 221FD61A1676DF5300B4E422 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		22FD8D8B1675E9C80022D4E8 /* libSDL.a */ = {
@@ -4346,7 +4345,7 @@
 				2216C91D167483D100D7641B /* 7zMain.c in Sources */,
 				22FD8D711675E8C90022D4E8 /* AudioPlay.m in Sources */,
 				22FD8D7B1675E8C90022D4E8 /* FFMPEGMovieExtractor.m in Sources */,
-				22FD8D7D1675E8C90022D4E8 /* JJMediaPlayerController.m in Sources */,
+				22FD8D7D1675E8C90022D4E8 /* JJMoviePlayerController.m in Sources */,
 				22FD8D7F1675E8C90022D4E8 /* Utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4376,10 +4375,10 @@
 			name = Unrar4iOS;
 			targetProxy = 2216C8B71672BBC400D7641B /* PBXContainerItemProxy */;
 		};
-		22688F2516665FC600159DF4 /* PBXTargetDependency */ = {
+		221FD61D1676DF7C00B4E422 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = GTLTouchStaticLib;
-			targetProxy = 22688F2416665FC600159DF4 /* PBXContainerItemProxy */;
+			targetProxy = 221FD61C1676DF7C00B4E422 /* PBXContainerItemProxy */;
 		};
 		22FD8D8F1675E9DC0022D4E8 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4471,7 +4470,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -4494,7 +4493,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
@@ -4534,8 +4533,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/iShare/ThirdParty/GoogleDrive\"",
 					"\"$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/lib/Release$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/lib/Release-iphonesos\"",
-					"\"$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/lib/Release-iphonesimulator\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -4574,8 +4571,6 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/iShare/ThirdParty/GoogleDrive\"",
 					"\"$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/lib/Release$(EFFECTIVE_PLATFORM_NAME)\"",
-					"\"$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/lib/Release-iphonesos\"",
-					"\"$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/lib/Release-iphonesimulator\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
