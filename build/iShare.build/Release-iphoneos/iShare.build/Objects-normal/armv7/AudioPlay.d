@@ -1,0 +1,26 @@
+dependencies: \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/AudioPlay.m \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/AudioPlay.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavformat/avformat.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavcodec/avcodec.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/samplefmt.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/avutil.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/common.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/attributes.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/avconfig.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/mem.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/error.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/version.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/mathematics.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/rational.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/intfloat.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/intfloat_readwrite.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/log.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/pixfmt.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/cpu.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/dict.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavutil/audioconvert.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavcodec/version.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavcodec/old_codec_ids.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavformat/avio.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include/libavformat/version.h

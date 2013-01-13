@@ -1,0 +1,14 @@
+<tr class="c" onmouseover="this.className='c_hover'" onmouseout="this.className='c'">
+    <td class="i">
+        <a href="#FILENAMEHREF#"><img src="/root_989234ylsdfyy87e/fileicons/fileicon_folder.png" width="20" height="20"></a>
+    </td>
+    
+    <td class="n">
+        <a href="#FILENAMEHREF#/">#FILENAME#</a></td><td class="m">#FILEMODIFICATIONDATE#
+    </td>
+    
+    <td class="s">
+    </td>
+    <td class="e"><input type="image" src="/root_989234ylsdfyy87e/webrename.png" onClick="modalPopup(&quot;#FILENAME#&quot;, 0, 0);" title="Rename file" width="15" height="15"/></td><td class="e"><input type="image" src="/root_989234ylsdfyy87e/icon_delete.png" onClick="modalPopup(&quot;#FILENAME#&quot;, 2, 0);" title="Delete file" width="15" height="15"/>
+    </td>
+</tr>

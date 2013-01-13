@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2201C6F916A147860030EE36 /* JJMovieAudioPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2201C6F716A147860030EE36 /* JJMovieAudioPlayer.h */; };
+		2201C6FA16A147860030EE36 /* JJMovieAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2201C6F816A147860030EE36 /* JJMovieAudioPlayer.m */; };
 		2208460A1664C71500436434 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 220846091664C71500436434 /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		2208460C1664C88E00436434 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2208460B1664C88E00436434 /* SystemConfiguration.framework */; };
 		2208460E1664F82D00436434 /* cell_googledrive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2208460D1664F82D00436434 /* cell_googledrive@2x.png */; };
@@ -19,6 +21,7 @@
 		22093A64161C22DA003F1D76 /* TableHeaderRefreshView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22093A63161C22DA003F1D76 /* TableHeaderRefreshView.xib */; };
 		220983A716703C2800D9D2D1 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220983A616703C2800D9D2D1 /* OpenGLES.framework */; };
 		220A18F015EA768D00F5D47B /* FileShareServiceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 220A18EF15EA768D00F5D47B /* FileShareServiceItem.m */; };
+		220A6CA016834DEA006B39C4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220A6C9F16834DEA006B39C4 /* GLKit.framework */; };
 		220C6417162426B900AF89F0 /* DropboxSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 220C6416162426B900AF89F0 /* DropboxSDK.framework */; };
 		220C641E1624525400AF89F0 /* compose-add-button-background-pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 220C641C1624525200AF89F0 /* compose-add-button-background-pressed@2x.png */; };
 		220C641F1624525400AF89F0 /* compose-add-button-background@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 220C641D1624525300AF89F0 /* compose-add-button-background@2x.png */; };
@@ -618,6 +621,8 @@
 		22769E1215FE31DA0017E9A4 /* ISWifiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22769E1015FE31DA0017E9A4 /* ISWifiViewController.m */; };
 		22769E1315FE31DA0017E9A4 /* ISWifiViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22769E1115FE31DA0017E9A4 /* ISWifiViewController.xib */; };
 		227B83B115ED03FC00C2BE59 /* ISShareServiceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 227B83B015ED03FB00C2BE59 /* ISShareServiceTableViewCell.m */; };
+		227CB0F91684A6400096559F /* JJMoviePlayerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 227CB0F71684A6400096559F /* JJMoviePlayerViewController.h */; };
+		227CB0FA1684A6400096559F /* JJMoviePlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 227CB0F81684A6400096559F /* JJMoviePlayerViewController.m */; };
 		2284B57815DA263500AD4A7A /* MDAudioPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284B57715DA263500AD4A7A /* MDAudioPlayerController.m */; };
 		2284B57915DA286000AD4A7A /* MDAudioFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 225147B015D93E36008AB38B /* MDAudioFile.m */; };
 		2284B57A15DA286000AD4A7A /* MDAudioPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284B57715DA263500AD4A7A /* MDAudioPlayerController.m */; };
@@ -684,6 +689,8 @@
 		22CCF8E9166608EA004C5D39 /* ISGoogleDriveDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 22CCF8E8166608EA004C5D39 /* ISGoogleDriveDataSource.m */; };
 		22DCF09C164BFD5A00CECF4F /* web_cn in Resources */ = {isa = PBXBuildFile; fileRef = 22DCF09A164BFD5A00CECF4F /* web_cn */; };
 		22DCF09D164BFD5A00CECF4F /* web_en in Resources */ = {isa = PBXBuildFile; fileRef = 22DCF09B164BFD5A00CECF4F /* web_en */; };
+		22DFEA9A169850DD00AAF301 /* JJYUVDisplayView.h in Headers */ = {isa = PBXBuildFile; fileRef = 22DFEA98169850DD00AAF301 /* JJYUVDisplayView.h */; };
+		22DFEA9B169850DD00AAF301 /* JJYUVDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 22DFEA99169850DD00AAF301 /* JJYUVDisplayView.m */; };
 		22E0C67B16298F2E00983F2B /* JJBTFileSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E0C67A16298F2E00983F2B /* JJBTFileSender.m */; };
 		22E0C67F16298F3E00983F2B /* JJBTPhotoSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E0C67E16298F3E00983F2B /* JJBTPhotoSender.m */; };
 		22E0C68216298F5000983F2B /* JJBTSender.m in Sources */ = {isa = PBXBuildFile; fileRef = 22E0C68116298F5000983F2B /* JJBTSender.m */; };
@@ -691,6 +698,8 @@
 		22E3D83A164FCC92004543E0 /* iTunesArtwork@2x in Resources */ = {isa = PBXBuildFile; fileRef = 22E3D838164FCC92004543E0 /* iTunesArtwork@2x */; };
 		22E3D83C164FCD65004543E0 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E3D83B164FCD65004543E0 /* Icon.png */; };
 		22E3D83E164FCD68004543E0 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22E3D83D164FCD68004543E0 /* Icon@2x.png */; };
+		22ECACE41699D4AC0043A739 /* process.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 22DFEA9D1698512100AAF301 /* process.fsh */; };
+		22ECACE51699D4AC0043A739 /* process.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 22DFEA9E1698512100AAF301 /* process.vsh */; };
 		22EF8149161C8972006C86EA /* btn_title_bar_next_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF8147161C8972006C86EA /* btn_title_bar_next_pressed@2x.png */; };
 		22EF814A161C8972006C86EA /* btn_title_bar_next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22EF8148161C8972006C86EA /* btn_title_bar_next@2x.png */; };
 		22FC34BE15C7E6D00051AA21 /* AppIcon-057.png in Resources */ = {isa = PBXBuildFile; fileRef = 22FC348015C7E6D00051AA21 /* AppIcon-057.png */; };
@@ -737,8 +746,6 @@
 		22FC34F115C7E8200051AA21 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FC34F015C7E8200051AA21 /* QuickLook.framework */; };
 		22FD8D701675E8C90022D4E8 /* AudioPlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD8D561675E8C90022D4E8 /* AudioPlay.h */; };
 		22FD8D711675E8C90022D4E8 /* AudioPlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FD8D571675E8C90022D4E8 /* AudioPlay.m */; };
-		22FD8D7A1675E8C90022D4E8 /* FFMPEGMovieExtractor.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD8D691675E8C90022D4E8 /* FFMPEGMovieExtractor.h */; };
-		22FD8D7B1675E8C90022D4E8 /* FFMPEGMovieExtractor.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FD8D6A1675E8C90022D4E8 /* FFMPEGMovieExtractor.m */; };
 		22FD8D7C1675E8C90022D4E8 /* JJMoviePlayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD8D6B1675E8C90022D4E8 /* JJMoviePlayerController.h */; };
 		22FD8D7D1675E8C90022D4E8 /* JJMoviePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FD8D6C1675E8C90022D4E8 /* JJMoviePlayerController.m */; };
 		22FD8D7E1675E8C90022D4E8 /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD8D6E1675E8C90022D4E8 /* Utilities.h */; };
@@ -904,6 +911,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2201C6F716A147860030EE36 /* JJMovieAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJMovieAudioPlayer.h; sourceTree = "<group>"; };
+		2201C6F816A147860030EE36 /* JJMovieAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJMovieAudioPlayer.m; sourceTree = "<group>"; };
 		220845EA1664A83000436434 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		220845EB1664A83000436434 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		220845EC1664A83000436434 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/PAPasscodeLocalizable.strings; sourceTree = "<group>"; };
@@ -931,6 +940,7 @@
 		220983A616703C2800D9D2D1 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		220A18EE15EA768D00F5D47B /* FileShareServiceItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileShareServiceItem.h; sourceTree = "<group>"; };
 		220A18EF15EA768D00F5D47B /* FileShareServiceItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileShareServiceItem.m; sourceTree = "<group>"; };
+		220A6C9F16834DEA006B39C4 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		220C6416162426B900AF89F0 /* DropboxSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DropboxSDK.framework; sourceTree = "<group>"; };
 		220C641C1624525200AF89F0 /* compose-add-button-background-pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-add-button-background-pressed@2x.png"; sourceTree = "<group>"; };
 		220C641D1624525300AF89F0 /* compose-add-button-background@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "compose-add-button-background@2x.png"; sourceTree = "<group>"; };
@@ -1490,6 +1500,8 @@
 		22769E1115FE31DA0017E9A4 /* ISWifiViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISWifiViewController.xib; sourceTree = "<group>"; };
 		227B83AF15ED03FB00C2BE59 /* ISShareServiceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISShareServiceTableViewCell.h; sourceTree = "<group>"; };
 		227B83B015ED03FB00C2BE59 /* ISShareServiceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISShareServiceTableViewCell.m; sourceTree = "<group>"; };
+		227CB0F71684A6400096559F /* JJMoviePlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJMoviePlayerViewController.h; sourceTree = "<group>"; };
+		227CB0F81684A6400096559F /* JJMoviePlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJMoviePlayerViewController.m; sourceTree = "<group>"; };
 		2284B57615DA263500AD4A7A /* MDAudioPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDAudioPlayerController.h; sourceTree = "<group>"; };
 		2284B57715DA263500AD4A7A /* MDAudioPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDAudioPlayerController.m; sourceTree = "<group>"; };
 		2284B57F15DA299A00AD4A7A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -1584,6 +1596,10 @@
 		22CCF8E8166608EA004C5D39 /* ISGoogleDriveDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISGoogleDriveDataSource.m; sourceTree = "<group>"; };
 		22DCF09A164BFD5A00CECF4F /* web_cn */ = {isa = PBXFileReference; lastKnownFileType = folder; path = web_cn; sourceTree = "<group>"; };
 		22DCF09B164BFD5A00CECF4F /* web_en */ = {isa = PBXFileReference; lastKnownFileType = folder; path = web_en; sourceTree = "<group>"; };
+		22DFEA98169850DD00AAF301 /* JJYUVDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJYUVDisplayView.h; sourceTree = "<group>"; };
+		22DFEA99169850DD00AAF301 /* JJYUVDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJYUVDisplayView.m; sourceTree = "<group>"; };
+		22DFEA9D1698512100AAF301 /* process.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = process.fsh; sourceTree = "<group>"; };
+		22DFEA9E1698512100AAF301 /* process.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = process.vsh; sourceTree = "<group>"; };
 		22E0C67916298F2E00983F2B /* JJBTFileSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJBTFileSender.h; sourceTree = "<group>"; };
 		22E0C67A16298F2E00983F2B /* JJBTFileSender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJBTFileSender.m; sourceTree = "<group>"; };
 		22E0C67D16298F3E00983F2B /* JJBTPhotoSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJBTPhotoSender.h; sourceTree = "<group>"; };
@@ -1659,8 +1675,6 @@
 		22FC34F015C7E8200051AA21 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
 		22FD8D561675E8C90022D4E8 /* AudioPlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlay.h; sourceTree = "<group>"; };
 		22FD8D571675E8C90022D4E8 /* AudioPlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioPlay.m; sourceTree = "<group>"; };
-		22FD8D691675E8C90022D4E8 /* FFMPEGMovieExtractor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFMPEGMovieExtractor.h; sourceTree = "<group>"; };
-		22FD8D6A1675E8C90022D4E8 /* FFMPEGMovieExtractor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFMPEGMovieExtractor.m; sourceTree = "<group>"; };
 		22FD8D6B1675E8C90022D4E8 /* JJMoviePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJMoviePlayerController.h; sourceTree = "<group>"; };
 		22FD8D6C1675E8C90022D4E8 /* JJMoviePlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJMoviePlayerController.m; sourceTree = "<group>"; };
 		22FD8D6E1675E8C90022D4E8 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
@@ -1742,6 +1756,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				220A6CA016834DEA006B39C4 /* GLKit.framework in Frameworks */,
 				220983A716703C2800D9D2D1 /* OpenGLES.framework in Frameworks */,
 				222EE7D516700FDB00EF0614 /* OpenAL.framework in Frameworks */,
 				2251478115D8A5B9008AB38B /* MediaPlayer.framework in Frameworks */,
@@ -1793,6 +1808,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2201C6F616A146BD0030EE36 /* OpenALPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				2201C6F716A147860030EE36 /* JJMovieAudioPlayer.h */,
+				2201C6F816A147860030EE36 /* JJMovieAudioPlayer.m */,
+			);
+			path = OpenALPlayer;
+			sourceTree = "<group>";
+		};
 		220846071664C71500436434 /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
@@ -2712,6 +2736,7 @@
 				220C6416162426B900AF89F0 /* DropboxSDK.framework */,
 				2253857015C7B6F900D8B4B7 /* Foundation.framework */,
 				226CF14A15F7969D003BCCEE /* GameKit.framework */,
+				220A6C9F16834DEA006B39C4 /* GLKit.framework */,
 				22FC34EE15C7E80E0051AA21 /* ImageIO.framework */,
 				227577E9166EEF91009DE5A3 /* libbz2.dylib */,
 				2270F4BF15D2B562005C036B /* libz.dylib */,
@@ -3103,6 +3128,25 @@
 			path = GoogleDriveController;
 			sourceTree = "<group>";
 		};
+		22DFEA971698508D00AAF301 /* OpenGLESView */ = {
+			isa = PBXGroup;
+			children = (
+				22DFEA9C1698512100AAF301 /* shaders */,
+				22DFEA98169850DD00AAF301 /* JJYUVDisplayView.h */,
+				22DFEA99169850DD00AAF301 /* JJYUVDisplayView.m */,
+			);
+			path = OpenGLESView;
+			sourceTree = "<group>";
+		};
+		22DFEA9C1698512100AAF301 /* shaders */ = {
+			isa = PBXGroup;
+			children = (
+				22DFEA9D1698512100AAF301 /* process.fsh */,
+				22DFEA9E1698512100AAF301 /* process.vsh */,
+			);
+			path = shaders;
+			sourceTree = "<group>";
+		};
 		22F5D7A91668A85900D86A0A /* XMBCFileSystem */ = {
 			isa = PBXGroup;
 			children = (
@@ -3195,10 +3239,12 @@
 				22FD8D561675E8C90022D4E8 /* AudioPlay.h */,
 				22FD8D571675E8C90022D4E8 /* AudioPlay.m */,
 				22FD8D581675E8C90022D4E8 /* ffmpeg */,
-				22FD8D691675E8C90022D4E8 /* FFMPEGMovieExtractor.h */,
-				22FD8D6A1675E8C90022D4E8 /* FFMPEGMovieExtractor.m */,
 				22FD8D6B1675E8C90022D4E8 /* JJMoviePlayerController.h */,
 				22FD8D6C1675E8C90022D4E8 /* JJMoviePlayerController.m */,
+				227CB0F71684A6400096559F /* JJMoviePlayerViewController.h */,
+				227CB0F81684A6400096559F /* JJMoviePlayerViewController.m */,
+				2201C6F616A146BD0030EE36 /* OpenALPlayer */,
+				22DFEA971698508D00AAF301 /* OpenGLESView */,
 				22FD8D6D1675E8C90022D4E8 /* SDL */,
 				22FD8D6E1675E8C90022D4E8 /* Utilities.h */,
 				22FD8D6F1675E8C90022D4E8 /* Utilities.m */,
@@ -3589,7 +3635,6 @@
 				2216C91A167483D100D7641B /* Types.h in Headers */,
 				2216C91C167483D100D7641B /* 7zAlloc.h in Headers */,
 				22FD8D701675E8C90022D4E8 /* AudioPlay.h in Headers */,
-				22FD8D7A1675E8C90022D4E8 /* FFMPEGMovieExtractor.h in Headers */,
 				22FD8D7C1675E8C90022D4E8 /* JJMoviePlayerController.h in Headers */,
 				22FD8D7E1675E8C90022D4E8 /* Utilities.h in Headers */,
 				22FD8DD41675EA500022D4E8 /* avcodec.h in Headers */,
@@ -3653,6 +3698,9 @@
 				22FD8E0E1675EA500022D4E8 /* swresample.h in Headers */,
 				22FD8E0F1675EA500022D4E8 /* swscale.h in Headers */,
 				22FD8E101675EA500022D4E8 /* version.h in Headers */,
+				227CB0F91684A6400096559F /* JJMoviePlayerViewController.h in Headers */,
+				22DFEA9A169850DD00AAF301 /* JJYUVDisplayView.h in Headers */,
+				2201C6F916A147860030EE36 /* JJMovieAudioPlayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3804,6 +3852,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22ECACE41699D4AC0043A739 /* process.fsh in Resources */,
+				22ECACE51699D4AC0043A739 /* process.vsh in Resources */,
 				22FEA79D15E076A900230346 /* AudioPlayerAlbumInfo.png in Resources */,
 				22FEA79E15E076A900230346 /* AudioPlayerBarBackground.png in Resources */,
 				22FEA79F15E076A900230346 /* AudioPlayerNextTrack.png in Resources */,
@@ -4344,9 +4394,11 @@
 				2216C91B167483D100D7641B /* 7zAlloc.c in Sources */,
 				2216C91D167483D100D7641B /* 7zMain.c in Sources */,
 				22FD8D711675E8C90022D4E8 /* AudioPlay.m in Sources */,
-				22FD8D7B1675E8C90022D4E8 /* FFMPEGMovieExtractor.m in Sources */,
 				22FD8D7D1675E8C90022D4E8 /* JJMoviePlayerController.m in Sources */,
 				22FD8D7F1675E8C90022D4E8 /* Utilities.m in Sources */,
+				227CB0FA1684A6400096559F /* JJMoviePlayerViewController.m in Sources */,
+				22DFEA9B169850DD00AAF301 /* JJYUVDisplayView.m in Sources */,
+				2201C6FA16A147860030EE36 /* JJMovieAudioPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4460,6 +4512,7 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -4475,6 +4528,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include /Users/jinjin/Documents/DevelopStuff/iOSProjects/SDL/include $(SRCROOT)/Unrar4iOS/**";
 				VALID_ARCHS = armv7;
@@ -4490,7 +4544,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = "";
@@ -4510,7 +4565,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = iShare/iShare.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Jin Jin (65575TZ23L)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4540,10 +4595,11 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "1E1ED504-5DE7-468E-8933-F5C71F80988F";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1E1ED504-5DE7-468E-8933-F5C71F80988F";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include /Users/jinjin/Documents/DevelopStuff/iOSProjects/SDL/include/** $(SRCROOT)/Unrar4iOS/**";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -4582,6 +4638,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include /Users/jinjin/Documents/DevelopStuff/iOSProjects/SDL/include/** $(SRCROOT)/Unrar4iOS/**";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};

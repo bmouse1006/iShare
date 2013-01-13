@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>iShare Web service</title>
+	
+	<link rel="stylesheet" type="text/css" href="/root_989234ylsdfyy87e/pagecontent.css">
+	<link rel="shortcut icon" type="image/x-icon" media="all" href="/root_989234ylsdfyy87e/icon.png" />
+	
+	<script type="text/javascript" src="/root_989234ylsdfyy87e/jquery.js"></script>
+	<script type="text/javascript" src="/root_989234ylsdfyy87e/jquery.modal.js"></script>
+	<script type="text/javascript" src="/root_989234ylsdfyy87e/filehandler.js"></script>
+</head>
+<body>
+
+<div id="headerWraper">
+        <h1>%%DeviceName%%</h1>
+</div>
+
+<div class="filepath"><p>
+<!--file_path-->
+</div></p>
+ 
+
+<table cellpadding="0" cellspacing="0" class="frameTable">
+<thead> 
+<tr>
+<td class="top_content">
+
+<!-- top table contents -->
+<table cellpadding="0" cellspacing="0">
+<tbody> 
+<tr>
+<div class="link_button">
+%%GotoParentDir%%
+<td class="top_content_table"><a href="" class="mylink" title="Reload" onClick="window.location.href=window.location.href"><img src="/root_989234ylsdfyy87e/icon_refresh.png" width="15" height="15"/>  Refresh</a></td>
+<td class="top_content_table"><a href="#" class="mylink" title="Create Folder" onClick="modalPopup('', 1, 0);"><img src="/root_989234ylsdfyy87e/icon_addfolder.png" width="20" height="14"/>  New folder</a></td>
+</div>
+</tr>
+</tbody> 
+</table>
+
+</td>
+</tr>
+</thead> 
+
+<tr>
+
+<!-- left table contents -->
+<td class="left_content">
+<div id="filesContent">
+<table cellpadding="0" cellspacing="0" class="filesTable">
+
+<thead> 
+<tr>
+<td class="hi"></td>
+<td class="hn">Filename</td>
+<td class="hm">Modify date</td>
+<td class="hs">File size</td>
+<td class="he"></td>
+<td class="hl"></td>
+</tr>
+</thead> 
+
+<tbody>
+%%FileItemLoop%%
+</tbody>
+</table>
+</div>
+
+<!-- <div class="copyright"><p>Copyright &copy; 2012 iMoreApps Inc. All Rights Reserved.</p></div>-->
+
+</td>
+
+<!-- right table contents -->
+<td class="right_content">
+<div id="file-uploader">		
+	<noscript>			
+		<p>Please enable JavaScript of your browser in order to upload files.</p>
+	</noscript>         
+</div>
+</td>
+
+
+</tr>
+</table>
+
+
+
+<!-- upload file script -->
+<script>        
+	function createUploader(){
+		var uploader = new qq.FileUploader({
+			element: document.getElementById('file-uploader')
+		});
+	}
+	window.onload = createUploader;
+</script>
+
+
+<!-- modal content -->
+<div id="modal-content">
+	<div id="modal-title"></div>
+	<div id="modal-text"></div>
+	<form name="input" action="" method="post">
+	<div id="modal-field"></div>
+	<input type="hidden" name="ID" id="ID">
+	<input type="submit" name="submitButton" id="submitButton">
+	</form>
+</div>
+
+</body>
+</html>

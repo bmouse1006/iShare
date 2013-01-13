@@ -1,0 +1,27 @@
+dependencies: \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/AppDelegate.m \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/AppDelegate.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/Class/UI/iPhone/MainTabbar/MainTabBarController.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/Class/UI/CustomUIComponents/CustomUIComponents.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/Class/Model/FileOperationWrap.h \
+  Unrar4iOS/RARExtractException.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/MPAudioPlayer/JJAudioPlayerManager.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/MPAudioPlayer/MDAudioFile.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/Class/UI/iPhone/ConfigUI/ISUserPreferenceDefine.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/Class/UI/iPhone/ConfigUI/BRSettingController/UserSetting/UserPreferenceDefine.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/Class/Services/JJHTTPSerivce/JJHTTPSerivce.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/Passcode/PAPasscode/PAPasscodeViewController.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/SVProgressHUD/SVProgressHUD.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/DropboxSDK.framework/Headers/DropboxSDK.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/DropboxSDK.framework/Headers/DBAccountInfo.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/DropboxSDK.framework/Headers/DBQuota.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/DropboxSDK.framework/Headers/DBSession.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/DropboxSDK.framework/Headers/MPOAuthCredentialConcreteStore.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/DropboxSDK.framework/Headers/MPOAuthCredentialStore.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/DropboxSDK.framework/Headers/MPOAuthParameterFactory.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/DropboxSDK.framework/Headers/DBRestClient.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/DropboxSDK.framework/Headers/DBRequest.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/DropboxSDK.framework/Headers/DBMetadata.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/DropboxSDK.framework/Headers/DBError.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/DropboxSDK.framework/Headers/NSString+Dropbox.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/DropboxSDK.framework/Headers/DBSession+iOS.h

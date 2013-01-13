@@ -21,6 +21,7 @@ typedef enum {
 @property (nonatomic, readonly) JJMoviePlaybackState playbackState;
 @property (nonatomic, assign) NSTimeInterval initialPlaybackTime;
 
+@property (nonatomic, readonly) UIWindow* window;
 @property (nonatomic, readonly) UIView* view;
 @property (nonatomic, readonly) UIView* backgroundView;
 
@@ -41,6 +42,7 @@ typedef enum {
 -(id)initWithInputStream:(NSInputStream*)inputStream;
 
 -(void)prepareToPlay;
+-(void)cleanUpPlay;
 //playback control
 -(void)play;
 -(void)stop;

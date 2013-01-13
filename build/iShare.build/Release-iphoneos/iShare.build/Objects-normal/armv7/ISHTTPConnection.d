@@ -1,0 +1,19 @@
+dependencies: \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/Class/Services/JJHTTPSerivce/ISHTTPConnection.m \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/Class/Services/JJHTTPSerivce/ISHTTPConnection.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/HTTPServer/Core/HTTPConnection.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/Class/UI/iPhone/ConfigUI/ISUserPreferenceDefine.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/Class/UI/iPhone/ConfigUI/BRSettingController/UserSetting/UserPreferenceDefine.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/HTTPServer/Core/HTTPMessage.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/HTTPServer/Core/Mime/MultipartMessageHeader.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/HTTPServer/Core/Mime/MultipartMessageHeaderField.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/HTTPServer/Core/Mime/MultipartFormDataParser.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/HTTPServer/Core/Responses/HTTPDynamicFileResponse.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/HTTPServer/Core/HTTPResponse.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/HTTPServer/Core/Responses/HTTPAsyncFileResponse.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/HTTPServer/Core/Responses/HTTPDataResponse.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/ThirdParty/HTTPServer/Core/Responses/HTTPFileResponse.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/Class/Services/JJHTTPSerivce/ISHTTPDownloadResponse.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/Class/Model/FileOperationWrap.h \
+  Unrar4iOS/RARExtractException.h \
+  /Users/jinjin/Documents/DevelopStuff/iOSProjects/iShare/iShare/Class/Model/NSDictionary+FileOperationWrap.h

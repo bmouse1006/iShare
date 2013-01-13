@@ -23,7 +23,7 @@
 #import "ISFileBrowserMenuCell.h"
 #import "TextEditorViewController.h"
 #import "ISFileBrowserCellInterface.h"
-//#import "JJMoviePlayerController.h"
+#import "JJMoviePlayerViewController.h"
 #import "LZMAExtractor.h"
 #import <MediaPlayer/MediaPlayer.h>
 #import <MessageUI/MessageUI.h>
@@ -263,10 +263,16 @@ static CGFloat kMessageTransitionDuration = 1.5f;
             case FileContentTypeAppleMovie:
             {
                 //当前先调用系统自带视频播放器
-                MPMoviePlayerViewController* moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:item.filePath]];
-                [self presentMoviePlayerViewControllerAnimated:moviePlayer];
+//                MPMoviePlayerViewController* moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:item.filePath]];
+//                [self presentMoviePlayerViewControllerAnimated:moviePlayer];
 //                JJMoviePlayerController* controller = [[JJMoviePlayerController alloc] initWithFilepath:item.filePath];
 //                [self.navigationController pushViewController:controller animated:YES];
+//                JJMoviePlayerController* controller = [[JJMoviePlayerController alloc] initWithFilepath:item.filePath];
+//                [controller prepareToPlay];
+//                [controller play];
+                JJMoviePlayerViewController* moviePlayer = [[JJMoviePlayerViewController alloc] initWithFilepath:item.filePath];
+                [self presentViewController:moviePlayer animated:YES completion:NULL];
+                
             }
                 break;
             case FileContentTypeMusic:

@@ -280,6 +280,7 @@
     NSDictionary* attribute = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:NULL];
 
     UIDocument* document = [[UIDocument alloc] initWithFileURL:[NSURL fileURLWithPath:filePath]];
+    NSString* ext = [filePath pathExtension];
 
     DebugLog(@"file type is %@", document.fileType);
     
@@ -296,7 +297,7 @@
         return FileContentTypePDF;
     }
     
-    if (UTTypeConformsTo((__bridge CFStringRef)(document.fileType), (CFStringRef)kUTTypeMovie)){
+    if (UTTypeConformsTo((__bridge CFStringRef)(document.fileType), (CFStringRef)kUTTypeMovie) || [[ext lowercaseString] isEqualToString:@"mkv"] || [[ext lowercaseString] isEqualToString:@"rmvb"]){
         return FileContentTypeAppleMovie;
     }
     
