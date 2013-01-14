@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "JJMoviePlayerController.h"
 
-@interface JJMoviePlayerViewController : UIViewController
+@interface JJMoviePlayerViewController : UIViewController<JJMoviePlayerControllerDelegate>
 
 -(id)initWithFilepath:(NSString*)filepath;
 

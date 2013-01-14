@@ -16,6 +16,8 @@
       frequency:(ALsizei)freq
          format:(int)format;
 
+-(int)numberOfQueuedBuffer;
+
 #pragma mark - play back control
 -(void)play;
 -(void)pause;

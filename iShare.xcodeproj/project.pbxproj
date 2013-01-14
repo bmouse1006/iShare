@@ -744,13 +744,10 @@
 		22FC34E915C7E7D00051AA21 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FC34E815C7E7D00051AA21 /* MessageUI.framework */; };
 		22FC34EF15C7E80E0051AA21 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FC34EE15C7E80E0051AA21 /* ImageIO.framework */; };
 		22FC34F115C7E8200051AA21 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FC34F015C7E8200051AA21 /* QuickLook.framework */; };
-		22FD8D701675E8C90022D4E8 /* AudioPlay.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD8D561675E8C90022D4E8 /* AudioPlay.h */; };
-		22FD8D711675E8C90022D4E8 /* AudioPlay.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FD8D571675E8C90022D4E8 /* AudioPlay.m */; };
 		22FD8D7C1675E8C90022D4E8 /* JJMoviePlayerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD8D6B1675E8C90022D4E8 /* JJMoviePlayerController.h */; };
 		22FD8D7D1675E8C90022D4E8 /* JJMoviePlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FD8D6C1675E8C90022D4E8 /* JJMoviePlayerController.m */; };
 		22FD8D7E1675E8C90022D4E8 /* Utilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD8D6E1675E8C90022D4E8 /* Utilities.h */; };
 		22FD8D7F1675E8C90022D4E8 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 22FD8D6F1675E8C90022D4E8 /* Utilities.m */; };
-		22FD8D901675E9E50022D4E8 /* libSDL.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22FD8D8B1675E9C80022D4E8 /* libSDL.a */; };
 		22FD8DD41675EA500022D4E8 /* avcodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD8D921675EA500022D4E8 /* avcodec.h */; };
 		22FD8DD51675EA500022D4E8 /* avfft.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD8D931675EA500022D4E8 /* avfft.h */; };
 		22FD8DD61675EA500022D4E8 /* dxva2.h in Headers */ = {isa = PBXBuildFile; fileRef = 22FD8D941675EA500022D4E8 /* dxva2.h */; };
@@ -886,27 +883,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4F1C6E0E1027B3CE00B46459;
 			remoteInfo = GTLTouchStaticLib;
-		};
-		22FD8D8A1675E9C80022D4E8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 22FD8D801675E9C80022D4E8 /* SDL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = FD6526630DE8FCCB002AD96B;
-			remoteInfo = libSDL;
-		};
-		22FD8D8C1675E9C80022D4E8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 22FD8D801675E9C80022D4E8 /* SDL.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 006E982211955059001DE610;
-			remoteInfo = testsdl;
-		};
-		22FD8D8E1675E9DC0022D4E8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 22FD8D801675E9C80022D4E8 /* SDL.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = FD6526620DE8FCCB002AD96B;
-			remoteInfo = libSDL;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1673,13 +1649,10 @@
 		22FC34E815C7E7D00051AA21 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		22FC34EE15C7E80E0051AA21 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		22FC34F015C7E8200051AA21 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
-		22FD8D561675E8C90022D4E8 /* AudioPlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioPlay.h; sourceTree = "<group>"; };
-		22FD8D571675E8C90022D4E8 /* AudioPlay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioPlay.m; sourceTree = "<group>"; };
 		22FD8D6B1675E8C90022D4E8 /* JJMoviePlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JJMoviePlayerController.h; sourceTree = "<group>"; };
 		22FD8D6C1675E8C90022D4E8 /* JJMoviePlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JJMoviePlayerController.m; sourceTree = "<group>"; };
 		22FD8D6E1675E8C90022D4E8 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
 		22FD8D6F1675E8C90022D4E8 /* Utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
-		22FD8D801675E9C80022D4E8 /* SDL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SDL.xcodeproj; path = "../../../../../SDL/Xcode-iOS/SDL/SDL.xcodeproj"; sourceTree = "<group>"; };
 		22FD8D921675EA500022D4E8 /* avcodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avcodec.h; sourceTree = "<group>"; };
 		22FD8D931675EA500022D4E8 /* avfft.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avfft.h; sourceTree = "<group>"; };
 		22FD8D941675EA500022D4E8 /* dxva2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dxva2.h; sourceTree = "<group>"; };
@@ -1777,7 +1750,6 @@
 				2253857115C7B6F900D8B4B7 /* Foundation.framework in Frameworks */,
 				2253857315C7B6F900D8B4B7 /* CoreGraphics.framework in Frameworks */,
 				220C6417162426B900AF89F0 /* DropboxSDK.framework in Frameworks */,
-				22FD8D901675E9E50022D4E8 /* libSDL.a in Frameworks */,
 				2216C8B61672BB4900D7641B /* libUnrar4iOS.a in Frameworks */,
 				221FD61E1676DF9100B4E422 /* libGTLTouchStaticLib.a in Frameworks */,
 				22436EBB1676D432008B8A12 /* libavcodec.a in Frameworks */,
@@ -3236,8 +3208,6 @@
 		22FD8D551675E8C90022D4E8 /* JJMediaPlayerController */ = {
 			isa = PBXGroup;
 			children = (
-				22FD8D561675E8C90022D4E8 /* AudioPlay.h */,
-				22FD8D571675E8C90022D4E8 /* AudioPlay.m */,
 				22FD8D581675E8C90022D4E8 /* ffmpeg */,
 				22FD8D6B1675E8C90022D4E8 /* JJMoviePlayerController.h */,
 				22FD8D6C1675E8C90022D4E8 /* JJMoviePlayerController.m */,
@@ -3245,7 +3215,6 @@
 				227CB0F81684A6400096559F /* JJMoviePlayerViewController.m */,
 				2201C6F616A146BD0030EE36 /* OpenALPlayer */,
 				22DFEA971698508D00AAF301 /* OpenGLESView */,
-				22FD8D6D1675E8C90022D4E8 /* SDL */,
 				22FD8D6E1675E8C90022D4E8 /* Utilities.h */,
 				22FD8D6F1675E8C90022D4E8 /* Utilities.m */,
 			);
@@ -3281,23 +3250,6 @@
 				22FD8E1E1676CEA70022D4E8 /* Release-iphonesimulator */,
 			);
 			path = lib;
-			sourceTree = "<group>";
-		};
-		22FD8D6D1675E8C90022D4E8 /* SDL */ = {
-			isa = PBXGroup;
-			children = (
-				22FD8D801675E9C80022D4E8 /* SDL.xcodeproj */,
-			);
-			path = SDL;
-			sourceTree = "<group>";
-		};
-		22FD8D811675E9C80022D4E8 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				22FD8D8B1675E9C80022D4E8 /* libSDL.a */,
-				22FD8D8D1675E9C80022D4E8 /* testsdl.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		22FD8D911675EA500022D4E8 /* libavcodec */ = {
@@ -3634,7 +3586,6 @@
 				2216C919167483D100D7641B /* RotateDefs.h in Headers */,
 				2216C91A167483D100D7641B /* Types.h in Headers */,
 				2216C91C167483D100D7641B /* 7zAlloc.h in Headers */,
-				22FD8D701675E8C90022D4E8 /* AudioPlay.h in Headers */,
 				22FD8D7C1675E8C90022D4E8 /* JJMoviePlayerController.h in Headers */,
 				22FD8D7E1675E8C90022D4E8 /* Utilities.h in Headers */,
 				22FD8DD41675EA500022D4E8 /* avcodec.h in Headers */,
@@ -3720,7 +3671,6 @@
 			);
 			dependencies = (
 				221FD61D1676DF7C00B4E422 /* PBXTargetDependency */,
-				22FD8D8F1675E9DC0022D4E8 /* PBXTargetDependency */,
 				2216C8B81672BBC400D7641B /* PBXTargetDependency */,
 			);
 			name = iShare;
@@ -3779,10 +3729,6 @@
 					ProjectRef = 221FD60A1676DF5300B4E422 /* GTL.xcodeproj */;
 				},
 				{
-					ProductGroup = 22FD8D811675E9C80022D4E8 /* Products */;
-					ProjectRef = 22FD8D801675E9C80022D4E8 /* SDL.xcodeproj */;
-				},
-				{
 					ProductGroup = 2216C8AC1672BA9400D7641B /* Products */;
 					ProjectRef = 2216C8AB1672BA9400D7641B /* Unrar4iOS.xcodeproj */;
 				},
@@ -3829,20 +3775,6 @@
 			fileType = "compiled.mach-o.executable";
 			path = DevelopmentTestTool;
 			remoteRef = 221FD61A1676DF5300B4E422 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		22FD8D8B1675E9C80022D4E8 /* libSDL.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libSDL.a;
-			remoteRef = 22FD8D8A1675E9C80022D4E8 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		22FD8D8D1675E9C80022D4E8 /* testsdl.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = testsdl.app;
-			remoteRef = 22FD8D8C1675E9C80022D4E8 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -4393,7 +4325,6 @@
 				2216C918167483D100D7641B /* Ppmd8Dec.c in Sources */,
 				2216C91B167483D100D7641B /* 7zAlloc.c in Sources */,
 				2216C91D167483D100D7641B /* 7zMain.c in Sources */,
-				22FD8D711675E8C90022D4E8 /* AudioPlay.m in Sources */,
 				22FD8D7D1675E8C90022D4E8 /* JJMoviePlayerController.m in Sources */,
 				22FD8D7F1675E8C90022D4E8 /* Utilities.m in Sources */,
 				227CB0FA1684A6400096559F /* JJMoviePlayerViewController.m in Sources */,
@@ -4431,11 +4362,6 @@
 			isa = PBXTargetDependency;
 			name = GTLTouchStaticLib;
 			targetProxy = 221FD61C1676DF7C00B4E422 /* PBXContainerItemProxy */;
-		};
-		22FD8D8F1675E9DC0022D4E8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = libSDL;
-			targetProxy = 22FD8D8E1675E9DC0022D4E8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

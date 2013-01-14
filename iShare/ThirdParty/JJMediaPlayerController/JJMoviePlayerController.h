@@ -14,6 +14,18 @@ typedef enum {
     JJMoviePlaybackStateStop
 } JJMoviePlaybackState;
 
+@class JJMoviePlayerController;
+
+@protocol JJMoviePlayerControllerDelegate <NSObject>
+
+@optional
+-(void)moviePlayerWillStartPlay:(JJMoviePlayerController*)player;
+-(void)moviePlayerDidStartPlay:(JJMoviePlayerController*)player;
+-(void)moviePlayerWillStopPlay:(JJMoviePlayerController*)player;
+-(void)moviePlayerDidStopPlay:(JJMoviePlayerController*)player;
+
+@end
+
 @interface JJMoviePlayerController : NSObject
 
 @property (nonatomic, readonly) CGSize natrualSize;
@@ -24,6 +36,8 @@ typedef enum {
 @property (nonatomic, readonly) UIWindow* window;
 @property (nonatomic, readonly) UIView* view;
 @property (nonatomic, readonly) UIView* backgroundView;
+
+@property (nonatomic, weak) id<JJMoviePlayerControllerDelegate> delegate;
 
 /**
  init of JJMoviePlayerController with file path
@@ -40,6 +54,7 @@ typedef enum {
  @exception nil
  */
 -(id)initWithInputStream:(NSInputStream*)inputStream;
+
 
 -(void)prepareToPlay;
 -(void)cleanUpPlay;

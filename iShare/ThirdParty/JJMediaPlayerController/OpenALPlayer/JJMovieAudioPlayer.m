@@ -48,7 +48,7 @@
 
     //生成一个source
     alGenSources(1, &_outSourceID);
-    alSpeedOfSound(1.0);
+    alSpeedOfSound(0.5);
     alDopplerVelocity(1.0);
     alDopplerFactor(1.0);
     alSourcef(_outSourceID, AL_PITCH, 1.0f);
@@ -65,7 +65,6 @@
 -(void)tearDownAL{
     alDeleteSources(1, &_outSourceID);
     alcCloseDevice(_mDevice);
-
 }
 
 /**
@@ -84,14 +83,13 @@
         alBufferData(bufferID, format, buffer, length, freq);
         //将buffer链接到一个source
         alSourceQueueBuffers(_outSourceID, 1, &bufferID);
-        
-        [self updatePlayBuffers];
         [self.condition unlock];
+        [self updatePlayBuffers];
     }
 }
 
 -(void)updatePlayBuffers{
-    
+//    [self.condition lock];
     [self play];
     
     int processed, queued;
@@ -99,8 +97,8 @@
     alGetSourcei(_outSourceID, AL_BUFFERS_PROCESSED, &processed);
     alGetSourcei(_outSourceID, AL_BUFFERS_QUEUED, &queued);
     
-    NSLog(@"Processed = %d\n", processed);
-    NSLog(@"Queued = %d\n", queued);
+//    NSLog(@"Processed = %d\n", processed);
+//    NSLog(@"Queued = %d\n", queued);
     
     while(processed--)
     {
@@ -108,6 +106,15 @@
         alSourceUnqueueBuffers(_outSourceID, 1, &buff);
         alDeleteBuffers(1, &buff);
     }
+//    [self.condition unlock];
+}
+
+#pragma mark - get duration in buffer
+-(int)numberOfQueuedBuffer{
+    int queued = 0;
+    alGetSourcei(_outSourceID, AL_BUFFERS_QUEUED, &queued);
+    
+    return queued;
 }
 
 #pragma mark - play back control

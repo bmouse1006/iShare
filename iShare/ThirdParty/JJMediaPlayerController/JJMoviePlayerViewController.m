@@ -7,7 +7,6 @@
 //
 
 #import "JJMoviePlayerViewController.h"
-#import "JJMoviePlayerController.h"
 
 @interface JJMoviePlayerViewController ()
 
@@ -27,6 +26,7 @@
     if (self){
         self.filepath = filepath;
         self.moviePlayerController = [[JJMoviePlayerController alloc] initWithFilepath:self.filepath];
+        self.moviePlayerController.delegate = self;
         self.wantsFullScreenLayout = YES;
     }
     
@@ -36,7 +36,7 @@
 -(void)loadView{
     //create container view
     UIView* view = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    view.backgroundColor = [UIColor redColor];
+    view.backgroundColor = [UIColor blackColor];
     self.view = view;
 }
 
@@ -95,7 +95,7 @@
     self.navigationBar.frame = frame;
     //layout control bar, make it in the bottom always
     //layout display view and make it fit to size
-    
+    [self resizeDisplayViewWithNatrualSize:self.moviePlayerController.natrualSize];
 }
 
 -(UIView*)rotatingHeaderView{
@@ -118,6 +118,28 @@
 
 -(void)pauseButtonClicked:(id)sender{
     
+}
+
+#pragma mark - movie player delegate
+-(void)moviePlayerWillStartPlay:(JJMoviePlayerController *)player{
+    [self resizeDisplayViewWithNatrualSize:player.natrualSize];
+}
+
+-(void)resizeDisplayViewWithNatrualSize:(CGSize)natrualSize{
+    //caculate view size
+    CGSize size = self.view.bounds.size;
+    CGFloat widthRation = size.width/natrualSize.width;
+    CGFloat heightRation = size.height/natrualSize.height;
+    
+    CGFloat ration = (widthRation < heightRation)?widthRation:heightRation;
+    
+    size = CGSizeApplyAffineTransform(natrualSize, CGAffineTransformMakeScale(ration, ration));
+    CGFloat x = CGRectGetMidX(self.view.bounds) - size.width/2;
+    CGFloat y = CGRectGetMidY(self.view.bounds) - size.height/2;
+    
+    CGRect frame = CGRectMake(x, y, size.width, size.height);
+    
+    self.moviePlayerController.view.frame = frame;
 }
 
 @end

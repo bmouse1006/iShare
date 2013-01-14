@@ -62,7 +62,6 @@ enum {
 
 @interface JJYUVDisplayView(){
     YUVBUFFER _yuvbuffer;
-    YUVVideoPicture* _videoPicture;
     
     uint _width;
     uint _height;
@@ -70,11 +69,7 @@ enum {
     GLuint _program;
     
     GLint uniforms[NUMBER_OF_UNIFORMS];
-}
-
-@end
-
-@interface JJYUVDisplayView (){
+    
     GLuint _verticesArray;
     GLuint _verticesBuffer;
 }
@@ -91,13 +86,6 @@ static const GLfloat verticesData[] = {
     -1.0f, 1.0f, 0.0f, 0.0f,
     1.0f, 1.0f, 1.0f, 0.0f
 };
-
-//static const GLfloat texCoords[] = {
-//    0.0f, 0.0f,
-//    1.0f, 0.0f,
-//    0.0f, 1.0f,
-//    1.0f, 1.0f
-//};
 
 -(void)dealloc{
     [self tearDownGL];
@@ -132,6 +120,7 @@ static const GLfloat verticesData[] = {
 }
 
 -(void)drawPicture{
+    //根据绑定好的顶点和纹理绘制OpenGL
     glBindVertexArrayOES(_verticesArray);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
@@ -177,21 +166,14 @@ static const GLfloat verticesData[] = {
     }
 }
 
-//update texture
--(void)uploadYV12Texture{
-    //抽取YUV分量数据到_yuvbuffer中
-    [self copyPictureFrom:_videoPicture];
-}
-
 -(void)setVideoPicture:(YUVVideoPicture*)picture{
     @synchronized(self.context){
-        _videoPicture = picture;
         if (_width != picture->width || _height != picture->height){
             [self freeYUVBuffer];
             [self YUVBufferInitWithWidth:picture->width height:picture->height];
         }
         
-        [self uploadYV12Texture];
+        [self copyYUVVectors:picture];
         [self display];
     }
 }
@@ -241,7 +223,8 @@ static const GLfloat verticesData[] = {
 }
 
 - (void)render {
-    glClearColor(0, 104.0/255.0, 55.0/255.0, 1.0);
+    //全黑
+    glClearColor(0, 0, 0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
 }
 
@@ -341,7 +324,6 @@ static const GLfloat verticesData[] = {
     _program = glCreateProgram();
 	
     // create and compile vertex shader
-//	vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"vsh"];
 	vertShaderPathname = [[NSBundle mainBundle] pathForResource:@"process" ofType:@"vsh"];
 	if (![self compileShader:&vertShader type:GL_VERTEX_SHADER file:vertShaderPathname])
 	{
@@ -350,7 +332,6 @@ static const GLfloat verticesData[] = {
 	}
 	
     // create and compile fragment shader
-//	fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"Shader" ofType:@"fsh"];
 	fragShaderPathname = [[NSBundle mainBundle] pathForResource:@"process" ofType:@"fsh"];
 	if (![self compileShader:&fragShader type:GL_FRAGMENT_SHADER file:fragShaderPathname])
 	{
@@ -376,6 +357,7 @@ static const GLfloat verticesData[] = {
 		return FALSE;
 	}
     
+    //获取shader中uniform变量的位置
     uniforms[UNIFORM_SAMPLE2D_Y] = glGetUniformLocation(_program, "SamplerY");
     uniforms[UNIFORM_SAMPLE2D_U] = glGetUniformLocation(_program, "SamplerU");
     uniforms[UNIFORM_SAMPLE2D_V] = glGetUniformLocation(_program, "SamplerV");
@@ -389,9 +371,9 @@ static const GLfloat verticesData[] = {
 	return TRUE;
 }
 
-//YUV数据的抽取
+//YUV分量的抽取
 //抽取到_yuvbuffer中
-- (void)copyPictureFrom:(YUVVideoPicture *)pic
+-(void)copyYUVVectors:(YUVVideoPicture*)pic
 {
     YV12Image* img = &(_yuvbuffer.image);
     BYTE *s = pic->data[0];
@@ -451,26 +433,23 @@ static const GLfloat verticesData[] = {
     [EAGLContext setCurrentContext:self.context];
     
     for (int i = 0; i<3; i++){
+        //删除原来已绑定的纹理
         glDeleteTextures(1, &(buffer->planes[i].ID));
         glActiveTexture(GL_TEXTURE0+i);
-        
+        //生成纹理
         glGenTextures(1, &(buffer->planes[i].ID));
+        //绑定至当前激活的纹理单元
         glBindTexture(GL_TEXTURE_2D, buffer->planes[i].ID);
-        /* 控制滤波 */
+        /* 设置纹理参数 */
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);//用于大小非2次幂的纹理
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        //将纹理图像发送给GPU
+        //将纹理图像发送给GPU，绑定纹理图像至当前激活纹理单元
         glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, buffer->planes[i].texwidth, buffer->planes[i].texheight, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, buffer->image.planeData[i]);
-        glUniform1i(uniforms[i], i);//绑定uniform变量到i号纹理单元
+        //绑定uniform变量到当前激活纹理单元
+        glUniform1i(uniforms[i], i);
     }
 }
-
-//#pragma mark - memory clean
-//-(void)cleanMemory{
-//    //delete texture
-//    glDeleteTextures(<#GLsizei n#>, <#const GLuint *textures#>)
-//}
 
 @end
