@@ -17,8 +17,8 @@
 #endif
 
 #ifdef DEBUG_MODE
-//#define DebugLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
-#define DebugLog( s, ... )
+#define DebugLog( s, ... ) NSLog( @"<%p %@:(%d)> %@", self, [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+//#define DebugLog( s, ... )
 #else
 #define DebugLog( s, ... )
 #endif

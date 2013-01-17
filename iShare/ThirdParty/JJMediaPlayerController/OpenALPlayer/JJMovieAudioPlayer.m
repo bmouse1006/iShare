@@ -9,7 +9,9 @@
 #import "JJMovieAudioPlayer.h"
 #import <OpenAL/alc.h>
 
-@interface JJMovieAudioPlayer ()
+@interface JJMovieAudioPlayer (){
+    int _queueLength;
+}
 
 @property (nonatomic, strong) NSCondition* condition;
 
@@ -48,13 +50,13 @@
 
     //生成一个source
     alGenSources(1, &_outSourceID);
-    alSpeedOfSound(0.5);
+    alSpeedOfSound(1.0);
     alDopplerVelocity(1.0);
     alDopplerFactor(1.0);
     alSourcef(_outSourceID, AL_PITCH, 1.0f);
     alSourcef(_outSourceID, AL_GAIN, 1.0f);
     alSourcei(_outSourceID, AL_LOOPING, AL_FALSE);
-    alSourcef(_outSourceID, AL_SOURCE_TYPE, AL_STREAMING);
+    alSourcei(_outSourceID, AL_SOURCE_TYPE, AL_STREAMING);
     
     //生成buffer
 //    glGenBuffers(1, &_bufferID);
@@ -63,8 +65,10 @@
 }
 
 -(void)tearDownAL{
+    
     alDeleteSources(1, &_outSourceID);
     alcCloseDevice(_mDevice);
+    
 }
 
 /**
@@ -75,7 +79,6 @@
  */
 -(void)moreData:(const ALvoid*)buffer length:(ALsizei)length frequency:(ALsizei)freq format:(int)format{
     @autoreleasepool {
-        [self.condition lock];
         ALuint bufferID;
         //生成buffer
         alGenBuffers(1, &bufferID);
@@ -83,38 +86,41 @@
         alBufferData(bufferID, format, buffer, length, freq);
         //将buffer链接到一个source
         alSourceQueueBuffers(_outSourceID, 1, &bufferID);
-        [self.condition unlock];
         [self updatePlayBuffers];
     }
 }
 
 -(void)updatePlayBuffers{
-//    [self.condition lock];
     [self play];
-    
     int processed, queued;
     
     alGetSourcei(_outSourceID, AL_BUFFERS_PROCESSED, &processed);
     alGetSourcei(_outSourceID, AL_BUFFERS_QUEUED, &queued);
     
-//    NSLog(@"Processed = %d\n", processed);
-//    NSLog(@"Queued = %d\n", queued);
+//    DebugLog(@"processed bufer is: %d", processed);
+//    DebugLog(@"queued bufer is: %d", queued);
     
+    _queueLength = queued - processed;
     while(processed--)
     {
         ALuint buff;
         alSourceUnqueueBuffers(_outSourceID, 1, &buff);
         alDeleteBuffers(1, &buff);
     }
-//    [self.condition unlock];
 }
 
 #pragma mark - get duration in buffer
 -(int)numberOfQueuedBuffer{
-    int queued = 0;
+    
+    int processed, queued;
+    
+    alGetSourcei(_outSourceID, AL_BUFFERS_PROCESSED, &processed);
     alGetSourcei(_outSourceID, AL_BUFFERS_QUEUED, &queued);
     
-    return queued;
+//    DebugLog(@"processed bufer is: %d", processed);
+//    DebugLog(@"queued bufer is: %d", queued);
+    
+    return queued - processed;
 }
 
 #pragma mark - play back control
@@ -139,10 +145,19 @@
 
 -(void)stop{
     alSourceStop(_outSourceID);
+    [self clearBuffers];
 }
 
--(void)resume{
-    [self play];
+-(void)clearBuffers{
+    int queued;
+    alGetSourcei(_outSourceID, AL_BUFFERS_QUEUED, &queued);
+    
+    while(queued--)
+    {
+        ALuint buff;
+        alSourceUnqueueBuffers(_outSourceID, 1, &buff);
+        alDeleteBuffers(1, &buff);
+    }
 }
 
 @end

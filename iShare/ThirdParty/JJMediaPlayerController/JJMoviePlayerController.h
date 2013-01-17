@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-    JJMoviePlaybackStatePlay,
-    JJMoviePlaybackStatePause,
-    JJMoviePlaybackStateStop
-} JJMoviePlaybackState;
+    JJMoviePlaybackStatusPlay,
+    JJMoviePlaybackStatusPause,
+    JJMoviePlaybackStatusStop
+} JJMoviePlaybackStatus;
 
 @class JJMoviePlayerController;
 
@@ -30,7 +30,7 @@ typedef enum {
 
 @property (nonatomic, readonly) CGSize natrualSize;
 @property (nonatomic, readonly) NSTimeInterval playableDuration;
-@property (nonatomic, readonly) JJMoviePlaybackState playbackState;
+@property (nonatomic, readonly) JJMoviePlaybackStatus playerStatus;
 @property (nonatomic, assign) NSTimeInterval initialPlaybackTime;
 
 @property (nonatomic, readonly) UIWindow* window;
@@ -56,7 +56,7 @@ typedef enum {
 -(id)initWithInputStream:(NSInputStream*)inputStream;
 
 
--(void)prepareToPlay;
+-(BOOL)prepareToPlay;
 -(void)cleanUpPlay;
 //playback control
 -(void)play;

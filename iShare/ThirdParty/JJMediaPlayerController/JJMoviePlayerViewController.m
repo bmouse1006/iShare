@@ -104,6 +104,7 @@
 
 #pragma mark - button action
 -(void)doneButtonClicked:(id)sender{
+    [self.moviePlayerController stop];
     [self dismissViewControllerAnimated:YES
                              completion:NULL];
 }

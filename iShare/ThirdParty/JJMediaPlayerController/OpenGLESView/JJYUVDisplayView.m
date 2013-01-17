@@ -97,7 +97,6 @@ static const GLfloat verticesData[] = {
     if (self){
         //初始化
         [self setupGL];
-        [self render];
         
         if ([self loadShaders] == NO){
             self = nil;
@@ -139,7 +138,6 @@ static const GLfloat verticesData[] = {
 - (void)YUVBufferInitWithWidth:(uint)width height:(uint)height
 {
     YV12Image* im = &(_yuvbuffer.image);      // YUV对应的参数
-//    YUVPLANES* planes = &(_yuvbuffer.planes);  // YUV对应的纹理
     
     _width = width;
     _height = height;
@@ -204,6 +202,7 @@ static const GLfloat verticesData[] = {
 }
 
 -(void)createVertexBuffers{
+    //绑定定点数组
     [EAGLContext setCurrentContext:self.context];
     
     glGenVertexArraysOES(1, &_verticesArray);
@@ -219,13 +218,6 @@ static const GLfloat verticesData[] = {
     glVertexAttribPointer(ATTRIB_TEXCOORD, 2, GL_FLOAT, GL_FALSE, 16, BUFFER_OFFSET(8));
     
     glBindVertexArrayOES(0);
-    
-}
-
-- (void)render {
-    //全黑
-    glClearColor(0, 0, 0, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 #pragma mark - shaders

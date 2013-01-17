@@ -318,11 +318,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/ThirdParty/JJMediaPlayerController/JJMoviePlayerController.m"
-         timestampString = "379836986.468698"
+         timestampString = "380039450.881286"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "910"
-         endingLineNumber = "910"
+         startingLineNumber = "1067"
+         endingLineNumber = "1067"
          landmarkName = "-queue_picture:withFrame:"
          landmarkType = "5">
       </FileBreakpoint>
