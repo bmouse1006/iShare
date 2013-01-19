@@ -297,7 +297,7 @@
         return FileContentTypePDF;
     }
     
-    if (UTTypeConformsTo((__bridge CFStringRef)(document.fileType), (CFStringRef)kUTTypeMovie) || [[ext lowercaseString] isEqualToString:@"mkv"] || [[ext lowercaseString] isEqualToString:@"rmvb"]){
+    if (UTTypeConformsTo((__bridge CFStringRef)(document.fileType), (CFStringRef)kUTTypeMovie) || [[ext lowercaseString] isEqualToString:@"mkv"] || [[ext lowercaseString] isEqualToString:@"rmvb" ] || [[ext lowercaseString] isEqualToString:@"vob"]){
         return FileContentTypeAppleMovie;
     }
     

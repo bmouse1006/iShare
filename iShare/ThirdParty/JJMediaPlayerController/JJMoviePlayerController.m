@@ -18,7 +18,7 @@
 #define MAX_AUDIOQ_SIZE (256 * 1024)
 #define MAX_VIDEOQ_SIZE (5 * 256 * 1024)
 
-#define VIDEO_PICTURE_QUEUE_SIZE 1
+#define VIDEO_PICTURE_QUEUE_SIZE 2
 
 #define VIDEO_FRAME_QUEUE_SIZE 5
 
@@ -71,8 +71,6 @@ typedef struct VideoState
 	VideoPicture    pictq[VIDEO_PICTURE_QUEUE_SIZE];
 	int             pictq_size, pictq_rindex, pictq_windex;
     
-	char            filename[1024];
-	int             quit;
 } VideoState;
 
 //
@@ -83,45 +81,93 @@ typedef struct VideoState
 //    SDL_PushEvent(&event);
 //}
 
-static int frame_queue_put(AVFrameQueue* q, AVFrame* frame){
-    AVFrameList* frameList1 = (AVFrameList*)av_malloc(sizeof(AVFrameList));
-    if (!frameList1){
-        return -1;
-    }
+//static int frame_queue_put(AVFrameQueue* q, AVFrame* frame){
+//    AVFrameList* frameList1 = (AVFrameList*)av_malloc(sizeof(AVFrameList));
+//    if (!frameList1){
+//        return -1;
+//    }
+//    
+//    frameList1->frame = *frame;
+//    frameList1->next = NULL;
+//    
+//    if (!q->last_frame){
+//        q->first_frame = frameList1;
+//    }else{
+//        q->last_frame->next = frameList1;
+//    }
+//    q->last_frame = frameList1;
+//    q->nb_frames++;
+//    
+//    return 0;
+//}
+//
+//static int frame_queue_get(AVFrameQueue* q, AVFrame* frame){
+//    AVFrameList* flist;
+//    
+//    flist = q->first_frame;
+//    if (flist){
+//        q->first_frame = flist->next;
+//        if (!q->first_frame){
+//            q->last_frame = NULL;
+//        }
+//        *frame = flist->frame;
+//        av_free(flist);
+//        q->nb_frames--;
+//        return 0;
+//    }else{
+//        return -1;
+//    }
+//}
+
+@interface JJMoviePlayerController (){
+	AVCodecContext *pVideoCodecCtx;
+	AVCodecContext *pAudioCodecCtx;
+    AVCodecContext *pSubtitleCodecCtx;
+    NSTimeInterval seekTime;
+    VideoState      *inputStream;
     
-    frameList1->frame = *frame;
-    frameList1->next = NULL;
+    BOOL _prepared;
+    BOOL _videoStartedPlaying;
     
-    if (!q->last_frame){
-        q->first_frame = frameList1;
-    }else{
-        q->last_frame->next = frameList1;
-    }
-    q->last_frame = frameList1;
-    q->nb_frames++;
+    int64_t _audioCurrentPTS;
+    int64_t _audioPacketDuration;
     
-    return 0;
+    JJMoviePlaybackStatus _status;
+    
+    double standard_refresh_time;
 }
 
-static int frame_queue_get(AVFrameQueue* q, AVFrame* frame){
-    AVFrameList* flist;
-    
-    flist = q->first_frame;
-    if (flist){
-        q->first_frame = flist->next;
-        if (!q->first_frame){
-            q->last_frame = NULL;
-        }
-        *frame = flist->frame;
-        av_free(flist);
-        q->nb_frames--;
-        return 0;
-    }else{
-        return -1;
-    }
-}
+@property (nonatomic, copy) NSString* streamPath;
 
-static int packet_queue_put(PacketQueue *q, AVPacket *pkt)
+@property (nonatomic, strong) UIView* internalView;
+@property (nonatomic, strong) UIView* internalBackgroundView;
+@property (nonatomic, strong) JJYUVDisplayView* displayView;
+@property (nonatomic, strong) JJMovieAudioPlayer* audioPlayer;
+
+@property (nonatomic, readonly) CGFloat outputWidth;
+@property (nonatomic, readonly) CGFloat outputHeight;
+//condition
+@property (nonatomic, strong) NSCondition* pictq_cond;
+@property (nonatomic, strong) NSCondition* videoStartedCondition;
+@property (nonatomic, strong) NSMutableSet* packetQueueConditions;
+@property (nonatomic, strong) NSLock* audioLock;
+@property (nonatomic, strong) NSCondition* statusLock;
+
+//video thread
+@property (nonatomic, strong) NSThread* videoThread;
+//audio thread
+@property (nonatomic, strong) NSThread* audioThread;
+//subtitle thread
+@property (nonatomic, strong) NSThread* subtitleThread;
+//stream decode thread
+@property (nonatomic, strong) NSThread* decodeThread;
+
+@end
+
+@implementation JJMoviePlayerController
+
+#pragma mark - queue operation
+-(int)packet_queue_put:(PacketQueue*)q packet:(AVPacket*)pkt
 {
 	AVPacketList *pkt1;
 	if(av_dup_packet(pkt) < 0)
@@ -146,13 +192,12 @@ static int packet_queue_put(PacketQueue *q, AVPacket *pkt)
 	return 0;
 }
 
-static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
+-(int)packet_queue_get:(PacketQueue*)q packet:(AVPacket*)pkt block:(BOOL)block
 {
 	AVPacketList *pkt1;
-	int ret;
+	int ret = 0;
     [q->cond lock];
-	for(;;)
-	{
+	while (true){
 		pkt1 = q->first_pkt;
 		if (pkt1)
 		{
@@ -166,64 +211,21 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
 			ret = 1;
 			break;
 		}
-		else if (!block)
+		else if (!block || _status == JJMoviePlaybackStatusStop)
 		{
 			ret = 0;
 			break;
 		}
 		else
 		{
+//            DebugLog(@"%@ is waiting", [NSThread currentThread].name);
             [q->cond wait];
+//            DebugLog(@"%@ is waked up", [NSThread currentThread].name);
 		}
 	}
     [q->cond unlock];
 	return ret;
 }
-
-@interface JJMoviePlayerController (){
-	AVCodecContext *pVideoCodecCtx;
-	AVCodecContext *pAudioCodecCtx;
-    AVCodecContext *pSubtitleCodecCtx;
-    NSTimeInterval seekTime;
-    VideoState      *inputStream;
-    
-    BOOL _prepared;
-    BOOL _videoStartedPlaying;
-    
-    int64_t _audioCurrentPTS;
-    int64_t _audioPacketDuration;
-    
-    JJMoviePlaybackStatus _status;
-}
-
-@property (nonatomic, copy) NSString* streamPath;
-
-@property (nonatomic, strong) UIView* internalView;
-@property (nonatomic, strong) UIView* internalBackgroundView;
-@property (nonatomic, strong) JJYUVDisplayView* displayView;
-@property (nonatomic, strong) JJMovieAudioPlayer* audioPlayer;
-
-@property (nonatomic, readonly) CGFloat outputWidth;
-@property (nonatomic, readonly) CGFloat outputHeight;
-//condition
-@property (nonatomic, strong) NSCondition* pictq_cond;
-@property (nonatomic, strong) NSCondition* videoStartedCondition;
-@property (nonatomic, strong) NSMutableSet* packetQueueConditions;
-@property (nonatomic, strong) NSLock* audioLock;
-@property (nonatomic, strong) NSLock* statusLock;
-
-//video thread
-@property (nonatomic, strong) NSThread* videoThread;
-//audio thread
-@property (nonatomic, strong) NSThread* audioThread;
-//subtitle thread
-@property (nonatomic, strong) NSThread* subtitleThread;
-//stream decode thread
-@property (nonatomic, strong) NSThread* decodeThread;
-
-@end
-
-@implementation JJMoviePlayerController
 
 /**
  clear queue
@@ -233,8 +235,9 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
  */
 -(void)packet_queue_clear:(PacketQueue*)q{
     AVPacket packet, *pkt = &packet;
-
-    while (packet_queue_get(q, pkt, 0) != 0) {
+    while ([self packet_queue_get:q
+                           packet:pkt
+                            block:NO] != 0) {
         av_free_packet(pkt);
     }
 }
@@ -247,6 +250,18 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
  */
 -(void)updatePlayerStatus:(JJMoviePlaybackStatus)status{
     [self.statusLock lock];
+    switch (_status) {
+        case JJMoviePlaybackStatusPlay:
+            break;
+        case JJMoviePlaybackStatusPause:
+            [self.statusLock broadcast];
+            break;
+        case JJMoviePlaybackStatusStop:
+            break;
+        default:
+            break;
+    }
+    
     _status = status;
     [self.statusLock unlock];
 }
@@ -312,6 +327,7 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
 }
 
 -(void)dealloc{
+    //release ffmpeg
     [self ffmpeg_release];
 }
 
@@ -329,12 +345,16 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
         self.audioLock = [[NSLock alloc] init];
         self.pictq_cond = [[NSCondition alloc] init];
         self.videoStartedCondition = [[NSCondition alloc] init];
+        self.statusLock = [[NSCondition alloc] init];
         self.packetQueueConditions = [NSMutableSet set];
-        
         [self createViews];
-        [self createInputStream:self.streamPath];
         
-        self.initialPlaybackTime = 0.0;
+        if ([self ffmpeg_init] == NO){
+            self = nil;
+            return self;
+        }
+        
+        self.playbackTime = 0.0;
         self.audioPlayer = [[JJMovieAudioPlayer alloc] init];
     }
     
@@ -404,8 +424,6 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
     
     [self.internalView addSubview:self.internalBackgroundView];
     [self.internalView addSubview:self.displayView];
-    
-    self.displayView.hidden = YES;
 }
 
 #pragma mark - create input stream
@@ -415,12 +433,11 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
  @return nil
  @exception nil
  */
--(void)createInputStream:(NSString*)filePath{
+-(void)createInputStream{
     inputStream = (VideoState *)av_mallocz(sizeof(VideoState));
-    strcpy(inputStream->filename, [filePath cStringUsingEncoding:NSUTF8StringEncoding]);
-    DebugLog(@"filename is %@", filePath);
     inputStream->videoStream= -1;
     inputStream->audioStream= -1;
+    inputStream->subtitleStream = -1;
 }
 
 #pragma mark - ffmpeg and SDL init/dealloc
@@ -431,6 +448,9 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
  @exception nil
  */
 -(BOOL)ffmpeg_init{
+    //create an input stream object before init ffmpeg
+    [self createInputStream];
+    
 	AVFormatContext *pFormatCtx = NULL;
     
     // Register all formats and codecs
@@ -442,7 +462,7 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
     int subtitle_index = -1;
     
 	// Open video file
-    if (avformat_open_input(&pFormatCtx, inputStream->filename, NULL, NULL) != 0){
+    if (avformat_open_input(&pFormatCtx, [self.streamPath cStringUsingEncoding:NSUTF8StringEncoding], NULL, NULL) != 0){
 		return NO; // Couldn't open file
     }
     // will interrupt blocking functions if we quit!
@@ -457,7 +477,7 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
     } // Couldn't find stream information
     
 	// Dump information about file onto standard error
-	av_dump_format(pFormatCtx, 0, inputStream->filename, 0);
+	av_dump_format(pFormatCtx, 0, [self.streamPath cStringUsingEncoding:NSUTF8StringEncoding], 0);
     
     // Find the best video stream
     if ((video_index =  av_find_best_stream(pFormatCtx, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0)) < 0) {
@@ -496,10 +516,25 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
 //release ffmpeg
 -(void)ffmpeg_release{
     // Close the codec
-    if (pVideoCodecCtx) avcodec_close(pVideoCodecCtx);
-    if (pAudioCodecCtx) avcodec_close(pAudioCodecCtx);
+    if (pVideoCodecCtx){
+        avcodec_close(pVideoCodecCtx);
+        pVideoCodecCtx = NULL;
+    }
+    if (pAudioCodecCtx){
+        avcodec_close(pAudioCodecCtx);
+        pAudioCodecCtx = NULL;
+    }
+    if (pSubtitleCodecCtx){
+        avcodec_close(pSubtitleCodecCtx);
+        pSubtitleCodecCtx = NULL;
+    }
     // Close the video file
-    if (inputStream->pFormatCtx) avformat_close_input(&(inputStream->pFormatCtx));
+    if (inputStream && inputStream->pFormatCtx){
+        avformat_close_input(&(inputStream->pFormatCtx));
+        inputStream->pFormatCtx = NULL;
+    }
+    //release ffmpeg
+    av_freep(inputStream);
 }
 
 #pragma mark - prepare to play
@@ -513,16 +548,10 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
 -(BOOL)prepareToPlay{
     //init ffmpeg
     if (_prepared == NO){
-        
         [self resetAudioDuration];
-        
-        if ([self ffmpeg_init] == NO){
-            //NSLog(@"ffmpeg or SDL init failed");
-            return NO;
-        }
         //demux video and audio stream
         //get them ready for play
-        [self seekTime:self.initialPlaybackTime];
+        [self seekTime:self.playbackTime];
         //create and run decode thread
         self.decodeThread = [[NSThread alloc] initWithTarget:self selector:@selector(decode_thread) object:nil];
         //start threads
@@ -548,11 +577,10 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
 
 #pragma mark - play back control
 -(void)play{
-    if ([self prepareToPlay]){
-        //add display view
-        self.displayView.hidden = NO;
+    if ([self prepareToPlay] && self.playerStatus != JJMoviePlaybackStatusPlay){
         //read video/audio/subtitle stream and play
         [self updatePlayerStatus:JJMoviePlaybackStatusPlay];
+        
         [self scheduleRefreshTimer:0.1];
         if ([self.delegate respondsToSelector:@selector(moviePlayerWillStartPlay:)]){
             [self.delegate moviePlayerWillStartPlay:self];
@@ -561,40 +589,71 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
 }
 
 -(void)stop{
+    if (self.playerStatus == JJMoviePlaybackStatusStop){
+        return;
+    }
     [self updatePlayerStatus:JJMoviePlaybackStatusStop];
-    //bring background view to th front
-    [self.internalView bringSubviewToFront:self.internalBackgroundView];
-    //stop audio
-    [self.audioPlayer stop];
-    //stop all thread
-    [self.decodeThread cancel];
+    //stop threads
     [self.videoThread cancel];
     [self.audioThread cancel];
     [self.subtitleThread cancel];
-    while ([self.decodeThread isExecuting] || [self.videoThread isExecuting] || [self.audioThread isExecuting] || [self.subtitleThread isExecuting]) {
+    
+    [self.packetQueueConditions makeObjectsPerformSelector:@selector(broadcast)];
+    [self.pictq_cond broadcast];
+    
+    while ([self.videoThread isExecuting] || [self.audioThread isExecuting] || [self.subtitleThread isExecuting]) {
         //wait until all thread stopped
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
     }
+    //stop decode thread
+    [self.decodeThread cancel];
+    while ([self.decodeThread isExecuting]){
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+    }
+    //stop audio
+    [self.audioPlayer stop];
     //clear all queues
     [self packet_queue_clear:&inputStream->videoq];
     [self packet_queue_clear:&inputStream->audioq];
     [self packet_queue_clear:&inputStream->subtitleq];
-    //release ffmpeg
-    [self ffmpeg_release];
-    //clean all queues
-    self.initialPlaybackTime = 0.0f;
+    //clear picture buffer
+    [self clear_picture_queue];
+    self.playbackTime = 0.0f;
+}
+
+-(void)clear_picture_queue{
+    while (inputStream->pictq_size-- > 0) {
+        if (++inputStream->pictq_rindex >= VIDEO_PICTURE_QUEUE_SIZE){
+            inputStream->pictq_rindex = 0;
+        }
+        
+        VideoPicture vp = inputStream->pictq[inputStream->pictq_rindex];
+        
+        avpicture_free(vp.content);
+        av_free(vp.content);
+    }
+    inputStream->pictq_rindex = 0;
+    inputStream->pictq_windex = 0;
 }
 
 -(void)pause{
     [self updatePlayerStatus:JJMoviePlaybackStatusPause];
+    //pause audio player
+    [self.audioPlayer pause];
+    //stop timer
+    
+}
+
+-(void)pauseThreadWhenPause{
+    [self.statusLock lock];
+    while (_status == JJMoviePlaybackStatusPause) {
+        [self.statusLock wait];
+    }
+    [self.statusLock unlock];
 }
 
 #pragma mark - refresh timer
 -(void)scheduleRefreshTimer:(NSTimeInterval)interval{
-    if (self.playerStatus != JJMoviePlaybackStatusPlay){
-        //do nothing
-        return;
-    }
     [NSTimer scheduledTimerWithTimeInterval:interval
                                      target:self
                                    selector:@selector(video_refresh_timer:)
@@ -618,6 +677,9 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
                 if(is->audioq.size > MAX_AUDIOQ_SIZE ||
                    is->videoq.size > MAX_VIDEOQ_SIZE)
                 {
+                    if (_status == JJMoviePlaybackStatusStop){
+                        break;
+                    }
                     [NSThread sleepForTimeInterval:0.01];
                     continue;
                 }
@@ -637,16 +699,19 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
                 if(pkt->stream_index == is->videoStream)
                 {
 //                NSLog(@"put video packet");
-                    packet_queue_put(&is->videoq, pkt);
+                    [self packet_queue_put:&is->videoq
+                                    packet:pkt];
                 }
                 else if(pkt->stream_index == is->audioStream)
                 {
 //                NSLog(@"put audio packet");
-                    packet_queue_put(&is->audioq, pkt);
+                    [self packet_queue_put:&is->audioq
+                                    packet:pkt];
                 }
                 else if(pkt->stream_index == is->subtitleStream){
 //                NSLog(@"put subtitle packet");
-                    packet_queue_put(&is->subtitleq, pkt);
+                    [self packet_queue_put:&is->subtitleq
+                                    packet:pkt];
                 }
                 else
                 {
@@ -664,24 +729,23 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
 #pragma mark - video thread
 -(int)video_thread{
     int len1, frameFinished = 0;
-//    NSTimeInterval time;
-    AVFrame frame, *ptrFrame = &frame;
+    standard_refresh_time = 1 / av_q2d(inputStream->video_st->r_frame_rate);
+    
+    AVFrame *ptrFrame = avcodec_alloc_frame();
     while([[NSThread currentThread] isCancelled] == NO)
     {
         @autoreleasepool {
+            [self pauseThreadWhenPause];
             AVPacket pkt1, *packet = &pkt1;
-//            DebugLog(@"start getting packets from video queue");
-            if(packet_queue_get(&inputStream->videoq, packet, 1) < 0)
+            if ([self packet_queue_get:&inputStream->videoq packet:packet block:YES] <= 0)
             {
                 // means we quit getting packets
                 DebugLog(@"quit getting packets");
                 //缓存帧入队列
                 break;
             }
-//            DebugLog(@"end getting packets from video queue");
             // Decode video frame
             len1 = avcodec_decode_video2(pVideoCodecCtx, ptrFrame, &frameFinished, packet);
-            av_free_packet(packet);
             // Did we get a video frame?
             if(frameFinished)
             {
@@ -699,9 +763,12 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
                 }
                 
             }
+            av_free_packet(packet);
         }
+
     }
-	
+    avcodec_free_frame(&ptrFrame);
+    
     NSLog(@"video thread finished");
     
 	return 0;
@@ -717,10 +784,10 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
         while ([[NSThread currentThread] isCancelled] == NO) {
             @autoreleasepool {
                 AVPacket pkt1, *packet = &pkt1;
-                if(packet_queue_get(&inputStream->subtitleq, packet, 1) < 0)
+                if ([self packet_queue_get:&inputStream->subtitleq packet:packet block:YES])
                 {
                     // means we quit getting packets
-                    DebugLog(@"quit getting audio packets");
+                    DebugLog(@"quit getting subtitle packets");
                     break;
                 }
                 
@@ -743,36 +810,33 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
 #pragma mark - audio thread
 -(int)audio_thread{
     @autoreleasepool {
-        static CFAbsoluteTime startedTime = -1;
         int len1, frameFinished = 0;
         AVCodecContext* codec = pAudioCodecCtx;
         //caculate sample buffer
         double timebase = av_q2d(inputStream->audio_st->time_base);
         int nb_channels = av_get_channel_layout_nb_channels(AV_CH_LAYOUT_STEREO);
-        //只要不是双声道立体声，不是AV_SAMPLE_FMT_U8或者AV_SAMPLE_FMT_S16格式的，都需要重新采样
-        BOOL needResample = (codec->channels > nb_channels || !(codec->sample_fmt == AV_SAMPLE_FMT_U8 || codec->sample_fmt == AV_SAMPLE_FMT_S16) );
-        int alFormat;
-        if (needResample){
-            alFormat = AL_FORMAT_STEREO16;
-        }else{
-            alFormat = [self openALSampleFormatFromCodec:pAudioCodecCtx];
-        }
+        //重采样的格式
+        int alFormat = AL_FORMAT_STEREO16;
         int avFormat = AV_SAMPLE_FMT_S16;
-        int sampleRate = codec->sample_rate;
         //resample context
         //不能改变采样率，不然会有噪音
+        int sampleRate = codec->sample_rate;
+        int64_t inlayout = codec->channel_layout;
+        if (inlayout == 0){
+            inlayout = av_get_default_channel_layout(codec->channels);
+        }
+        
         SwrContext* ctx = swr_alloc_set_opts(NULL,
                                              AV_CH_LAYOUT_STEREO, avFormat, sampleRate,
-                                             codec->channel_layout, codec->sample_fmt, codec->sample_rate, 0, NULL);
+                                             inlayout, codec->sample_fmt, codec->sample_rate, 0, NULL);
         swr_init(ctx);
         
-        AVFrame frame, *pFrame = &frame;
-        
+        AVFrame* pFrame = avcodec_alloc_frame();
         while([[NSThread currentThread] isCancelled] == NO)
         {
             @autoreleasepool {
                 AVPacket pkt1, *packet = &pkt1;
-                if(packet_queue_get(&inputStream->audioq, packet, 1) < 0)
+                if ([self packet_queue_get:&inputStream->audioq packet:packet block:YES] <= 0)
                 {
                     // means we quit getting packets
                     DebugLog(@"quit getting audio packets");
@@ -795,17 +859,12 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
                 
                 if(frameFinished)
                 {
-                    if (startedTime < 0){
-                        startedTime = CFAbsoluteTimeGetCurrent();
-                    }
-                    
                     //获取当前frame的播放时间
-//                    int64_t framepts = av_frame_get_best_effort_timestamp(pFrame);
                     [self.audioLock lock];
                     _audioPacketDuration = av_frame_get_pkt_duration(pFrame);
                     _audioCurrentPTS = av_frame_get_best_effort_timestamp(pFrame);;
                     [self.audioLock unlock];
-                    
+
                     while ([self.audioPlayer numberOfQueuedBuffer] > 800){
                         //OpenAL单个source中最大的buffer数量不能超过1024
                         //这里将上限设置为800，超过就睡眠半个音频包的时间
@@ -813,48 +872,52 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
                         [NSThread sleepForTimeInterval:_audioPacketDuration*timebase/2];
                     }
                 
-                    if (needResample){
-                        //对不是双声道或采用平面编码的音频进行重新采样，采样为立体声双声道，采样率不变（消除噪音），packet audio
-                        uint8_t *output;
-                        int out_samples = av_rescale_rnd(swr_get_delay(ctx, pFrame->sample_rate) +
-                                                        pFrame->nb_samples, sampleRate, pFrame->sample_rate, AV_ROUND_UP);
-                        av_samples_alloc(&output, NULL, nb_channels, out_samples,
-                                         AV_SAMPLE_FMT_S16, 0);
-                        out_samples = swr_convert(ctx, &output, out_samples,
-                                                  (const uint8_t **)pFrame->data, pFrame->nb_samples);
-                        int bufferSize = av_samples_get_buffer_size(NULL, nb_channels, out_samples, avFormat, 0);
-                        //send audio data to open al
+                    [self pauseThreadWhenPause];
+//                    
+//                    for (int i = 0 ; i<pFrame->linesize[0]; i++){
+//                        uint8_t unit = *(pFrame->data[0]+i);
+//                        for (int j = 0; j<8; j++){
+//                            printf("%d", unit&1);
+//                            unit = unit>>1;
+//                        }
+//                        printf(" ");
+//                    }
+                    
+                    //对不是双声道或采用平面编码的音频进行重新采样，采样为立体声双声道，采样率不变（消除噪音），packet audio
+                    uint8_t *output;
+                    int out_samples = av_rescale_rnd(swr_get_delay(ctx, pFrame->sample_rate) +
+                                                    pFrame->nb_samples, sampleRate, pFrame->sample_rate, AV_ROUND_UP);
+                    av_samples_alloc(&output, NULL, nb_channels, out_samples,
+                                     AV_SAMPLE_FMT_S16, 0);
+                    out_samples = swr_convert(ctx, &output, out_samples,
+                                              (const uint8_t **)pFrame->extended_data, pFrame->nb_samples);
+                    int bufferSize = av_samples_get_buffer_size(NULL, nb_channels, out_samples, avFormat, 0);
+                    //send audio data to open al
+                    
+                    [self.audioPlayer moreData:output
+                                        length:bufferSize
+                                     frequency:sampleRate
+                                        format:alFormat];
+                    //drain buffer
+                    while( (out_samples = swr_convert(ctx, &output, out_samples,
+                                                      NULL, 0)) > 0){
                         [self.audioPlayer moreData:output
                                             length:bufferSize
                                          frequency:sampleRate
                                             format:alFormat];
-                        //drain buffer
-                        while( (out_samples = swr_convert(ctx, &output, out_samples,
-                                                          NULL, 0)) > 0){
-                            [self.audioPlayer moreData:output
-                                                length:bufferSize
-                                             frequency:sampleRate
-                                                format:alFormat];
-                        };
-                        
-                        av_freep(&output);
-                    }else{
-                        //一般音频直接播放
-                        [self.audioPlayer moreData:pFrame->data[0]
-                                            length:pFrame->linesize[0]
-                                         frequency:pFrame->sample_rate
-                                            format:alFormat];
-                    }
+                    };
+                    
+                    av_freep(&output);
                     frameFinished = 0;
                 }
                 av_free_packet(packet);
             }
         }
-        
+        avcodec_free_frame(&pFrame);
         swr_free(&ctx);
     }
     
-    NSLog(@"video thread finished");
+    NSLog(@"audio thread finished");
 	
 	return 0;
 }
@@ -915,6 +978,7 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
             [self packet_queue_init:&(inputStream->audioq)];
             //start audio thread
             self.audioThread = [[NSThread alloc] initWithTarget:self selector:@selector(audio_thread) object:nil];
+            self.audioThread.name = @"Audio thread";
             [self.audioThread start];
             break;
         case AVMEDIA_TYPE_VIDEO:
@@ -926,6 +990,7 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
             [self packet_queue_init:&(inputStream->videoq)];
             //start video decode thread
             self.videoThread = [[NSThread alloc] initWithTarget:self selector:@selector(video_thread) object:nil];
+            self.videoThread.name = @"Video thread";
             [self.videoThread start];
             break;
         case AVMEDIA_TYPE_SUBTITLE:
@@ -936,6 +1001,7 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
             [self packet_queue_init:&(inputStream->subtitleq)];
             //start subtitle decode
 //            self.subtitleThread = [[NSThread alloc] initWithTarget:self selector:@selector(subtitle_thread) object:nil];
+//            self.subtitleThread.name = @"Subtitle thread";
 //            [self.subtitleThread start];
             break;
         default:
@@ -968,6 +1034,10 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
 }
 
 -(void)video_refresh_timer:(NSTimer*)timer{
+    if (self.playerStatus != JJMoviePlaybackStatusPlay){
+        //do nothing
+        return;
+    }
 	VideoState *is = inputStream;
 	VideoPicture *vp;
     
@@ -978,10 +1048,6 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
     static double refresh_time = 0.04;
     
     @autoreleasepool {
-        double standard_refresh_time = 0.04;
-        if (inputStream->video_st){
-            standard_refresh_time = 1 / av_q2d(inputStream->video_st->r_frame_rate);
-        }
         
         if(is->video_st)
         {
@@ -993,7 +1059,7 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
             {
                 vp = &is->pictq[is->pictq_rindex];
                 //获得当前音频播放时间
-                double audioPlayedDuration = [self audioPlayedDuration] + standard_refresh_time;
+                double audioPlayedDuration = [self audioPlayedDuration] + standard_refresh_time*2;
                 //对比当前帧的pts*timebase
                 AVRational base = inputStream->video_st->time_base;
                 
@@ -1014,6 +1080,7 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
                     }
                 }
                 
+//                DebugLog(@"refresh time is %.5f", refresh_time);
                 [self scheduleRefreshTimer:refresh_time];
                 /* show the picture! */
                 [self video_display:is];
@@ -1053,22 +1120,20 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
 
 #pragma mark - queue picture
 -(int)queue_picture:(VideoState*)is withFrame:(AVFrame*)pFrame{
-	//printf("queue_picture called/n");
     //modify
     //queue decoded frame
 	VideoPicture *vp;
     
 	/* wait until we have space for a new pic */
     [self.pictq_cond lock];
-	while(is->pictq_size >= VIDEO_PICTURE_QUEUE_SIZE &&
-          !is->quit){
+	while(is->pictq_size >= VIDEO_PICTURE_QUEUE_SIZE){
+        if (_status == JJMoviePlaybackStatusStop){
+            [self.pictq_cond unlock];
+            return -1;
+        }
         [self.pictq_cond wait];
 	}
     [self.pictq_cond unlock];
-    
-	if(is->quit){
-		return -1;
-    }
     
 	// windex is set to 0 initially
 	vp = &is->pictq[is->pictq_windex];
@@ -1087,14 +1152,10 @@ static int packet_queue_get(PacketQueue *q, AVPacket *pkt, int block)
         
 		/* wait until we have a picture allocated */
         [self.pictq_cond lock];
-		while(!vp->allocated && !is->quit){
+		while(!vp->allocated){
             [self.pictq_cond wait];	//没有得到消息时解锁，得到消息后加锁，和SDL_CondSignal配对使用
 		}
         [self.pictq_cond unlock];
-		if(is->quit)
-		{
-			return -1;
-		}
 	}
 	/* We have a place to put our picture on the queue */
     

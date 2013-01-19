@@ -72,6 +72,8 @@ enum {
     
     GLuint _verticesArray;
     GLuint _verticesBuffer;
+    
+    BOOL _hasVideo;
 }
 
 @property (nonatomic, strong) EAGLContext* context;
@@ -97,7 +99,7 @@ static const GLfloat verticesData[] = {
     if (self){
         //初始化
         [self setupGL];
-        
+        [self renderColor];
         if ([self loadShaders] == NO){
             self = nil;
         }
@@ -108,13 +110,20 @@ static const GLfloat verticesData[] = {
     return self;
 }
 
+-(void)renderColor{
+    glClearColor(0.0, 0.0, 0.0, 1);
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect{
     @synchronized(self.context){
-        glClear(GL_COLOR_BUFFER_BIT);
-        glUseProgram(_program);
-        //将3个YUV分量绑定到texture
-        [self bindTextureFromBuffer:&_yuvbuffer];
-        [self drawPicture];
+        [self renderColor];
+        if (_hasVideo){
+            glUseProgram(_program);
+            //将3个YUV分量绑定到texture
+            [self bindTextureFromBuffer:&_yuvbuffer];
+            [self drawPicture];
+        }
     }
 }
 
@@ -173,6 +182,8 @@ static const GLfloat verticesData[] = {
         
         [self copyYUVVectors:picture];
         [self display];
+        
+        _hasVideo = YES;
     }
 }
 #pragma mark - GL setup and tear down
@@ -196,15 +207,13 @@ static const GLfloat verticesData[] = {
 - (void)setupGL {
     EAGLRenderingAPI api = kEAGLRenderingAPIOpenGLES2;
     self.context = [[EAGLContext alloc] initWithAPI:api];
-    self.drawableDepthFormat = GLKViewDrawableDepthFormat24;
-    
+    [EAGLContext setCurrentContext:self.context];
+    self.drawableDepthFormat = GLKViewDrawableDepthFormatNone;
     [self createVertexBuffers];
 }
 
 -(void)createVertexBuffers{
     //绑定定点数组
-    [EAGLContext setCurrentContext:self.context];
-    
     glGenVertexArraysOES(1, &_verticesArray);
     glBindVertexArrayOES(_verticesArray);
     
@@ -421,9 +430,6 @@ static const GLfloat verticesData[] = {
 
 #pragma mark - bind texture
 -(void)bindTextureFromBuffer:(YUVBUFFER*)buffer{
-    
-    [EAGLContext setCurrentContext:self.context];
-    
     for (int i = 0; i<3; i++){
         //删除原来已绑定的纹理
         glDeleteTextures(1, &(buffer->planes[i].ID));

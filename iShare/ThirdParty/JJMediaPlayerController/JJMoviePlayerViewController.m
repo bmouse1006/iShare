@@ -58,11 +58,13 @@
     //create and add control button
     UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done" style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonClicked:)];
     UIBarButtonItem* playButton = [[UIBarButtonItem alloc] initWithTitle:@"Play" style:UIBarButtonItemStylePlain target:self action:@selector(playButtonClickedd:)];
+    UIBarButtonItem* pauseButton = [[UIBarButtonItem alloc] initWithTitle:@"Pause" style:UIBarButtonItemStylePlain target:self action:@selector(pauseButtonClicked:)];
     
     UINavigationItem* navigationItem = [[UINavigationItem alloc] initWithTitle:@"title"];
-    navigationItem.rightBarButtonItem = doneButton;
-    navigationItem.leftBarButtonItem = playButton;
+    navigationItem.rightBarButtonItems = @[doneButton];
+    navigationItem.leftBarButtonItems = @[pauseButton, playButton];
     self.navigationBar.items = @[navigationItem];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -118,7 +120,7 @@
 }
 
 -(void)pauseButtonClicked:(id)sender{
-    
+    [self.moviePlayerController pause];
 }
 
 #pragma mark - movie player delegate

@@ -877,7 +877,7 @@
 			remoteGlobalIDString = 4F1AD9020B71603F00DC0485;
 			remoteInfo = DevelopmentTestTool;
 		};
-		221FD61C1676DF7C00B4E422 /* PBXContainerItemProxy */ = {
+		2258A34A16A862A600E2B17C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 221FD60A1676DF5300B4E422 /* GTL.xcodeproj */;
 			proxyType = 1;
@@ -3670,7 +3670,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				221FD61D1676DF7C00B4E422 /* PBXTargetDependency */,
+				2258A34B16A862A600E2B17C /* PBXTargetDependency */,
 				2216C8B81672BBC400D7641B /* PBXTargetDependency */,
 			);
 			name = iShare;
@@ -4358,10 +4358,10 @@
 			name = Unrar4iOS;
 			targetProxy = 2216C8B71672BBC400D7641B /* PBXContainerItemProxy */;
 		};
-		221FD61D1676DF7C00B4E422 /* PBXTargetDependency */ = {
+		2258A34B16A862A600E2B17C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = GTLTouchStaticLib;
-			targetProxy = 221FD61C1676DF7C00B4E422 /* PBXContainerItemProxy */;
+			targetProxy = 2258A34A16A862A600E2B17C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
