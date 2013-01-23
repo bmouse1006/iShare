@@ -68,6 +68,12 @@
     }
     
     self.thumbnailImageView.image = [[FileOperationWrap sharedWrap] thumbnailForFile:self.item.filePath previewEnabled:[ISUserPreferenceDefine enableThumbnail]];
+//    [[FileOperationWrap sharedWrap] requestThumbnailForFile:self.item.filePath
+//                                             previewEnabled:[ISUserPreferenceDefine enableThumbnail]
+//                                            completionBlock:^(UIImage* image){
+//                                                self.thumbnailImageView.image = image;
+//                                            }];
+    
     NSString* dateString = [NSString stringWithFormat:@"%@", [self.item.attributes modificationDateWithFormate:@"yyyy-MM-dd HH:mm"]];
     self.detailTextLabel.text = dateString;
     

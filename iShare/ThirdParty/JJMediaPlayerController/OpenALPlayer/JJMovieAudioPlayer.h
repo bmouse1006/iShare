@@ -18,6 +18,9 @@
 
 -(int)numberOfQueuedBuffer;
 
+-(CGFloat)currentVolume;
+-(void)setVolume:(CGFloat)volume;
+
 #pragma mark - play back control
 -(void)play;
 -(void)pause;

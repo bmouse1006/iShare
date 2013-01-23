@@ -20,10 +20,12 @@ typedef enum {
 @protocol JJMoviePlayerControllerDelegate <NSObject>
 
 @optional
--(void)moviePlayerWillStartPlay:(JJMoviePlayerController*)player;
--(void)moviePlayerDidStartPlay:(JJMoviePlayerController*)player;
--(void)moviePlayerWillStopPlay:(JJMoviePlayerController*)player;
--(void)moviePlayerDidStopPlay:(JJMoviePlayerController*)player;
+-(void)moviePlayerWillStart:(JJMoviePlayerController*)player;
+-(void)moviePlayerDidStart:(JJMoviePlayerController*)player;
+-(void)moviePlayerWillStop:(JJMoviePlayerController*)player;
+-(void)moviePlayerDidStop:(JJMoviePlayerController*)player;
+-(void)moviePlayerWillPause:(JJMoviePlayerController*)player;
+-(void)moviePlayerDidPause:(JJMoviePlayerController*)player;
 
 @end
 
@@ -31,7 +33,7 @@ typedef enum {
 
 @property (nonatomic, readonly) CGSize natrualSize;
 @property (nonatomic, readonly) NSTimeInterval playableDuration;
-@property (nonatomic, readonly) JJMoviePlaybackStatus playerStatus;
+@property (nonatomic, readonly) JJMoviePlaybackStatus status;
 @property (nonatomic, assign) NSTimeInterval playbackTime;
 
 @property (nonatomic, readonly) UIWindow* window;
@@ -39,6 +41,16 @@ typedef enum {
 @property (nonatomic, readonly) UIView* backgroundView;
 
 @property (nonatomic, weak) id<JJMoviePlayerControllerDelegate> delegate;
+
+/**
+ get a snapshot synchnizly
+ @param file url, time, completion block
+ @return nil
+ @exception nil
+ */
++(void)requestSnapshotOfMovie:(NSString*)filePath
+                       atTime:(NSTimeInterval)time
+              completionBlock:(void(^)(UIImage*))block;
 
 /**
  init of JJMoviePlayerController with file path
@@ -63,5 +75,8 @@ typedef enum {
 -(void)play;
 -(void)stop;
 -(void)pause;
+
+-(CGFloat)currentVolume;
+-(void)setVolume:(CGFloat)volume;
 
 @end

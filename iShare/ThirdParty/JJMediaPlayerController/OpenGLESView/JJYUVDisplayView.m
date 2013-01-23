@@ -82,7 +82,7 @@ enum {
 
 @implementation JJYUVDisplayView
 
-static const GLfloat verticesData[] = {
+static GLfloat verticesData[] = {
     -1.0f, -1.0f, 0.0f, 1.0f,
     1.0f, -1.0f, 1.0f, 1.0f,
     -1.0f, 1.0f, 0.0f, 0.0f,
@@ -110,9 +110,52 @@ static const GLfloat verticesData[] = {
     return self;
 }
 
+-(void)layoutSubviews{
+    [super layoutSubviews];
+    //根据新的显示比例计算需要从原始图像中扣取的图像大小
+    double scale = [UIScreen mainScreen].scale;
+    CGSize natrualSize = CGSizeMake(_width, _height);
+    CGSize displaySize = CGSizeApplyAffineTransform(self.frame.size, CGAffineTransformMakeScale(scale, scale));
+    
+    double r = MIN(natrualSize.height/displaySize.height, natrualSize.width/displaySize.width);
+    
+    CGSize scaledNatrualSize = CGSizeApplyAffineTransform(natrualSize, CGAffineTransformMakeScale(1/r, 1/r));
+    
+    CGPoint origin = CGPointMake((scaledNatrualSize.width-displaySize.width)/2/scaledNatrualSize.width, (scaledNatrualSize.height-displaySize.height)/2/scaledNatrualSize.height);
+    CGSize size = CGSizeMake(displaySize.width/scaledNatrualSize.width, displaySize.height/scaledNatrualSize.height);
+    
+    [self updateTextureCropWithOrigin:origin size:size];
+    
+    [self display];
+}
+
 -(void)renderColor{
     glClearColor(0.0, 0.0, 0.0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
+}
+
+-(void)updateTextureCropWithOrigin:(CGPoint)origin size:(CGSize)size{
+    //the same coordinate system as texture
+    @synchronized(self.context){
+        float x = origin.x;
+        float y = origin.y;
+        float width = size.width;
+        float height = size.height;
+        
+        //set vertext
+        //set texture coord
+        verticesData[2] = x;
+        verticesData[3] = y+height;
+        verticesData[6] = x+width;
+        verticesData[7] = y+height;
+        verticesData[10] = x;
+        verticesData[11] = y;
+        verticesData[14] = x+width;
+        verticesData[15] = y;
+        
+        [self deleteVerticesBuffer];
+        [self createVertexBuffers];
+    }
 }
 
 - (void)glkView:(GLKView *)view drawInRect:(CGRect)rect{
@@ -178,6 +221,7 @@ static const GLfloat verticesData[] = {
         if (_width != picture->width || _height != picture->height){
             [self freeYUVBuffer];
             [self YUVBufferInitWithWidth:picture->width height:picture->height];
+            [self setNeedsLayout];
         }
         
         [self copyYUVVectors:picture];
@@ -189,19 +233,23 @@ static const GLfloat verticesData[] = {
 #pragma mark - GL setup and tear down
 -(void)tearDownGL{
     [EAGLContext setCurrentContext:self.context];
-    
+
     for (int i = 0; i<3;i++){
         glDeleteTextures(1, &(_yuvbuffer.planes[i].ID));
         _yuvbuffer.planes[i].ID = 0;
     }
+ 
+    [self deleteVerticesBuffer];
     
-    glDeleteBuffers(1, &_verticesBuffer);
-    glDeleteVertexArraysOES(1, &_verticesArray);
-     
     if (_program) {
         glDeleteProgram(_program);
         _program = 0;
     }
+}
+
+-(void)deleteVerticesBuffer{
+    glDeleteBuffers(1, &_verticesBuffer);
+    glDeleteVertexArraysOES(1, &_verticesArray);
 }
 
 - (void)setupGL {
@@ -209,7 +257,7 @@ static const GLfloat verticesData[] = {
     self.context = [[EAGLContext alloc] initWithAPI:api];
     [EAGLContext setCurrentContext:self.context];
     self.drawableDepthFormat = GLKViewDrawableDepthFormatNone;
-    [self createVertexBuffers];
+    [self updateTextureCropWithOrigin:CGPointMake(0, 0) size:CGSizeMake(1, 1)];
 }
 
 -(void)createVertexBuffers{
@@ -438,13 +486,13 @@ static const GLfloat verticesData[] = {
         glGenTextures(1, &(buffer->planes[i].ID));
         //绑定至当前激活的纹理单元
         glBindTexture(GL_TEXTURE_2D, buffer->planes[i].ID);
+        //将纹理图像发送给GPU，绑定纹理图像至当前激活纹理单元
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, buffer->planes[i].texwidth, buffer->planes[i].texheight, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, buffer->image.planeData[i]);
         /* 设置纹理参数 */
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);//用于大小非2次幂的纹理
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        //将纹理图像发送给GPU，绑定纹理图像至当前激活纹理单元
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_LUMINANCE, buffer->planes[i].texwidth, buffer->planes[i].texheight, 0, GL_LUMINANCE, GL_UNSIGNED_BYTE, buffer->image.planeData[i]);
         //绑定uniform变量到当前激活纹理单元
         glUniform1i(uniforms[i], i);
     }

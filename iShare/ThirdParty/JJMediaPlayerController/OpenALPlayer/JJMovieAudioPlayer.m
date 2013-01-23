@@ -38,6 +38,8 @@
     return self;
 }
 
+
+
 -(void)setupAL{
     //获取device
     _mDevice=alcOpenDevice(NULL);
@@ -53,7 +55,7 @@
     alDopplerVelocity(1.0);
     alDopplerFactor(1.0);
     alSourcef(_outSourceID, AL_PITCH, 1.0f);
-    alSourcef(_outSourceID, AL_GAIN, 1.0f);
+    alSourcef(_outSourceID, AL_GAIN, Volume);
     alSourcei(_outSourceID, AL_LOOPING, AL_FALSE);
     alSourcei(_outSourceID, AL_SOURCE_TYPE, AL_STREAMING);
 }
@@ -109,6 +111,18 @@
     }
     
     [self.condition unlock];
+}
+
+#pragma mark - setter and getter
+static CGFloat Volume = 1.0f;
+
+-(CGFloat)currentVolume{
+    return Volume;
+}
+
+-(void)setVolume:(CGFloat)volume{
+    Volume = volume;
+    alSourcef(_outSourceID, AL_GAIN, volume);
 }
 
 #pragma mark - get duration in buffer

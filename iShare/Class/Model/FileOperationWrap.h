@@ -34,6 +34,7 @@ typedef enum{
 -(void)removeFileItems:(NSArray*)fileItems withCompletionBlock:(FileOperationCompletionBlock)block;
 
 -(UIImage*)thumbnailForFile:(NSString*)filePath previewEnabled:(BOOL)previewEnabled;
+-(void)requestThumbnailForFile:(NSString*)filePath previewEnabled:(BOOL)previewEnabled completionBlock:(void(^)(UIImage*))block;
 -(NSString*)thumbnailNameForFile:(NSString*)filePath;
 
 -(BOOL)createDirectoryWithName:(NSString*)name path:(NSString*)path;

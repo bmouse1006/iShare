@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/Class/Model/FileOperationWrap.m"
-         timestampString = "379609889.191254"
+         timestampString = "380478284.056144"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "286"
-         endingLineNumber = "286"
+         startingLineNumber = "329"
+         endingLineNumber = "329"
          landmarkName = "-fileTypeWithFilePath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -60,11 +60,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/Class/Model/FileOperationWrap.m"
-         timestampString = "376758716.886046"
+         timestampString = "380478284.056144"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "264"
-         endingLineNumber = "264"
+         startingLineNumber = "307"
+         endingLineNumber = "307"
          landmarkName = "@implementation FileOperationWrap"
          landmarkType = "3">
       </FileBreakpoint>
@@ -138,11 +138,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/Class/Model/FileOperationWrap.m"
-         timestampString = "376651195.132162"
+         timestampString = "380478284.056144"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "42"
-         endingLineNumber = "42"
+         startingLineNumber = "43"
+         endingLineNumber = "43"
          landmarkName = "-createDirectoryWithName:path:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -214,11 +214,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/Class/Model/FileOperationWrap.m"
-         timestampString = "376758716.886046"
+         timestampString = "380478284.056144"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "175"
-         endingLineNumber = "175"
+         startingLineNumber = "176"
+         endingLineNumber = "176"
          landmarkName = "-unrarFileAtFilePath:toFolder:withPassword:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -227,11 +227,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/Class/Model/FileOperationWrap.m"
-         timestampString = "376758716.886046"
+         timestampString = "380478284.056144"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "274"
-         endingLineNumber = "274"
+         startingLineNumber = "317"
+         endingLineNumber = "317"
          landmarkName = "-allFilesWithFileContentType:inFolder:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -279,11 +279,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/Class/Model/FileOperationWrap.m"
-         timestampString = "376758716.886046"
+         timestampString = "380478284.056144"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "174"
-         endingLineNumber = "174"
+         startingLineNumber = "175"
+         endingLineNumber = "175"
          landmarkName = "-unrarFileAtFilePath:toFolder:withPassword:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -318,11 +318,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/ThirdParty/JJMediaPlayerController/JJMoviePlayerController.m"
-         timestampString = "380254481.606203"
+         timestampString = "380560677.675246"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1133"
-         endingLineNumber = "1133"
+         startingLineNumber = "1268"
+         endingLineNumber = "1268"
          landmarkName = "-queue_picture:withFrame:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -337,6 +337,19 @@
          startingLineNumber = "111"
          endingLineNumber = "111"
          landmarkName = "-play"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "iShare/ThirdParty/JJMediaPlayerController/JJMoviePlayerViewController.m"
+         timestampString = "380560817.798046"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "251"
+         endingLineNumber = "251"
+         landmarkName = "-updateDisplayViewWithStyle:animated:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

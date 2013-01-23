@@ -166,6 +166,125 @@ typedef struct VideoState
 
 @implementation JJMoviePlayerController
 
+#pragma mark - request for snapshot
++(void)requestSnapshotOfMovie:(NSString*)filePath
+                       atTime:(NSTimeInterval)time
+              completionBlock:(void(^)(UIImage*))block{
+    
+    void(^finishBlock)(UIImage*) = ^(UIImage* image){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (block){
+                block(image);
+            }
+        });
+    };
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        AVFormatContext *pFormatCtx = NULL;
+        
+        // Register all formats and codecs
+        avcodec_register_all();
+        av_register_all();
+        
+        // Open video file
+        if (avformat_open_input(&pFormatCtx, [filePath cStringUsingEncoding:NSUTF8StringEncoding], NULL, NULL) < 0){
+            finishBlock(nil);
+        }
+        
+        // Retrieve stream information
+        if (avformat_find_stream_info(pFormatCtx, NULL) < 0){
+            finishBlock(nil);
+        } // Couldn't find stream information
+        
+        // Find the best video stream
+        int video_index = -1;
+        if ((video_index =  av_find_best_stream(pFormatCtx, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0)) < 0) {
+            finishBlock(nil);
+        }
+        
+        AVStream* video_st = pFormatCtx->streams[video_index];
+        
+        
+        AVCodecContext *codecCtx;
+        AVCodec *codec;
+        
+        // Get a pointer to the codec context for the video stream
+        codecCtx = pFormatCtx->streams[video_index]->codec;
+        codec = avcodec_find_decoder(codecCtx->codec_id);
+        AVDictionary* opt = NULL;
+        if(!codec || (avcodec_open2(codecCtx, codec, &opt) < 0)){
+            finishBlock(nil);
+        }
+        //seek frame
+        AVRational timeBase = video_st->time_base;
+        int64_t targetFrame = (int64_t)((double)timeBase.den / timeBase.num * time);
+        avformat_seek_file(pFormatCtx, video_index, targetFrame, targetFrame, targetFrame, AVSEEK_FLAG_FRAME);
+//        avcodec_flush_buffers(codecCtx);
+        
+        
+        UIImage* image = nil;
+        
+        AVPacket packet, *pkt = &packet;
+        AVFrame *pFrame = avcodec_alloc_frame();
+        // Is this a packet from the video stream?
+        int frameFinished=0;
+        
+        while(!frameFinished && av_read_frame(pFormatCtx, pkt)>=0) {
+            // Is this a packet from the video stream?
+            if(packet.stream_index == video_index) {
+                // Decode video frame
+                avcodec_decode_video2(codecCtx, pFrame, &frameFinished, pkt);
+            }
+            av_free_packet(pkt);
+        }
+        
+        // Release old picture and scaler
+        AVPicture picture;
+        // Allocate RGB picture
+        avpicture_alloc(&picture, PIX_FMT_RGB24, codecCtx->width, codecCtx->height);
+        
+        // Setup scaler
+        struct SwsContext* img_convert_ctx = sws_getContext(codecCtx->width, codecCtx->height, codecCtx->pix_fmt, codecCtx->width, codecCtx->height,PIX_FMT_RGB24,SWS_FAST_BILINEAR, NULL, NULL, NULL);
+        
+        sws_scale (img_convert_ctx, pFrame->data, pFrame->linesize,
+                   0, codecCtx->height,
+                   picture.data, picture.linesize);
+        
+        image = [self imageFromAVPicture:picture width:codecCtx->width height:codecCtx->height];
+        
+        avcodec_free_frame(&pFrame);
+        avpicture_free(&picture);
+        sws_freeContext(img_convert_ctx);
+        
+        finishBlock(image);
+    });
+}
+
++(UIImage *)imageFromAVPicture:(AVPicture)pict width:(int)width height:(int)height {
+    CGBitmapInfo bitmapInfo = kCGBitmapByteOrderDefault;
+    CFDataRef data = CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, pict.data[0], pict.linesize[0]*height,kCFAllocatorNull);
+    CGDataProviderRef provider = CGDataProviderCreateWithCFData(data);
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    CGImageRef cgImage = CGImageCreate(width,
+                                       height,
+                                       8,
+                                       24,
+                                       pict.linesize[0],
+                                       colorSpace,
+                                       bitmapInfo,
+                                       provider,
+                                       NULL,
+                                       NO,
+                                       kCGRenderingIntentDefault);
+    CGColorSpaceRelease(colorSpace);
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+    CGDataProviderRelease(provider);
+    CFRelease(data);
+    
+    return image;
+}
+
 #pragma mark - queue operation
 -(int)packet_queue_put:(PacketQueue*)q packet:(AVPacket*)pkt
 {
@@ -248,7 +367,7 @@ typedef struct VideoState
  @return nil
  @exception nil
  */
--(void)updatePlayerStatus:(JJMoviePlaybackStatus)status{
+-(void)updatestatus:(JJMoviePlaybackStatus)status{
     [self.statusLock lock];
     switch (_status) {
         case JJMoviePlaybackStatusPlay:
@@ -291,7 +410,7 @@ typedef struct VideoState
 }
 
 #pragma mark - getter and setter
--(JJMoviePlaybackStatus)playerStatus{
+-(JJMoviePlaybackStatus)status{
     [self.statusLock lock];
     JJMoviePlaybackStatus status = _status;
     [self.statusLock unlock];
@@ -414,7 +533,7 @@ typedef struct VideoState
     self.internalView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 240)];
     self.internalBackgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 240)];
     self.displayView = [[JJYUVDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, 240)];
-    self.internalBackgroundView.backgroundColor = [UIColor blackColor];
+    self.internalBackgroundView.backgroundColor = [UIColor redColor];
     
     self.internalView.clipsToBounds = YES;
     self.internalView.autoresizesSubviews = YES;
@@ -424,6 +543,7 @@ typedef struct VideoState
     
     [self.internalView addSubview:self.internalBackgroundView];
     [self.internalView addSubview:self.displayView];
+
 }
 
 #pragma mark - create input stream
@@ -577,22 +697,22 @@ typedef struct VideoState
 
 #pragma mark - play back control
 -(void)play{
-    if ([self prepareToPlay] && self.playerStatus != JJMoviePlaybackStatusPlay){
+    if ([self prepareToPlay] && self.status != JJMoviePlaybackStatusPlay){
+        [self notifyDelegateUsingSelector:@selector(moviePlayerWillStart:)];
         //read video/audio/subtitle stream and play
-        [self updatePlayerStatus:JJMoviePlaybackStatusPlay];
+        [self updatestatus:JJMoviePlaybackStatusPlay];
         
         [self scheduleRefreshTimer:0.1];
-        if ([self.delegate respondsToSelector:@selector(moviePlayerWillStartPlay:)]){
-            [self.delegate moviePlayerWillStartPlay:self];
-        }
+        [self notifyDelegateUsingSelector:@selector(moviePlayerDidStart:)];
     }
 }
 
 -(void)stop{
-    if (self.playerStatus == JJMoviePlaybackStatusStop){
+    if (self.status == JJMoviePlaybackStatusStop){
         return;
     }
-    [self updatePlayerStatus:JJMoviePlaybackStatusStop];
+    [self notifyDelegateUsingSelector:@selector(moviePlayerWillStop:)];
+    [self updatestatus:JJMoviePlaybackStatusStop];
     //stop threads
     [self.videoThread cancel];
     [self.audioThread cancel];
@@ -619,6 +739,8 @@ typedef struct VideoState
     //clear picture buffer
     [self clear_picture_queue];
     self.playbackTime = 0.0f;
+    
+    [self notifyDelegateUsingSelector:@selector(moviePlayerDidStop:)];
 }
 
 -(void)clear_picture_queue{
@@ -637,11 +759,11 @@ typedef struct VideoState
 }
 
 -(void)pause{
-    [self updatePlayerStatus:JJMoviePlaybackStatusPause];
-    //pause audio player
-    [self.audioPlayer pause];
-    //stop timer
-    
+    [self notifyDelegateUsingSelector:@selector(moviePlayerWillPause:)];
+    [self updatestatus:JJMoviePlaybackStatusPause];
+    //pause audio player, make a little delay
+    [self.audioPlayer performSelector:@selector(pause)];
+    [self notifyDelegateUsingSelector:@selector(moviePlayerDidPause:)];
 }
 
 -(void)pauseThreadWhenPause{
@@ -650,6 +772,19 @@ typedef struct VideoState
         [self.statusLock wait];
     }
     [self.statusLock unlock];
+}
+
+-(void)notifyDelegateUsingSelector:(SEL)sel{
+    if ([self.delegate respondsToSelector:sel]){
+        [self.delegate performSelector:sel withObject:self];
+    }
+}
+
+-(CGFloat)currentVolume{
+    return [self.audioPlayer currentVolume];
+}
+-(void)setVolume:(CGFloat)volume{
+    [self.audioPlayer setVolume:volume];
 }
 
 #pragma mark - refresh timer
@@ -1034,7 +1169,7 @@ typedef struct VideoState
 }
 
 -(void)video_refresh_timer:(NSTimer*)timer{
-    if (self.playerStatus != JJMoviePlaybackStatusPlay){
+    if (self.status != JJMoviePlaybackStatusPlay){
         //do nothing
         return;
     }

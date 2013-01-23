@@ -11,6 +11,13 @@
 
 @interface JJMoviePlayerViewController : UIViewController<JJMoviePlayerControllerDelegate>
 
+@property (nonatomic, strong) IBOutlet UINavigationBar* navigationBar;
+@property (nonatomic, strong) IBOutlet UIView* controlerPanel;
+@property (nonatomic, strong) IBOutlet UIButton* playControlBtn;
+@property (nonatomic, strong) IBOutlet UIView* playStatusView;
+@property (nonatomic, strong) IBOutlet UISlider* volumeBar;
+@property (nonatomic, strong) IBOutlet UISlider* playProgress;
+
 -(id)initWithFilepath:(NSString*)filepath;
 
 @end

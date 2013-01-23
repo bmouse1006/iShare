@@ -183,8 +183,8 @@ void sws_freeContext(struct SwsContext *swsContext);
  *       written
  * @deprecated Use sws_getCachedContext() instead.
  */
-struct SwsContext *sws_getContext(int srcW, int srcH, enum AVPixelFormat srcFormat,
-                                  int dstW, int dstH, enum AVPixelFormat dstFormat,
+struct SwsContext *sws_getContext(int srcW, int srcH, enum PixelFormat srcFormat,
+                                  int dstW, int dstH, enum PixelFormat dstFormat,
                                   int flags, SwsFilter *srcFilter,
                                   SwsFilter *dstFilter, const double *param);
 #endif

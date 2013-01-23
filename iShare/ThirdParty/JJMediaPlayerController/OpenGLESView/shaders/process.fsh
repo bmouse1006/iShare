@@ -21,5 +21,4 @@ void main()
                1.28033, -.38059,       0) * yuv;
     
     gl_FragColor = vec4(rgb, 1);
-//    gl_FragColor = vec4(coordinate, 0, 1);
 }

@@ -23,5 +23,6 @@ typedef struct _YUVVideoPicture
 @interface JJYUVDisplayView : GLKView <GLKViewDelegate>
 
 -(void)setVideoPicture:(YUVVideoPicture*)picture;
+-(void)updateTextureCropWithOrigin:(CGPoint)origin size:(CGSize)size;
 
 @end
