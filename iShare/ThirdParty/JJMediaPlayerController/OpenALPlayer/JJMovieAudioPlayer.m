@@ -38,8 +38,6 @@
     return self;
 }
 
-
-
 -(void)setupAL{
     //获取device
     _mDevice=alcOpenDevice(NULL);
@@ -48,7 +46,11 @@
         _mContext=alcCreateContext(_mDevice, NULL);
         alcMakeContextCurrent(_mContext);
     }
+    
+    [self generateSource];
+}
 
+-(void)generateSource{
     //生成一个source
     alGenSources(1, &_outSourceID);
     alSpeedOfSound(1.0);
@@ -58,13 +60,18 @@
     alSourcef(_outSourceID, AL_GAIN, Volume);
     alSourcei(_outSourceID, AL_LOOPING, AL_FALSE);
     alSourcei(_outSourceID, AL_SOURCE_TYPE, AL_STREAMING);
+
+}
+
+-(void)deleteSource{
+    alDeleteSources(1, &_outSourceID);
 }
 
 -(void)tearDownAL{
     // Delete the Buffers
     [self clearBuffers];
     // Delete the Sources
-    alDeleteSources(1, &_outSourceID);
+    [self deleteSource];
     //Release context
     alcDestroyContext(_mContext);
     //Close device
@@ -98,16 +105,15 @@
 
     [self.condition lock];
     
-    int processed, queued;
+    int processed;
     
     alGetSourcei(_outSourceID, AL_BUFFERS_PROCESSED, &processed);
-    alGetSourcei(_outSourceID, AL_BUFFERS_QUEUED, &queued);
     
-    while(processed--)
-    {
-        ALuint buff;
-        alSourceUnqueueBuffers(_outSourceID, 1, &buff);
-        alDeleteBuffers(1, &buff);
+    if (processed > 0){
+        ALuint* buff = (ALuint*)malloc(sizeof(ALuint) * processed);
+        alSourceUnqueueBuffers(_outSourceID, processed, buff);
+        alDeleteBuffers(processed, buff);
+        free(buff);
     }
     
     [self.condition unlock];
@@ -141,6 +147,7 @@ static CGFloat Volume = 1.0f;
 
 #pragma mark - play back control
 -(void)play{
+    [self.condition lock];
     ALint stateVaue;
     alGetSourcei(_outSourceID, AL_SOURCE_STATE, &stateVaue);
     if (stateVaue != AL_PLAYING)
@@ -153,6 +160,7 @@ static CGFloat Volume = 1.0f;
             NSLog(@"error starting source: %x\n", error);
         }
     }
+    [self.condition unlock];
 }
 
 -(void)pause{
@@ -167,14 +175,20 @@ static CGFloat Volume = 1.0f;
     
     [self.condition lock];
     
-    int queued;
+    ALsizei queued;
     alGetSourcei(_outSourceID, AL_BUFFERS_QUEUED, &queued);
     
-    while(queued--)
-    {
-        ALuint buff;
-        alSourceUnqueueBuffers(_outSourceID, 1, &buff);
-        alDeleteBuffers(1, &buff);
+    if (queued > 0){
+        ALuint* buff = (ALuint*)malloc(sizeof(ALuint) * queued);
+        alSourceUnqueueBuffers(_outSourceID, queued, buff);
+        //如果unqueue之后直接delete buff，那么会有错误产生
+        //过程多重复几次就会造成buff区域被填满，无法再放入新数据
+        //所以需要在unqueue之后等待一小段时间
+        //估计是由于buff需要unqueue才能delete，但是alSourceUnqueueBuffers很可能是异步操作，所以会造成delete失败
+        [NSThread sleepForTimeInterval:0.02];
+        alDeleteBuffers(queued, buff);
+        
+        free(buff);
     }
     
     [self.condition unlock];

@@ -33,6 +33,7 @@ typedef enum {
 
 @property (nonatomic, readonly) CGSize natrualSize;
 @property (nonatomic, readonly) NSTimeInterval playableDuration;
+@property (nonatomic, readonly) NSTimeInterval playedDuration;
 @property (nonatomic, readonly) JJMoviePlaybackStatus status;
 @property (nonatomic, assign) NSTimeInterval playbackTime;
 
@@ -67,7 +68,7 @@ typedef enum {
  @exception nil
  */
 -(id)initWithInputStream:(NSInputStream*)inputStream;
-
+-(void)seekTime:(double)seconds;
 
 -(BOOL)prepareToPlay;
 -(void)cleanUpPlay;
@@ -75,8 +76,7 @@ typedef enum {
 -(void)play;
 -(void)stop;
 -(void)pause;
-
--(CGFloat)currentVolume;
--(void)setVolume:(CGFloat)volume;
+//clean all queues and buffers
+-(void)purge;
 
 @end

@@ -17,6 +17,7 @@
          format:(int)format;
 
 -(int)numberOfQueuedBuffer;
+-(void)clearBuffers;
 
 -(CGFloat)currentVolume;
 -(void)setVolume:(CGFloat)volume;

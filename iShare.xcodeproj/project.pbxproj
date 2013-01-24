@@ -691,6 +691,8 @@
 		22BDFE7F1600B55700D62F13 /* GetAddresses.c in Sources */ = {isa = PBXBuildFile; fileRef = 22BDFE7E1600B55700D62F13 /* GetAddresses.c */; };
 		22C2183F166B38CC00C0C569 /* btn_close@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C2183E166B38CC00C0C569 /* btn_close@2x.png */; };
 		22C21841166B38DF00C0C569 /* btn_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 22C21840166B38DF00C0C569 /* btn_close.png */; };
+		22C7EEF816AFE39E00EE5E34 /* NSString+movieplayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C7EEF616AFE39D00EE5E34 /* NSString+movieplayer.h */; };
+		22C7EEF916AFE39E00EE5E34 /* NSString+movieplayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C7EEF716AFE39D00EE5E34 /* NSString+movieplayer.m */; };
 		22C890241663B3750013E165 /* TextEditorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C890221663B3750013E165 /* TextEditorViewController.m */; };
 		22C890251663B3750013E165 /* TextEditorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22C890231663B3750013E165 /* TextEditorViewController.xib */; };
 		22C8C93F15CEC66200916E94 /* FilePickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 22C8C93D15CEC66200916E94 /* FilePickerViewController.m */; };
@@ -1577,6 +1579,8 @@
 		22BDFE7E1600B55700D62F13 /* GetAddresses.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = GetAddresses.c; sourceTree = "<group>"; };
 		22C2183E166B38CC00C0C569 /* btn_close@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_close@2x.png"; sourceTree = "<group>"; };
 		22C21840166B38DF00C0C569 /* btn_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_close.png; sourceTree = "<group>"; };
+		22C7EEF616AFE39D00EE5E34 /* NSString+movieplayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+movieplayer.h"; sourceTree = "<group>"; };
+		22C7EEF716AFE39D00EE5E34 /* NSString+movieplayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+movieplayer.m"; sourceTree = "<group>"; };
 		22C890211663B3750013E165 /* TextEditorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextEditorViewController.h; sourceTree = "<group>"; };
 		22C890221663B3750013E165 /* TextEditorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextEditorViewController.m; sourceTree = "<group>"; };
 		22C890231663B3750013E165 /* TextEditorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextEditorViewController.xib; sourceTree = "<group>"; };
@@ -1761,10 +1765,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2251478115D8A5B9008AB38B /* MediaPlayer.framework in Frameworks */,
 				220A6CA016834DEA006B39C4 /* GLKit.framework in Frameworks */,
 				220983A716703C2800D9D2D1 /* OpenGLES.framework in Frameworks */,
 				222EE7D516700FDB00EF0614 /* OpenAL.framework in Frameworks */,
-				2251478115D8A5B9008AB38B /* MediaPlayer.framework in Frameworks */,
 				227577EA166EEF91009DE5A3 /* libbz2.dylib in Frameworks */,
 				2208460C1664C88E00436434 /* SystemConfiguration.framework in Frameworks */,
 				2232C48B15FA209B00BC0CCF /* AssetsLibrary.framework in Frameworks */,
@@ -3273,6 +3277,8 @@
 				22DFEA971698508D00AAF301 /* OpenGLESView */,
 				22FD8D6E1675E8C90022D4E8 /* Utilities.h */,
 				22FD8D6F1675E8C90022D4E8 /* Utilities.m */,
+				22C7EEF616AFE39D00EE5E34 /* NSString+movieplayer.h */,
+				22C7EEF716AFE39D00EE5E34 /* NSString+movieplayer.m */,
 			);
 			path = JJMediaPlayerController;
 			sourceTree = "<group>";
@@ -3708,6 +3714,7 @@
 				227CB0F91684A6400096559F /* JJMoviePlayerViewController.h in Headers */,
 				22DFEA9A169850DD00AAF301 /* JJYUVDisplayView.h in Headers */,
 				2201C6F916A147860030EE36 /* JJMovieAudioPlayer.h in Headers */,
+				22C7EEF816AFE39E00EE5E34 /* NSString+movieplayer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4402,6 +4409,7 @@
 				227CB0FA1684A6400096559F /* JJMoviePlayerViewController.m in Sources */,
 				22DFEA9B169850DD00AAF301 /* JJYUVDisplayView.m in Sources */,
 				2201C6FA16A147860030EE36 /* JJMovieAudioPlayer.m in Sources */,
+				22C7EEF916AFE39E00EE5E34 /* NSString+movieplayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

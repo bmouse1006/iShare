@@ -10,4 +10,6 @@
 
 @interface NSString (movieplayer)
 
++(NSString*)stringFromDurationTimeInterval:(NSTimeInterval)duration;
+
 @end

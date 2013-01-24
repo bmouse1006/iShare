@@ -318,11 +318,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/ThirdParty/JJMediaPlayerController/JJMoviePlayerController.m"
-         timestampString = "380560677.675246"
+         timestampString = "380689125.340857"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1268"
-         endingLineNumber = "1268"
+         startingLineNumber = "1290"
+         endingLineNumber = "1290"
          landmarkName = "-queue_picture:withFrame:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -344,12 +344,38 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/ThirdParty/JJMediaPlayerController/JJMoviePlayerViewController.m"
-         timestampString = "380560817.798046"
+         timestampString = "380645732.116119"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "251"
-         endingLineNumber = "251"
+         startingLineNumber = "292"
+         endingLineNumber = "292"
          landmarkName = "-updateDisplayViewWithStyle:animated:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "iShare/ThirdParty/JJMediaPlayerController/OpenALPlayer/JJMovieAudioPlayer.m"
+         timestampString = "380684362.744312"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "92"
+         endingLineNumber = "92"
+         landmarkName = "-moreData:length:frequency:format:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "iShare/ThirdParty/JJMediaPlayerController/OpenALPlayer/JJMovieAudioPlayer.m"
+         timestampString = "380684863.494938"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "93"
+         endingLineNumber = "93"
+         landmarkName = "-moreData:length:frequency:format:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

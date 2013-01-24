@@ -352,7 +352,7 @@ typedef struct VideoState
  @return nil
  @exception nil
  */
--(void)packet_queue_clear:(PacketQueue*)q{
+-(void)clear_packet_queue:(PacketQueue*)q{
     AVPacket packet, *pkt = &packet;
     while ([self packet_queue_get:q
                            packet:pkt
@@ -426,7 +426,17 @@ typedef struct VideoState
 }
 
 -(NSTimeInterval)playableDuration{
-    return 1;
+    
+    int64_t duration = 0;
+    if (inputStream && inputStream->pFormatCtx){
+        duration = inputStream->pFormatCtx->duration;
+    }
+    
+    return duration * av_q2d(AV_TIME_BASE_Q);
+}
+
+-(NSTimeInterval)playedDuration{
+    return [self audioPlayedDuration];
 }
 
 -(CGFloat)outputHeight{
@@ -496,6 +506,7 @@ typedef struct VideoState
 }
 
 -(void)seekTime:(double)seconds {
+    self.playbackTime = seconds;
 	AVRational timeBase = inputStream->video_st->time_base;
 	int64_t targetFrame = (int64_t)((double)timeBase.den / timeBase.num * seconds);
 	avformat_seek_file(inputStream->pFormatCtx, inputStream->videoStream, targetFrame, targetFrame, targetFrame, AVSEEK_FLAG_FRAME);
@@ -732,10 +743,11 @@ typedef struct VideoState
     }
     //stop audio
     [self.audioPlayer stop];
+    [self.audioPlayer clearBuffers];
     //clear all queues
-    [self packet_queue_clear:&inputStream->videoq];
-    [self packet_queue_clear:&inputStream->audioq];
-    [self packet_queue_clear:&inputStream->subtitleq];
+    [self clear_packet_queue:&inputStream->videoq];
+    [self clear_packet_queue:&inputStream->audioq];
+    [self clear_packet_queue:&inputStream->subtitleq];
     //clear picture buffer
     [self clear_picture_queue];
     self.playbackTime = 0.0f;
@@ -774,17 +786,26 @@ typedef struct VideoState
     [self.statusLock unlock];
 }
 
+/**
+ clean queues and buffers before seeking
+ @param nil
+ @return nil
+ @exception nil
+ */
+-(void)purge{
+
+    [self clear_packet_queue:&inputStream->videoq];
+    [self clear_packet_queue:&inputStream->audioq];
+    [self clear_packet_queue:&inputStream->subtitleq];
+    
+    [self.audioPlayer stop];
+    [self.audioPlayer clearBuffers];    
+}
+
 -(void)notifyDelegateUsingSelector:(SEL)sel{
     if ([self.delegate respondsToSelector:sel]){
         [self.delegate performSelector:sel withObject:self];
     }
-}
-
--(CGFloat)currentVolume{
-    return [self.audioPlayer currentVolume];
-}
--(void)setVolume:(CGFloat)volume{
-    [self.audioPlayer setVolume:volume];
 }
 
 #pragma mark - refresh timer
@@ -805,6 +826,7 @@ typedef struct VideoState
         // main decode loop
         while([[NSThread currentThread] isCancelled] == NO)
         {
+            [self pauseThreadWhenPause];
             @autoreleasepool {
                 AVPacket packet, *pkt = &packet;
                 

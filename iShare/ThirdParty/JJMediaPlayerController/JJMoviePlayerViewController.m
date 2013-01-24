@@ -7,6 +7,8 @@
 //
 
 #import "JJMoviePlayerViewController.h"
+#import "NSString+movieplayer.h"
+#import <MediaPlayer/MediaPlayer.h>
 
 typedef enum {
     JJMovieViewContentAspectFit,
@@ -21,6 +23,8 @@ typedef enum {
 @property (nonatomic, assign) JJMovieViewContentStyle contentStyle;
 
 @property (nonatomic, weak) NSTimer* timer;
+
+@property (nonatomic, weak) NSTimer* durationTimer;
 
 @end
 
@@ -75,27 +79,32 @@ typedef enum {
     
     UIImage* progressLeft = [[UIImage imageNamed:@"Progress_Left"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
     UIImage* progressRight = [[UIImage imageNamed:@"Progress_Right"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
-    [self.volumeBar setMinimumTrackImage:progressLeft
-                                forState:UIControlStateNormal];
-    [self.volumeBar setMaximumTrackImage:progressRight
-                                forState:UIControlStateNormal];
     [self.playProgress setMinimumTrackImage:progressLeft
                                    forState:UIControlStateNormal];
     [self.playProgress setMaximumTrackImage:progressRight
                                    forState:UIControlStateNormal];
     
-    [self.volumeBar setThumbImage:[UIImage imageNamed:@"VolumeProgress_Knob"]
-                         forState:UIControlStateNormal];
-    [self.volumeBar setThumbImage:[UIImage imageNamed:@"VolumeProgress_Knob"]
-                         forState:UIControlStateHighlighted];
     [self.playProgress setThumbImage:[UIImage imageNamed:@"PlayProgress_Knob"]
                             forState:UIControlStateNormal];
     [self.playProgress setThumbImage:[UIImage imageNamed:@"PlayProgress_Knob"]
                             forState:UIControlStateHighlighted];
     
-    [self.volumeBar addTarget:self action:@selector(volumeBarValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [self.volumeBar addTarget:self action:@selector(volumeBarValueChangeEnded:) forControlEvents:UIControlEventTouchUpInside];
-    self.volumeBar.value = [self.moviePlayerController currentVolume];
+    //play progress control action
+    [self.playProgress addTarget:self action:@selector(playProgressStartSlides:) forControlEvents:UIControlEventTouchDown];
+    [self.playProgress addTarget:self action:@selector(playProgressSlides:) forControlEvents:UIControlEventValueChanged];
+    [self.playProgress addTarget:self action:@selector(playProgressEndSildes:) forControlEvents:UIControlEventTouchUpInside];
+    [self.playProgress addTarget:self action:@selector(playProgressEndSildes:) forControlEvents:UIControlEventTouchUpOutside];
+    
+    MPVolumeView* volumeView = [[MPVolumeView alloc] initWithFrame:self.volumeContainer.bounds];
+    volumeView.backgroundColor = [UIColor clearColor];
+    [volumeView sizeToFit];
+    [self.volumeContainer addSubview:volumeView];
+    
+    //setup duration label
+    NSTimeInterval duration = self.moviePlayerController.playableDuration;
+    self.durationTimelabel.text = [NSString stringFromDurationTimeInterval:duration];
+    self.playProgress.maximumValue = duration;
+    self.playProgress.value = 0;
 }
 
 -(void)viewWillAppear:(BOOL)animated{
@@ -107,7 +116,8 @@ typedef enum {
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [self.timer invalidate];
-    self.timer = nil;
+    [self.durationTimer invalidate];
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault
                                                 animated:YES];
 }
@@ -147,6 +157,17 @@ typedef enum {
     self.timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(hideToolbars:) userInfo:nil repeats:NO];
 }
 
+-(void)scheduleDurationTimer{
+    [self.durationTimer invalidate];
+    self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(refershDurationTimeLabel:) userInfo:nil repeats:YES];
+}
+
+-(void)refershDurationTimeLabel:(NSTimer*)timer{
+    NSTimeInterval playedDuration = self.moviePlayerController.playedDuration;
+    self.playedTimelabel.text = [NSString stringFromDurationTimeInterval:playedDuration];
+    self.playProgress.value = playedDuration;
+}
+
 static CGFloat animation_duration = 0.4f;
 
 -(void)hideToolbars:(NSTimer*)timer{
@@ -177,7 +198,7 @@ static CGFloat animation_duration = 0.4f;
                                             withAnimation:UIStatusBarAnimationFade];
 }
 
-#pragma mark - button action
+#pragma mark - button actions
 -(void)doneButtonClicked:(id)sender{
     [self.moviePlayerController stop];
     [self dismissViewControllerAnimated:YES
@@ -192,8 +213,27 @@ static CGFloat animation_duration = 0.4f;
     }
 }
 
--(void)pauseButtonClicked:(id)sender{
+-(void)playProgressStartSlides:(id)sender{
+    //invalide timer
+    [self.durationTimer invalidate];
+    //pause the player
     [self.moviePlayerController pause];
+    //purge buffers
+    [self.moviePlayerController purge];
+}
+
+-(void)playProgressSlides:(id)sender{
+    //change seek time
+    UISlider* slider = (UISlider*)sender;
+    [self.moviePlayerController seekTime:slider.value];
+    //update duration label
+    self.playedTimelabel.text = [NSString stringFromDurationTimeInterval:slider.value];
+}
+
+-(void)playProgressEndSildes:(id)sender{
+    //restore status: play or ready to play
+    [self.moviePlayerController play];
+    [self scheduleDurationTimer];
 }
 
 #pragma mark - gesture action
@@ -223,6 +263,7 @@ static CGFloat animation_duration = 0.4f;
                          forState:UIControlStateNormal];
 
     [self scheduleHiddenTimer];
+    [self scheduleDurationTimer];
 }
 
 -(void)moviePlayerDidPause:(JJMoviePlayerController *)player{
@@ -281,20 +322,6 @@ static CGFloat animation_duration = 0.4f;
     }
     
     return ration;
-}
-
-#pragma mark - slider bar control
--(void)volumeBarValueChanged:(id)sender{
-    //stop timer
-    [self.timer invalidate];
-    self.timer = nil;
-    float value = self.volumeBar.value;
-    //set volume
-    [self.moviePlayerController setVolume:value];
-}
-
--(void)volumeBarValueChangeEnded:(id)sender{
-    [self scheduleHiddenTimer];
 }
 
 @end

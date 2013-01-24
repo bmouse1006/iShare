@@ -15,8 +15,11 @@
 @property (nonatomic, strong) IBOutlet UIView* controlerPanel;
 @property (nonatomic, strong) IBOutlet UIButton* playControlBtn;
 @property (nonatomic, strong) IBOutlet UIView* playStatusView;
-@property (nonatomic, strong) IBOutlet UISlider* volumeBar;
+@property (nonatomic, strong) IBOutlet UIView* volumeContainer;
 @property (nonatomic, strong) IBOutlet UISlider* playProgress;
+
+@property (nonatomic, strong) IBOutlet UILabel* durationTimelabel;
+@property (nonatomic, strong) IBOutlet UILabel* playedTimelabel;
 
 -(id)initWithFilepath:(NSString*)filepath;
 
