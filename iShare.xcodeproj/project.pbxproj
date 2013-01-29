@@ -71,6 +71,8 @@
 		221CF8FD16453C8D000C64A0 /* ISPasscodeProtectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 221CF8FB16453C8D000C64A0 /* ISPasscodeProtectionController.m */; };
 		221CF8FE16453C8D000C64A0 /* ISPasscodeProtectionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 221CF8FC16453C8D000C64A0 /* ISPasscodeProtectionController.xib */; };
 		221FD61E1676DF9100B4E422 /* libGTLTouchStaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 221FD6171676DF5300B4E422 /* libGTLTouchStaticLib.a */; };
+		22213DCB16B17AFB00A92176 /* ass_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 22213DC916B17AFB00A92176 /* ass_types.h */; };
+		22213DCC16B17AFB00A92176 /* ass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22213DCA16B17AFB00A92176 /* ass.h */; };
 		22287E1515CCA0AC000C1395 /* PDFReaderLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 22287E1715CCA0AC000C1395 /* PDFReaderLocalizable.strings */; };
 		22287E1E15CCA43C000C1395 /* ic_tab_myfiles@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22287E1D15CCA43C000C1395 /* ic_tab_myfiles@2x.png */; };
 		22287E2415CCA743000C1395 /* ic_tab_music@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22287E2315CCA743000C1395 /* ic_tab_music@2x.png */; };
@@ -181,6 +183,7 @@
 		222F3DE615CC9A7C00E495FE /* btn_title_bar_rect_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 222F3DE415CC9A7B00E495FE /* btn_title_bar_rect_pressed@2x.png */; };
 		222F3DE715CC9A7C00E495FE /* btn_title_bar_rect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 222F3DE515CC9A7C00E495FE /* btn_title_bar_rect@2x.png */; };
 		222F3DEB15CC9ACA00E495FE /* CustomUIComponents.m in Sources */ = {isa = PBXBuildFile; fileRef = 222F3DEA15CC9ACA00E495FE /* CustomUIComponents.m */; };
+		222F951B16B7C02D0062FB4C /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 222F951A16B7C02D0062FB4C /* libfreetype.a */; };
 		223040A51665DBE10069B581 /* ISNeighbourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 223040A31665DBE10069B581 /* ISNeighbourViewController.m */; };
 		223040A61665DBE10069B581 /* ISNeighbourViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 223040A41665DBE10069B581 /* ISNeighbourViewController.xib */; };
 		223040B41665F7E30069B581 /* JJAFPFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 223040B31665F7E30069B581 /* JJAFPFileManager.m */; };
@@ -202,6 +205,7 @@
 		2232C48815FA1DBB00BC0CCF /* ALAsset+AGIPC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2232C47815FA1DBB00BC0CCF /* ALAsset+AGIPC.m */; };
 		2232C48915FA1DBB00BC0CCF /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 2232C47915FA1DBB00BC0CCF /* LICENSE */; };
 		2232C48B15FA209B00BC0CCF /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2232C48A15FA209B00BC0CCF /* AssetsLibrary.framework */; };
+		22426C8616B7BFE600FD6337 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22426C8516B7BFE600FD6337 /* libfreetype.a */; };
 		22436EBB1676D432008B8A12 /* libavcodec.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22436EB51676D432008B8A12 /* libavcodec.a */; };
 		22436EBC1676D432008B8A12 /* libavutil.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22436EB61676D432008B8A12 /* libavutil.a */; };
 		22436EBD1676D432008B8A12 /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22436EB71676D432008B8A12 /* libswresample.a */; };
@@ -309,6 +313,8 @@
 		2253857915C7B6F900D8B4B7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2253857715C7B6F900D8B4B7 /* InfoPlist.strings */; };
 		2253857B15C7B6F900D8B4B7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2253857A15C7B6F900D8B4B7 /* main.m */; };
 		2253857F15C7B6F900D8B4B7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2253857E15C7B6F900D8B4B7 /* AppDelegate.m */; };
+		22560EE716B7C08A00345CDE /* libfontconfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22560EE616B7C08A00345CDE /* libfontconfig.a */; };
+		22560EE916B7C09200345CDE /* libfontconfig.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22560EE816B7C09200345CDE /* libfontconfig.a */; };
 		2260D2E31612061E00ED0D58 /* NSDictionary+FileOperationWrap.m in Sources */ = {isa = PBXBuildFile; fileRef = 2260D2E21612061E00ED0D58 /* NSDictionary+FileOperationWrap.m */; };
 		2260D2EB16120DB800ED0D58 /* ISHTTPDownloadResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 2260D2EA16120DB800ED0D58 /* ISHTTPDownloadResponse.m */; };
 		2264CBEA164688B8000A7139 /* fileicon_doc@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2264CBE0164688B8000A7139 /* fileicon_doc@2x.png */; };
@@ -644,6 +650,9 @@
 		2284B57A15DA286000AD4A7A /* MDAudioPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2284B57715DA263500AD4A7A /* MDAudioPlayerController.m */; };
 		2284B57B15DA286000AD4A7A /* MDAudioPlayerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 225147B415D93E36008AB38B /* MDAudioPlayerTableViewCell.m */; };
 		2284B58015DA299A00AD4A7A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2284B57F15DA299A00AD4A7A /* AudioToolbox.framework */; };
+		2286569716B7C2C1001C7853 /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2286569616B7C2C1001C7853 /* libfribidi.a */; };
+		2286569916B7C2C9001C7853 /* libfribidi.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2286569816B7C2C9001C7853 /* libfribidi.a */; };
+		2286569B16B7C314001C7853 /* libiconv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2286569A16B7C314001C7853 /* libiconv.dylib */; };
 		22959BCE161EE28700974FF2 /* btn_tool_bar_dark_segment_separator@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22959BCA161EE28700974FF2 /* btn_tool_bar_dark_segment_separator@2x.png */; };
 		22959BCF161EE28700974FF2 /* btn_tool_bar_dark_segment_selected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22959BCB161EE28700974FF2 /* btn_tool_bar_dark_segment_selected@2x.png */; };
 		22959BD0161EE28700974FF2 /* btn_tool_bar_dark_segment_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22959BCC161EE28700974FF2 /* btn_tool_bar_dark_segment_default@2x.png */; };
@@ -672,6 +681,8 @@
 		22A82D7F162DAA4B005CDC89 /* Play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22A82D7B162DAA4B005CDC89 /* Play@2x.png */; };
 		22A82D82162DAA85005CDC89 /* ISBTSendingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A82D81162DAA85005CDC89 /* ISBTSendingCell.m */; };
 		22A82D84162DAA95005CDC89 /* ISBTSendingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22A82D83162DAA95005CDC89 /* ISBTSendingCell.xib */; };
+		22A95E5716B7BEDC006C58FF /* libass.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A95E5616B7BEDC006C58FF /* libass.a */; };
+		22A95E5916B7BEE3006C58FF /* libass.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22A95E5816B7BEE3006C58FF /* libass.a */; };
 		22B84F3B1611F0D600882357 /* fileItemTemplate in Resources */ = {isa = PBXBuildFile; fileRef = 22B84F381611F0D600882357 /* fileItemTemplate */; };
 		22B84F3C1611F0D600882357 /* folderItemTemplate in Resources */ = {isa = PBXBuildFile; fileRef = 22B84F391611F0D600882357 /* folderItemTemplate */; };
 		22B84F3D1611F0D600882357 /* gotoparentdirTemplate in Resources */ = {isa = PBXBuildFile; fileRef = 22B84F3A1611F0D600882357 /* gotoparentdirTemplate */; };
@@ -994,6 +1005,8 @@
 		221CF8FB16453C8D000C64A0 /* ISPasscodeProtectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISPasscodeProtectionController.m; sourceTree = "<group>"; };
 		221CF8FC16453C8D000C64A0 /* ISPasscodeProtectionController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISPasscodeProtectionController.xib; sourceTree = "<group>"; };
 		221FD60A1676DF5300B4E422 /* GTL.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTL.xcodeproj; path = ../../../../../GoogleDrive/Source/GTL.xcodeproj; sourceTree = "<group>"; };
+		22213DC916B17AFB00A92176 /* ass_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ass_types.h; sourceTree = "<group>"; };
+		22213DCA16B17AFB00A92176 /* ass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ass.h; sourceTree = "<group>"; };
 		22287E1615CCA0AC000C1395 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/PDFReaderLocalizable.strings; sourceTree = "<group>"; };
 		22287E1815CCA0B0000C1395 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/PDFReaderLocalizable.strings"; sourceTree = "<group>"; };
 		22287E1D15CCA43C000C1395 /* ic_tab_myfiles@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ic_tab_myfiles@2x.png"; sourceTree = "<group>"; };
@@ -1124,6 +1137,7 @@
 		222F3DE915CC9ACA00E495FE /* CustomUIComponents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomUIComponents.h; sourceTree = "<group>"; };
 		222F3DEA15CC9ACA00E495FE /* CustomUIComponents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomUIComponents.m; sourceTree = "<group>"; };
 		222F3DF815CC9F9800E495FE /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
+		222F951A16B7C02D0062FB4C /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfreetype.a; sourceTree = "<group>"; };
 		223040A21665DBE10069B581 /* ISNeighbourViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISNeighbourViewController.h; sourceTree = "<group>"; };
 		223040A31665DBE10069B581 /* ISNeighbourViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISNeighbourViewController.m; sourceTree = "<group>"; };
 		223040A41665DBE10069B581 /* ISNeighbourViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISNeighbourViewController.xib; sourceTree = "<group>"; };
@@ -1157,6 +1171,7 @@
 		2232C47815FA1DBB00BC0CCF /* ALAsset+AGIPC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAsset+AGIPC.m"; sourceTree = "<group>"; };
 		2232C47915FA1DBB00BC0CCF /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		2232C48A15FA209B00BC0CCF /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		22426C8516B7BFE600FD6337 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfreetype.a; sourceTree = "<group>"; };
 		22436EB51676D432008B8A12 /* libavcodec.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavcodec.a; sourceTree = "<group>"; };
 		22436EB61676D432008B8A12 /* libavutil.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavutil.a; sourceTree = "<group>"; };
 		22436EB71676D432008B8A12 /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswresample.a; sourceTree = "<group>"; };
@@ -1305,6 +1320,8 @@
 		2253857C15C7B6F900D8B4B7 /* iShare-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iShare-Prefix.pch"; sourceTree = "<group>"; };
 		2253857D15C7B6F900D8B4B7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2253857E15C7B6F900D8B4B7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		22560EE616B7C08A00345CDE /* libfontconfig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfontconfig.a; sourceTree = "<group>"; };
+		22560EE816B7C09200345CDE /* libfontconfig.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfontconfig.a; sourceTree = "<group>"; };
 		2260D2E11612061E00ED0D58 /* NSDictionary+FileOperationWrap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+FileOperationWrap.h"; sourceTree = "<group>"; };
 		2260D2E21612061E00ED0D58 /* NSDictionary+FileOperationWrap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+FileOperationWrap.m"; sourceTree = "<group>"; };
 		2260D2E916120DB800ED0D58 /* ISHTTPDownloadResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISHTTPDownloadResponse.h; sourceTree = "<group>"; };
@@ -1515,6 +1532,9 @@
 		2284B57615DA263500AD4A7A /* MDAudioPlayerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MDAudioPlayerController.h; sourceTree = "<group>"; };
 		2284B57715DA263500AD4A7A /* MDAudioPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MDAudioPlayerController.m; sourceTree = "<group>"; };
 		2284B57F15DA299A00AD4A7A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		2286569616B7C2C1001C7853 /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfribidi.a; sourceTree = "<group>"; };
+		2286569816B7C2C9001C7853 /* libfribidi.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfribidi.a; sourceTree = "<group>"; };
+		2286569A16B7C314001C7853 /* libiconv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libiconv.dylib; path = usr/lib/libiconv.dylib; sourceTree = SDKROOT; };
 		22959BCA161EE28700974FF2 /* btn_tool_bar_dark_segment_separator@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_tool_bar_dark_segment_separator@2x.png"; sourceTree = "<group>"; };
 		22959BCB161EE28700974FF2 /* btn_tool_bar_dark_segment_selected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_tool_bar_dark_segment_selected@2x.png"; sourceTree = "<group>"; };
 		22959BCC161EE28700974FF2 /* btn_tool_bar_dark_segment_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_tool_bar_dark_segment_default@2x.png"; sourceTree = "<group>"; };
@@ -1550,6 +1570,8 @@
 		22A82D80162DAA84005CDC89 /* ISBTSendingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISBTSendingCell.h; sourceTree = "<group>"; };
 		22A82D81162DAA85005CDC89 /* ISBTSendingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISBTSendingCell.m; sourceTree = "<group>"; };
 		22A82D83162DAA95005CDC89 /* ISBTSendingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISBTSendingCell.xib; sourceTree = "<group>"; };
+		22A95E5616B7BEDC006C58FF /* libass.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libass.a; sourceTree = "<group>"; };
+		22A95E5816B7BEE3006C58FF /* libass.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libass.a; sourceTree = "<group>"; };
 		22B84F381611F0D600882357 /* fileItemTemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fileItemTemplate; sourceTree = "<group>"; };
 		22B84F391611F0D600882357 /* folderItemTemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = folderItemTemplate; sourceTree = "<group>"; };
 		22B84F3A1611F0D600882357 /* gotoparentdirTemplate */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gotoparentdirTemplate; sourceTree = "<group>"; };
@@ -1765,6 +1787,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2286569B16B7C314001C7853 /* libiconv.dylib in Frameworks */,
 				2251478115D8A5B9008AB38B /* MediaPlayer.framework in Frameworks */,
 				220A6CA016834DEA006B39C4 /* GLKit.framework in Frameworks */,
 				220983A716703C2800D9D2D1 /* OpenGLES.framework in Frameworks */,
@@ -1800,6 +1823,14 @@
 				22436ECA1676D43D008B8A12 /* libavutil.a in Frameworks */,
 				22436ECB1676D43D008B8A12 /* libswresample.a in Frameworks */,
 				22436ECC1676D43D008B8A12 /* libswscale.a in Frameworks */,
+				22A95E5716B7BEDC006C58FF /* libass.a in Frameworks */,
+				22A95E5916B7BEE3006C58FF /* libass.a in Frameworks */,
+				22426C8616B7BFE600FD6337 /* libfreetype.a in Frameworks */,
+				222F951B16B7C02D0062FB4C /* libfreetype.a in Frameworks */,
+				22560EE716B7C08A00345CDE /* libfontconfig.a in Frameworks */,
+				22560EE916B7C09200345CDE /* libfontconfig.a in Frameworks */,
+				2286569716B7C2C1001C7853 /* libfribidi.a in Frameworks */,
+				2286569916B7C2C9001C7853 /* libfribidi.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2000,6 +2031,55 @@
 				221FD61B1676DF5300B4E422 /* DevelopmentTestTool */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		22213DC616B17AA500A92176 /* libass */ = {
+			isa = PBXGroup;
+			children = (
+				22213DC816B17ACE00A92176 /* lib */,
+				22213DC716B17AC800A92176 /* include */,
+			);
+			path = libass;
+			sourceTree = "<group>";
+		};
+		22213DC716B17AC800A92176 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				22213DC916B17AFB00A92176 /* ass_types.h */,
+				22213DCA16B17AFB00A92176 /* ass.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		22213DC816B17ACE00A92176 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				22213DCE16B17B1000A92176 /* Release-iphonesimulator */,
+				22213DCD16B17B0400A92176 /* Release-iphoneos */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
+		22213DCD16B17B0400A92176 /* Release-iphoneos */ = {
+			isa = PBXGroup;
+			children = (
+				2286569816B7C2C9001C7853 /* libfribidi.a */,
+				22560EE816B7C09200345CDE /* libfontconfig.a */,
+				22426C8516B7BFE600FD6337 /* libfreetype.a */,
+				22A95E5816B7BEE3006C58FF /* libass.a */,
+			);
+			path = "Release-iphoneos";
+			sourceTree = "<group>";
+		};
+		22213DCE16B17B1000A92176 /* Release-iphonesimulator */ = {
+			isa = PBXGroup;
+			children = (
+				2286569616B7C2C1001C7853 /* libfribidi.a */,
+				22560EE616B7C08A00345CDE /* libfontconfig.a */,
+				222F951A16B7C02D0062FB4C /* libfreetype.a */,
+				22A95E5616B7BEDC006C58FF /* libass.a */,
+			);
+			path = "Release-iphonesimulator";
 			sourceTree = "<group>";
 		};
 		22287E3015CCBB0A000C1395 /* QuadCurveMenu */ = {
@@ -2769,6 +2849,7 @@
 				220A6C9F16834DEA006B39C4 /* GLKit.framework */,
 				22FC34EE15C7E80E0051AA21 /* ImageIO.framework */,
 				227577E9166EEF91009DE5A3 /* libbz2.dylib */,
+				2286569A16B7C314001C7853 /* libiconv.dylib */,
 				2270F4BF15D2B562005C036B /* libz.dylib */,
 				2251478015D8A5B9008AB38B /* MediaPlayer.framework */,
 				22FC34E815C7E7D00051AA21 /* MessageUI.framework */,
@@ -3266,19 +3347,20 @@
 		22FD8D551675E8C90022D4E8 /* JJMediaPlayerController */ = {
 			isa = PBXGroup;
 			children = (
-				2247BCBF16AED149007086E6 /* resource */,
 				22FD8D581675E8C90022D4E8 /* ffmpeg */,
 				22FD8D6B1675E8C90022D4E8 /* JJMoviePlayerController.h */,
 				22FD8D6C1675E8C90022D4E8 /* JJMoviePlayerController.m */,
 				227CB0F71684A6400096559F /* JJMoviePlayerViewController.h */,
 				227CB0F81684A6400096559F /* JJMoviePlayerViewController.m */,
 				2247BCBD16AEC5A1007086E6 /* JJMoviePlayerViewController.xib */,
-				2201C6F616A146BD0030EE36 /* OpenALPlayer */,
-				22DFEA971698508D00AAF301 /* OpenGLESView */,
-				22FD8D6E1675E8C90022D4E8 /* Utilities.h */,
-				22FD8D6F1675E8C90022D4E8 /* Utilities.m */,
+				22213DC616B17AA500A92176 /* libass */,
 				22C7EEF616AFE39D00EE5E34 /* NSString+movieplayer.h */,
 				22C7EEF716AFE39D00EE5E34 /* NSString+movieplayer.m */,
+				2201C6F616A146BD0030EE36 /* OpenALPlayer */,
+				22DFEA971698508D00AAF301 /* OpenGLESView */,
+				2247BCBF16AED149007086E6 /* resource */,
+				22FD8D6E1675E8C90022D4E8 /* Utilities.h */,
+				22FD8D6F1675E8C90022D4E8 /* Utilities.m */,
 			);
 			path = JJMediaPlayerController;
 			sourceTree = "<group>";
@@ -3715,6 +3797,8 @@
 				22DFEA9A169850DD00AAF301 /* JJYUVDisplayView.h in Headers */,
 				2201C6F916A147860030EE36 /* JJMovieAudioPlayer.h in Headers */,
 				22C7EEF816AFE39E00EE5E34 /* NSString+movieplayer.h in Headers */,
+				22213DCB16B17AFB00A92176 /* ass_types.h in Headers */,
+				22213DCC16B17AFB00A92176 /* ass.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4594,6 +4678,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/iShare/ThirdParty/GoogleDrive\"",
 					"\"$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/lib/Release$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/libass/lib/Release$(EFFECTIVE_PLATFORM_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -4605,7 +4690,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include /Users/jinjin/Documents/DevelopStuff/iOSProjects/SDL/include/** $(SRCROOT)/Unrar4iOS/**";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include /Users/jinjin/Documents/DevelopStuff/iOSProjects/SDL/include/** $(SRCROOT)/Unrar4iOS/** $(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/libass/include $(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/libass/freetype/include/**";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
@@ -4633,6 +4718,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/iShare/ThirdParty/GoogleDrive\"",
 					"\"$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/lib/Release$(EFFECTIVE_PLATFORM_NAME)\"",
+					"\"$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/libass/lib/Release$(EFFECTIVE_PLATFORM_NAME)\"",
 				);
 				OTHER_LDFLAGS = (
 					"-lxml2",
@@ -4644,7 +4730,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
-				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include /Users/jinjin/Documents/DevelopStuff/iOSProjects/SDL/include/** $(SRCROOT)/Unrar4iOS/**";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/ffmpeg/include /Users/jinjin/Documents/DevelopStuff/iOSProjects/SDL/include/** $(SRCROOT)/Unrar4iOS/** $(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/libass/include $(SRCROOT)/iShare/ThirdParty/JJMediaPlayerController/libass/freetype/include/**";
 				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};

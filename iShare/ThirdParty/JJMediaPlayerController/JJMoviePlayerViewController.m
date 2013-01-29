@@ -94,6 +94,7 @@ typedef enum {
     [self.playProgress addTarget:self action:@selector(playProgressSlides:) forControlEvents:UIControlEventValueChanged];
     [self.playProgress addTarget:self action:@selector(playProgressEndSildes:) forControlEvents:UIControlEventTouchUpInside];
     [self.playProgress addTarget:self action:@selector(playProgressEndSildes:) forControlEvents:UIControlEventTouchUpOutside];
+    [self.playProgress addTarget:self action:@selector(playProgressEndSildes:) forControlEvents:UIControlEventTouchCancel];
     
     MPVolumeView* volumeView = [[MPVolumeView alloc] initWithFrame:self.volumeContainer.bounds];
     volumeView.backgroundColor = [UIColor clearColor];
@@ -126,14 +127,13 @@ typedef enum {
     [super viewWillLayoutSubviews];
     CGFloat width = self.view.frame.size.width;
     CGFloat height = self.view.frame.size.height;
-    CGFloat barHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-    UIInterfaceOrientation orientation = [[UIDevice currentDevice] orientation];
-    if (UIInterfaceOrientationIsLandscape(orientation)){
+    CGSize barSize = [UIApplication sharedApplication].statusBarFrame.size;
+    CGFloat barHeight = MIN(barSize.height, barSize.width);
+    if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)){
         //exchange width and height
         CGFloat temp = width;
         width = height;
         height = temp;
-        barHeight = [UIApplication sharedApplication].statusBarFrame.size.width;
     }
     //layout navigation bar, makes it on the top always
     CGRect frame = CGRectMake(0, barHeight, width, 44);
@@ -214,8 +214,9 @@ static CGFloat animation_duration = 0.4f;
 }
 
 -(void)playProgressStartSlides:(id)sender{
-    //invalide timer
+    //invalide timers
     [self.durationTimer invalidate];
+    [self.timer invalidate];
     //pause the player
     [self.moviePlayerController pause];
     //purge buffers
@@ -233,7 +234,6 @@ static CGFloat animation_duration = 0.4f;
 -(void)playProgressEndSildes:(id)sender{
     //restore status: play or ready to play
     [self.moviePlayerController play];
-    [self scheduleDurationTimer];
 }
 
 #pragma mark - gesture action

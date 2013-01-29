@@ -12,6 +12,7 @@
 #import "libavformat/avformat.h"
 #import "libswscale/swscale.h"
 #import "libswresample/swresample.h"
+#import "ass.h"
 
 #import <time.h>
 
@@ -152,6 +153,7 @@ typedef struct VideoState
 @property (nonatomic, strong) NSMutableSet* packetQueueConditions;
 @property (nonatomic, strong) NSLock* audioLock;
 @property (nonatomic, strong) NSCondition* statusLock;
+@property (nonatomic, strong) NSLock* ffmpegLock;
 
 //video thread
 @property (nonatomic, strong) NSThread* videoThread;
@@ -475,6 +477,7 @@ typedef struct VideoState
         self.pictq_cond = [[NSCondition alloc] init];
         self.videoStartedCondition = [[NSCondition alloc] init];
         self.statusLock = [[NSCondition alloc] init];
+        self.ffmpegLock = [[NSLock alloc] init];
         self.packetQueueConditions = [NSMutableSet set];
         [self createViews];
         
@@ -509,9 +512,11 @@ typedef struct VideoState
     self.playbackTime = seconds;
 	AVRational timeBase = inputStream->video_st->time_base;
 	int64_t targetFrame = (int64_t)((double)timeBase.den / timeBase.num * seconds);
+    [self.ffmpegLock lock];
 	avformat_seek_file(inputStream->pFormatCtx, inputStream->videoStream, targetFrame, targetFrame, targetFrame, AVSEEK_FLAG_FRAME);
 	avcodec_flush_buffers(pVideoCodecCtx);
     avcodec_flush_buffers(pAudioCodecCtx);
+    [self.ffmpegLock unlock];
 }
 
 #pragma mark - display video
@@ -582,6 +587,7 @@ typedef struct VideoState
     //create an input stream object before init ffmpeg
     [self createInputStream];
     
+    [self.ffmpegLock lock];
 	AVFormatContext *pFormatCtx = NULL;
     
     // Register all formats and codecs
@@ -624,6 +630,8 @@ typedef struct VideoState
     
     subtitle_index = av_find_best_stream(pFormatCtx, AVMEDIA_TYPE_SUBTITLE, -1, -1, NULL, 0);
     
+    [self.ffmpegLock unlock];
+    
 	if(audio_index >= 0)
 	{
 		[self stream_component_open:audio_index];
@@ -641,11 +649,14 @@ typedef struct VideoState
         return NO;
 	}
     
+    ASS_Library* lib = ass_library_init();
+    
     return YES;
 }
 
 //release ffmpeg
 -(void)ffmpeg_release{
+    [self.ffmpegLock lock];
     // Close the codec
     if (pVideoCodecCtx){
         avcodec_close(pVideoCodecCtx);
@@ -666,6 +677,7 @@ typedef struct VideoState
     }
     //release ffmpeg
     av_freep(inputStream);
+    [self.ffmpegLock unlock];
 }
 
 #pragma mark - prepare to play
@@ -866,7 +878,7 @@ typedef struct VideoState
                                     packet:pkt];
                 }
                 else if(pkt->stream_index == is->subtitleStream){
-//                NSLog(@"put subtitle packet");
+                    NSLog(@"put subtitle packet");
                     [self packet_queue_put:&is->subtitleq
                                     packet:pkt];
                 }
@@ -898,11 +910,12 @@ typedef struct VideoState
             {
                 // means we quit getting packets
                 DebugLog(@"quit getting packets");
-                //缓存帧入队列
                 break;
             }
             // Decode video frame
+            [self.ffmpegLock lock];
             len1 = avcodec_decode_video2(pVideoCodecCtx, ptrFrame, &frameFinished, packet);
+            [self.ffmpegLock unlock];
             // Did we get a video frame?
             if(frameFinished)
             {
@@ -934,14 +947,14 @@ typedef struct VideoState
 #pragma mark - subtitle thread
 -(int)subtitle_thread{
     
-    AVSubtitle s, *subtitle = &s;
     int finished = 0;
+    AVSubtitle* subtitle = (AVSubtitle*)malloc(sizeof(AVSubtitle));
     
     @autoreleasepool {
         while ([[NSThread currentThread] isCancelled] == NO) {
             @autoreleasepool {
                 AVPacket pkt1, *packet = &pkt1;
-                if ([self packet_queue_get:&inputStream->subtitleq packet:packet block:YES])
+                if ([self packet_queue_get:&inputStream->subtitleq packet:packet block:YES] <= 0)
                 {
                     // means we quit getting packets
                     DebugLog(@"quit getting subtitle packets");
@@ -954,6 +967,7 @@ typedef struct VideoState
                 
                 if (finished){
                     NSLog(@"subtitle frame");
+                    avsubtitle_free(subtitle);
                 }
                 
                 av_free_packet(packet);
@@ -1157,9 +1171,9 @@ typedef struct VideoState
             pSubtitleCodecCtx = inputStream->subtitle_st->codec;
             [self packet_queue_init:&(inputStream->subtitleq)];
             //start subtitle decode
-//            self.subtitleThread = [[NSThread alloc] initWithTarget:self selector:@selector(subtitle_thread) object:nil];
-//            self.subtitleThread.name = @"Subtitle thread";
-//            [self.subtitleThread start];
+            self.subtitleThread = [[NSThread alloc] initWithTarget:self selector:@selector(subtitle_thread) object:nil];
+            self.subtitleThread.name = @"Subtitle thread";
+            [self.subtitleThread start];
             break;
         default:
             break;

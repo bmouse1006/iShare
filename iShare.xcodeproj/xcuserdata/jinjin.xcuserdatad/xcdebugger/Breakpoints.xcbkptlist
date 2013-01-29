@@ -318,11 +318,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/ThirdParty/JJMediaPlayerController/JJMoviePlayerController.m"
-         timestampString = "380689125.340857"
+         timestampString = "380723621.635972"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1290"
-         endingLineNumber = "1290"
+         startingLineNumber = "1302"
+         endingLineNumber = "1302"
          landmarkName = "-queue_picture:withFrame:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -344,11 +344,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "iShare/ThirdParty/JJMediaPlayerController/JJMoviePlayerViewController.m"
-         timestampString = "380645732.116119"
+         timestampString = "380714124.390931"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "292"
-         endingLineNumber = "292"
+         startingLineNumber = "293"
+         endingLineNumber = "293"
          landmarkName = "-updateDisplayViewWithStyle:animated:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -376,6 +376,32 @@
          startingLineNumber = "93"
          endingLineNumber = "93"
          landmarkName = "-moreData:length:frequency:format:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "iShare/ThirdParty/JJMediaPlayerController/JJMoviePlayerController.m"
+         timestampString = "380723051.905394"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "961"
+         endingLineNumber = "961"
+         landmarkName = "-subtitle_thread"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "iShare/ThirdParty/JJMediaPlayerController/JJMoviePlayerController.m"
+         timestampString = "380723621.635972"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "966"
+         endingLineNumber = "966"
+         landmarkName = "-subtitle_thread"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
