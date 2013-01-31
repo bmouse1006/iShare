@@ -196,42 +196,6 @@
     return image;
 }
 
--(void)requestthumbnailOfFile:(NSString*)filePath
-                previewEnabled:(BOOL)previewEnabled
-               completionBlock:(void(^)(UIImage*))block{
-    
-    FileContentType type = [self fileTypeWithFilePath:filePath];
-    
-    NSURL* url = [NSURL fileURLWithPath:filePath];
-    CGFloat scale = [UIScreen mainScreen].scale;
-    CGSize size = CGSizeMake(50*scale, 50*scale);
-    UIImage* image = [JJThumbnailCache thumbnailForURL:url andSize:size mode:UIViewContentModeScaleAspectFit];
-    
-    if ((type == FileContentTypeAppleMovie || type == FileContentTypeMovie) && previewEnabled){
-        if (image == nil){
-//            [JJMoviePlayerController requestSnapshotOfMovie:filePath atTime:1.0 completionBlock:^(UIImage* image){
-//                image = [JJThumbnailCache storeThumbnail:[UIImage imageWithContentsOfFile:filePath] forURL:url size:size mode:UIViewContentModeScaleAspectFit];
-//                if (block){
-//                    block(image);
-//                }
-//            }];
-        }else{
-            if (block){
-                block(image);
-            }
-        }
-    }else if (type == FileContentTypeImage && previewEnabled){
-        if (image == nil){
-            image = [JJThumbnailCache storeThumbnail:[UIImage imageWithContentsOfFile:filePath] forURL:url size:size mode:UIViewContentModeScaleAspectFit];
-        }
-        if (block){
-            block(image);
-        }
-    }else{
-        image = [UIImage imageNamed:[self thumbnailNameForFile:filePath]];
-    }
-}
-
 -(UIImage*)cachedImageForFile:(NSString*)filepath{
     NSURL* url = [NSURL fileURLWithPath:filepath];
     CGFloat scale = [UIScreen mainScreen].scale;
