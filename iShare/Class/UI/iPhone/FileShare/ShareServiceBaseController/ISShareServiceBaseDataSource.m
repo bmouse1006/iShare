@@ -102,7 +102,9 @@
         cell.imageView.image = [UIImage imageNamed:@"fileicon_folder"];
     }else{
         cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.imageView.image = [[FileOperationWrap sharedWrap] thumbnailForFile:item.filename previewEnabled:NO];
+        cell.imageView.image = [[FileOperationWrap sharedWrap] thumbnailOfFile:item.filename
+                                                                          size:cell.imageView.frame.size
+                                                                previewEnabled:NO];
     }
     
     return cell;

@@ -10,13 +10,13 @@
 
 @implementation NSString (movieplayer)
 
-+(NSString*)stringFromDurationTimeInterval:(NSTimeInterval)duration{
++(NSString*)stringFromDurationTimeInterval:(NSInteger)duration{
     
     if (duration < 0){
         return @"00:00";
     }
     
-    NSInteger dur = (NSInteger)duration;
+    NSInteger dur = duration;
     NSInteger secs = dur % 60;
     NSInteger mins = (dur % 3600) / 60;
     NSInteger hours = dur / 3600;

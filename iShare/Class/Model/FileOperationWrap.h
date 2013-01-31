@@ -23,6 +23,7 @@ typedef enum{
     FileContentTypeSourceCode = 1 << 8,
     FileContentTypeRAR = 1 << 9,
     FileContentType7Zip = 1 << 10,
+    FileContentTypeMovie = 1 << 11,
     FileContentTypeOther = 1 << 14,
     FileContentTypeAll = (1 << 15) - 1
 } FileContentType;
@@ -33,8 +34,10 @@ typedef enum{
 
 -(void)removeFileItems:(NSArray*)fileItems withCompletionBlock:(FileOperationCompletionBlock)block;
 
--(UIImage*)thumbnailForFile:(NSString*)filePath previewEnabled:(BOOL)previewEnabled;
--(void)requestThumbnailForFile:(NSString*)filePath previewEnabled:(BOOL)previewEnabled completionBlock:(void(^)(UIImage*))block;
+-(UIImage*)thumbnailOfFile:(NSString*)filePath
+                       size:(CGSize)size
+             previewEnabled:(BOOL)previewEnabled;
+-(void)requestthumbnailOfFile:(NSString*)filePath previewEnabled:(BOOL)previewEnabled completionBlock:(void(^)(UIImage*))block;
 -(NSString*)thumbnailNameForFile:(NSString*)filePath;
 
 -(BOOL)createDirectoryWithName:(NSString*)name path:(NSString*)path;

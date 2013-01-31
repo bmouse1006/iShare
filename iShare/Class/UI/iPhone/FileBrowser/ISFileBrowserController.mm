@@ -260,19 +260,19 @@ static CGFloat kMessageTransitionDuration = 1.5f;
                 [self handle7ZipFileItem:item];
             }
                 break;
+            case FileContentTypeMovie:
+            {
+                JJMoviePlayerViewController* moviePlayer = [[JJMoviePlayerViewController alloc] initWithFilepath:item.filePath];
+                [self presentViewController:moviePlayer animated:YES completion:^{
+                    [moviePlayer play];
+                }];
+                
+            }
+                break;
             case FileContentTypeAppleMovie:
             {
-                //当前先调用系统自带视频播放器
-//                MPMoviePlayerViewController* moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:item.filePath]];
-//                [self presentMoviePlayerViewControllerAnimated:moviePlayer];
-//                JJMoviePlayerController* controller = [[JJMoviePlayerController alloc] initWithFilepath:item.filePath];
-//                [self.navigationController pushViewController:controller animated:YES];
-//                JJMoviePlayerController* controller = [[JJMoviePlayerController alloc] initWithFilepath:item.filePath];
-//                [controller prepareToPlay];
-//                [controller play];
-                JJMoviePlayerViewController* moviePlayer = [[JJMoviePlayerViewController alloc] initWithFilepath:item.filePath];
-                [self presentViewController:moviePlayer animated:YES completion:NULL];
-                
+                MPMoviePlayerViewController* moviePlayer = [[MPMoviePlayerViewController alloc] initWithContentURL:[NSURL fileURLWithPath:item.filePath]];
+                [self presentMoviePlayerViewControllerAnimated:moviePlayer];
             }
                 break;
             case FileContentTypeMusic:

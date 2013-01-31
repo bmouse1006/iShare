@@ -43,7 +43,6 @@
 				<string key="NSFrame">{{0, 20}, {320, 548}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">1</int>
 					<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -74,7 +73,6 @@
 				<string key="NSFrameSize">{320, 44}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView"/>
 				<string key="NSReuseIdentifierKey">_NS:9</string>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 				<int key="IBUIBarStyle">2</int>
@@ -150,7 +148,6 @@
 						<string key="NSFrame">{{26, 49}, {265, 17}}</string>
 						<reference key="NSSuperview" ref="897049049"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<object class="NSColor" key="IBUIBackgroundColor" id="504497116">
 							<int key="NSColorSpace">3</int>
@@ -206,7 +203,6 @@
 						<string key="NSFrame">{{269, 11}, {51, 21}}</string>
 						<reference key="NSSuperview" ref="184679562"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -317,11 +313,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">durationTimelabel</string>
+						<string key="label">leftTimeLabel</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="651231386"/>
 					</object>
-					<int key="connectionID">34</int>
+					<int key="connectionID">35</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -435,7 +431,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">34</int>
+			<int key="maxID">35</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -444,7 +440,7 @@
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="controlerPanel">UIView</string>
-						<string key="durationTimelabel">UILabel</string>
+						<string key="leftTimeLabel">UILabel</string>
 						<string key="navigationBar">UINavigationBar</string>
 						<string key="playControlBtn">UIButton</string>
 						<string key="playProgress">UISlider</string>
@@ -457,8 +453,8 @@
 							<string key="name">controlerPanel</string>
 							<string key="candidateClassName">UIView</string>
 						</object>
-						<object class="IBToOneOutletInfo" key="durationTimelabel">
-							<string key="name">durationTimelabel</string>
+						<object class="IBToOneOutletInfo" key="leftTimeLabel">
+							<string key="name">leftTimeLabel</string>
 							<string key="candidateClassName">UILabel</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="navigationBar">

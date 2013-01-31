@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "ISFileBrowserCellInterface.h"
+#import "FileThumbnailRequest.h"
 
-@interface ISFileBrowserCell : UITableViewCell<ISFileBrowserCellInterface>
+@interface ISFileBrowserCell : UITableViewCell<ISFileBrowserCellInterface, FileThumbnailRequestDelegate>
 
 @property (nonatomic, strong) IBOutlet UILabel* sizeLabel;
 @property (nonatomic, strong) IBOutlet UIImageView* thumbnailImageView;

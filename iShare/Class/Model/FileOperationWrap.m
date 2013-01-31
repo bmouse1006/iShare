@@ -175,14 +175,16 @@
     return NO;
 }
 
--(UIImage*)thumbnailForFile:(NSString*)filePath previewEnabled:(BOOL)previewEnabled{
+-(UIImage*)thumbnailOfFile:(NSString*)filePath
+                       size:(CGSize)size
+             previewEnabled:(BOOL)previewEnabled{
     
     FileContentType type = [self fileTypeWithFilePath:filePath];
     UIImage* image = nil;
     if (type == FileContentTypeImage && previewEnabled){
         NSURL* url = [NSURL fileURLWithPath:filePath];
         CGFloat scale = [UIScreen mainScreen].scale;
-        CGSize size = CGSizeMake(50*scale, 50*scale);
+        size = CGSizeMake(size.width*scale, size.height*scale);
         image = [JJThumbnailCache thumbnailForURL:url andSize:size mode:UIViewContentModeScaleAspectFit];
         if (image == nil){
             image = [JJThumbnailCache storeThumbnail:[UIImage imageWithContentsOfFile:filePath] forURL:url size:size mode:UIViewContentModeScaleAspectFit];
@@ -194,9 +196,10 @@
     return image;
 }
 
--(void)requestThumbnailForFile:(NSString*)filePath
+-(void)requestthumbnailOfFile:(NSString*)filePath
                 previewEnabled:(BOOL)previewEnabled
                completionBlock:(void(^)(UIImage*))block{
+    
     FileContentType type = [self fileTypeWithFilePath:filePath];
     
     NSURL* url = [NSURL fileURLWithPath:filePath];
@@ -204,14 +207,14 @@
     CGSize size = CGSizeMake(50*scale, 50*scale);
     UIImage* image = [JJThumbnailCache thumbnailForURL:url andSize:size mode:UIViewContentModeScaleAspectFit];
     
-    if (type == FileContentTypeAppleMovie && previewEnabled){
+    if ((type == FileContentTypeAppleMovie || type == FileContentTypeMovie) && previewEnabled){
         if (image == nil){
-            [JJMoviePlayerController requestSnapshotOfMovie:filePath atTime:1.0 completionBlock:^(UIImage* image){
-                image = [JJThumbnailCache storeThumbnail:[UIImage imageWithContentsOfFile:filePath] forURL:url size:size mode:UIViewContentModeScaleAspectFit];
-                if (block){
-                    block(image);
-                }
-            }];
+//            [JJMoviePlayerController requestSnapshotOfMovie:filePath atTime:1.0 completionBlock:^(UIImage* image){
+//                image = [JJThumbnailCache storeThumbnail:[UIImage imageWithContentsOfFile:filePath] forURL:url size:size mode:UIViewContentModeScaleAspectFit];
+//                if (block){
+//                    block(image);
+//                }
+//            }];
         }else{
             if (block){
                 block(image);
@@ -258,6 +261,7 @@
                     thumbnail = @"fileicon_image";
                     break;
                 case FileContentTypeAppleMovie:
+                case FileContentTypeMovie:
                     thumbnail = @"fileicon_movie";
                     break;
                 case FileContentTypeMusic:
@@ -323,7 +327,7 @@
     NSDictionary* attribute = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:NULL];
 
     UIDocument* document = [[UIDocument alloc] initWithFileURL:[NSURL fileURLWithPath:filePath]];
-    NSString* ext = [filePath pathExtension];
+    NSString* ext = [[filePath pathExtension] lowercaseString];
 
     DebugLog(@"file type is %@", document.fileType);
     
@@ -340,8 +344,12 @@
         return FileContentTypePDF;
     }
     
-    if (UTTypeConformsTo((__bridge CFStringRef)(document.fileType), (CFStringRef)kUTTypeMovie) || [[ext lowercaseString] isEqualToString:@"mkv"] || [[ext lowercaseString] isEqualToString:@"rmvb" ] || [[ext lowercaseString] isEqualToString:@"vob"]){
+    if ([ext isEqualToString:@"mp4"] || [ext isEqualToString:@"m4v"] || [ext isEqualToString:@"mov"]){
         return FileContentTypeAppleMovie;
+    }
+    
+    if (UTTypeConformsTo((__bridge CFStringRef)(document.fileType), (CFStringRef)kUTTypeMovie) || [ext isEqualToString:@"mkv"] || [ext isEqualToString:@"rmvb" ] || [ext isEqualToString:@"rm"] || [ext isEqualToString:@"vob"] || [ext isEqualToString:@"asf"] || [ext isEqualToString:@"wmv"] || [ext isEqualToString:@"flv"] || [ext isEqualToString:@"avi"] || [ext isEqualToString:@"f4v"]){
+        return FileContentTypeMovie;
     }
     
     if (UTTypeConformsTo((__bridge CFStringRef)(document.fileType), (CFStringRef)kUTTypeAudio)){

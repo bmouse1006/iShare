@@ -18,9 +18,11 @@
 @property (nonatomic, strong) IBOutlet UIView* volumeContainer;
 @property (nonatomic, strong) IBOutlet UISlider* playProgress;
 
-@property (nonatomic, strong) IBOutlet UILabel* durationTimelabel;
+@property (nonatomic, strong) IBOutlet UILabel* leftTimeLabel;
 @property (nonatomic, strong) IBOutlet UILabel* playedTimelabel;
 
 -(id)initWithFilepath:(NSString*)filepath;
+
+-(void)play;
 
 @end

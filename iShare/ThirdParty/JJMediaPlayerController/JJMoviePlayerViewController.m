@@ -103,7 +103,7 @@ typedef enum {
     
     //setup duration label
     NSTimeInterval duration = self.moviePlayerController.playableDuration;
-    self.durationTimelabel.text = [NSString stringFromDurationTimeInterval:duration];
+    self.leftTimeLabel.text = [NSString stringFromDurationTimeInterval:duration];
     self.playProgress.maximumValue = duration;
     self.playProgress.value = 0;
 }
@@ -121,6 +121,8 @@ typedef enum {
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault
                                                 animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO
+                                            withAnimation:UIStatusBarAnimationFade];
 }
 
 -(void)viewWillLayoutSubviews{
@@ -159,13 +161,15 @@ typedef enum {
 
 -(void)scheduleDurationTimer{
     [self.durationTimer invalidate];
-    self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(refershDurationTimeLabel:) userInfo:nil repeats:YES];
+    self.durationTimer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(refershTimeLabel:) userInfo:nil repeats:YES];
 }
 
--(void)refershDurationTimeLabel:(NSTimer*)timer{
-    NSTimeInterval playedDuration = self.moviePlayerController.playedDuration;
+-(void)refershTimeLabel:(NSTimer*)timer{
+    NSInteger playedDuration = (NSInteger)self.moviePlayerController.playedDuration;
+    NSInteger leftDuration = (NSInteger)self.moviePlayerController.playableDuration - playedDuration;
     self.playedTimelabel.text = [NSString stringFromDurationTimeInterval:playedDuration];
     self.playProgress.value = playedDuration;
+    self.leftTimeLabel.text = [NSString stringFromDurationTimeInterval:leftDuration];
 }
 
 static CGFloat animation_duration = 0.4f;
@@ -196,6 +200,11 @@ static CGFloat animation_duration = 0.4f;
 
     [[UIApplication sharedApplication] setStatusBarHidden:NO
                                             withAnimation:UIStatusBarAnimationFade];
+}
+
+#pragma mark - play control
+-(void)play{
+    [self.moviePlayerController play];
 }
 
 #pragma mark - button actions
@@ -269,6 +278,14 @@ static CGFloat animation_duration = 0.4f;
 -(void)moviePlayerDidPause:(JJMoviePlayerController *)player{
     [self.playControlBtn setImage:[UIImage imageNamed:@"PlayControl_play"]
                          forState:UIControlStateNormal];
+}
+
+-(void)moviePlayerDidStop:(JJMoviePlayerController *)player{
+    [self.playControlBtn setImage:[UIImage imageNamed:@"PlayControl_play"]
+                         forState:UIControlStateNormal];
+    [self showToolbars];
+    [self.timer invalidate];
+    [self.durationTimer invalidate];
 }
 
 #pragma mark - view operation

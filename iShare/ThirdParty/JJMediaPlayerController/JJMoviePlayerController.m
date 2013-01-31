@@ -12,6 +12,7 @@
 #import "libavformat/avformat.h"
 #import "libswscale/swscale.h"
 #import "libswresample/swresample.h"
+#import "libavfilter/avfilter.h"
 #import "ass.h"
 
 #import <time.h>
@@ -119,7 +120,6 @@ typedef struct VideoState
 //        return -1;
 //    }
 //}
-
 @interface JJMoviePlayerController (){
 	AVCodecContext *pVideoCodecCtx;
 	AVCodecContext *pAudioCodecCtx;
@@ -153,7 +153,6 @@ typedef struct VideoState
 @property (nonatomic, strong) NSMutableSet* packetQueueConditions;
 @property (nonatomic, strong) NSLock* audioLock;
 @property (nonatomic, strong) NSCondition* statusLock;
-@property (nonatomic, strong) NSLock* ffmpegLock;
 
 //video thread
 @property (nonatomic, strong) NSThread* videoThread;
@@ -164,102 +163,155 @@ typedef struct VideoState
 //stream decode thread
 @property (nonatomic, strong) NSThread* decodeThread;
 
++(UIImage*)internalSnapshotWithFilepath:(NSString*)filepath time:(NSTimeInterval)time;
+
+@end
+
+@interface JJMoviePlayerSnapshotRequest ()
+
+@end
+
+@implementation JJMoviePlayerSnapshotRequest
+
++(id)requestWithFilepath:(NSString*)filepath
+                delegate:(id<JJMoviePlayerSnapshotRequestDelegate>)delegate{
+    JJMoviePlayerSnapshotRequest* request = [[JJMoviePlayerSnapshotRequest alloc] init];
+    request.filepath = filepath;
+    request.delegate = delegate;
+    
+    return request;
+}
+
+-(NSOperationQueue*)requestQueue{
+    //init request queue
+    static NSOperationQueue* requestQueue = nil;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        requestQueue = [[NSOperationQueue alloc] init];
+        requestQueue.maxConcurrentOperationCount = 1;
+    });
+    
+    return requestQueue;
+}
+
+//start to fetch movie snap shot sync
+-(void)startAsync{
+    [[self requestQueue] addOperation:self];
+}
+
+-(UIImage*)startSync{
+    return [JJMoviePlayerController internalSnapshotWithFilepath:self.filepath time:1.0];
+}
+
+-(void)main{
+    UIImage* snapshot = [JJMoviePlayerController internalSnapshotWithFilepath:self.filepath time:1.0];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(requestFinished:snapshot:)]){
+        DebugLog(@"Snapshot request of %@ finished", self.filepath);
+        [self.delegate requestFinished:self snapshot:snapshot];
+    }
+}
+
+-(void)removeDelegate{
+    self.delegate = nil;
+}
+
 @end
 
 @implementation JJMoviePlayerController
 
-#pragma mark - request for snapshot
-+(void)requestSnapshotOfMovie:(NSString*)filePath
-                       atTime:(NSTimeInterval)time
-              completionBlock:(void(^)(UIImage*))block{
-    
-    void(^finishBlock)(UIImage*) = ^(UIImage* image){
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (block){
-                block(image);
-            }
-        });
-    };
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        AVFormatContext *pFormatCtx = NULL;
-        
-        // Register all formats and codecs
-        avcodec_register_all();
-        av_register_all();
-        
-        // Open video file
-        if (avformat_open_input(&pFormatCtx, [filePath cStringUsingEncoding:NSUTF8StringEncoding], NULL, NULL) < 0){
-            finishBlock(nil);
-        }
-        
-        // Retrieve stream information
-        if (avformat_find_stream_info(pFormatCtx, NULL) < 0){
-            finishBlock(nil);
-        } // Couldn't find stream information
-        
-        // Find the best video stream
-        int video_index = -1;
-        if ((video_index =  av_find_best_stream(pFormatCtx, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0)) < 0) {
-            finishBlock(nil);
-        }
-        
-        AVStream* video_st = pFormatCtx->streams[video_index];
-        
-        
-        AVCodecContext *codecCtx;
-        AVCodec *codec;
-        
-        // Get a pointer to the codec context for the video stream
-        codecCtx = pFormatCtx->streams[video_index]->codec;
-        codec = avcodec_find_decoder(codecCtx->codec_id);
-        AVDictionary* opt = NULL;
-        if(!codec || (avcodec_open2(codecCtx, codec, &opt) < 0)){
-            finishBlock(nil);
-        }
-        //seek frame
-        AVRational timeBase = video_st->time_base;
-        int64_t targetFrame = (int64_t)((double)timeBase.den / timeBase.num * time);
-        avformat_seek_file(pFormatCtx, video_index, targetFrame, targetFrame, targetFrame, AVSEEK_FLAG_FRAME);
-//        avcodec_flush_buffers(codecCtx);
-        
-        
-        UIImage* image = nil;
-        
-        AVPacket packet, *pkt = &packet;
-        AVFrame *pFrame = avcodec_alloc_frame();
-        // Is this a packet from the video stream?
-        int frameFinished=0;
-        
-        while(!frameFinished && av_read_frame(pFormatCtx, pkt)>=0) {
-            // Is this a packet from the video stream?
-            if(packet.stream_index == video_index) {
-                // Decode video frame
-                avcodec_decode_video2(codecCtx, pFrame, &frameFinished, pkt);
-            }
-            av_free_packet(pkt);
-        }
-        
-        // Release old picture and scaler
-        AVPicture picture;
-        // Allocate RGB picture
-        avpicture_alloc(&picture, PIX_FMT_RGB24, codecCtx->width, codecCtx->height);
-        
-        // Setup scaler
-        struct SwsContext* img_convert_ctx = sws_getContext(codecCtx->width, codecCtx->height, codecCtx->pix_fmt, codecCtx->width, codecCtx->height,PIX_FMT_RGB24,SWS_FAST_BILINEAR, NULL, NULL, NULL);
-        
-        sws_scale (img_convert_ctx, pFrame->data, pFrame->linesize,
-                   0, codecCtx->height,
-                   picture.data, picture.linesize);
-        
-        image = [self imageFromAVPicture:picture width:codecCtx->width height:codecCtx->height];
-        
-        avcodec_free_frame(&pFrame);
-        avpicture_free(&picture);
-        sws_freeContext(img_convert_ctx);
-        
-        finishBlock(image);
++(NSLock*)ffmpeglock{
+    static NSLock* lock = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        lock = [[NSLock alloc] init];
     });
+    
+    return lock;
+}
+
++(UIImage*)internalSnapshotWithFilepath:(NSString*)filepath time:(NSTimeInterval)time{
+    
+    [[self ffmpeglock] lock];
+    
+    AVFormatContext *pFormatCtx = NULL;
+    
+    // Register all formats and codecs
+    avcodec_register_all();
+    av_register_all();
+    
+    // Open video file
+    if (avformat_open_input(&pFormatCtx, [filepath cStringUsingEncoding:NSUTF8StringEncoding], NULL, NULL) < 0){
+        return nil;
+    }
+    
+    // Retrieve stream information
+    if (avformat_find_stream_info(pFormatCtx, NULL) < 0){
+        return nil;
+    } // Couldn't find stream information
+    
+    // Find the best video stream
+    int video_index = -1;
+    if ((video_index =  av_find_best_stream(pFormatCtx, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0)) < 0) {
+        return nil;
+    }
+    
+    AVStream* video_st = pFormatCtx->streams[video_index];
+    
+    
+    AVCodecContext *codecCtx;
+    AVCodec *codec;
+    
+    // Get a pointer to the codec context for the video stream
+    codecCtx = pFormatCtx->streams[video_index]->codec;
+    codec = avcodec_find_decoder(codecCtx->codec_id);
+    AVDictionary* opt = NULL;
+    if(!codec || (avcodec_open2(codecCtx, codec, &opt) < 0)){
+        return nil;
+    }
+    //seek frame
+    int64_t targetFrame = av_q2d(video_st->r_frame_rate) * time;
+    avformat_seek_file(pFormatCtx, video_index, targetFrame, targetFrame, targetFrame, AVSEEK_FLAG_FRAME);
+    avcodec_flush_buffers(codecCtx);
+    
+    AVPacket packet, *pkt = &packet;
+    AVFrame *pFrame = avcodec_alloc_frame();
+    // Is this a packet from the video stream?
+    int frameFinished=0;
+    
+    while(!frameFinished && av_read_frame(pFormatCtx, pkt)>=0) {
+        // Is this a packet from the video stream?
+        if(packet.stream_index == video_index) {
+            // Decode video frame
+            avcodec_decode_video2(codecCtx, pFrame, &frameFinished, pkt);
+        }
+        av_free_packet(pkt);
+    }
+    
+    // Release old picture and scaler
+    AVPicture picture;
+    // Allocate RGB picture
+    avpicture_alloc(&picture, PIX_FMT_RGB24, codecCtx->width, codecCtx->height);
+    
+    // Setup scaler
+    struct SwsContext* img_convert_ctx = sws_getContext(codecCtx->width, codecCtx->height, codecCtx->pix_fmt, codecCtx->width, codecCtx->height,PIX_FMT_RGB24,SWS_FAST_BILINEAR, NULL, NULL, NULL);
+    
+    sws_scale (img_convert_ctx, pFrame->extended_data, pFrame->linesize,
+               0, codecCtx->height,
+               picture.data, picture.linesize);
+    
+    UIImage* image = [self imageFromAVPicture:picture width:codecCtx->width height:codecCtx->height];
+    
+    sws_freeContext(img_convert_ctx);
+    avcodec_free_frame(&pFrame);
+    avcodec_close(codecCtx);
+    avformat_close_input(&pFormatCtx);
+    avpicture_free(&picture);
+    
+    [[self ffmpeglock] unlock];
+    
+    return image;
 }
 
 +(UIImage *)imageFromAVPicture:(AVPicture)pict width:(int)width height:(int)height {
@@ -458,6 +510,7 @@ typedef struct VideoState
 }
 
 -(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     //release ffmpeg
     [self ffmpeg_release];
 }
@@ -477,7 +530,6 @@ typedef struct VideoState
         self.pictq_cond = [[NSCondition alloc] init];
         self.videoStartedCondition = [[NSCondition alloc] init];
         self.statusLock = [[NSCondition alloc] init];
-        self.ffmpegLock = [[NSLock alloc] init];
         self.packetQueueConditions = [NSMutableSet set];
         [self createViews];
         
@@ -488,21 +540,8 @@ typedef struct VideoState
         
         self.playbackTime = 0.0;
         self.audioPlayer = [[JJMovieAudioPlayer alloc] init];
-    }
-    
-    return self;
-}
-
-/**
- init of JJMoviePlayerController with input stream
- @param input stream
- @return id
- @exception nil
- */
--(id)initWithInputStream:(NSInputStream*)inputStream{
-    self = [super init];
-    if (self){
-
+        
+        //register notifications
     }
     
     return self;
@@ -512,11 +551,38 @@ typedef struct VideoState
     self.playbackTime = seconds;
 	AVRational timeBase = inputStream->video_st->time_base;
 	int64_t targetFrame = (int64_t)((double)timeBase.den / timeBase.num * seconds);
-    [self.ffmpegLock lock];
+    [[[self class] ffmpeglock] lock];
 	avformat_seek_file(inputStream->pFormatCtx, inputStream->videoStream, targetFrame, targetFrame, targetFrame, AVSEEK_FLAG_FRAME);
 	avcodec_flush_buffers(pVideoCodecCtx);
     avcodec_flush_buffers(pAudioCodecCtx);
-    [self.ffmpegLock unlock];
+    [[[self class] ffmpeglock] unlock];
+}
+
+#pragma mark - notification handlers
+
+-(void)registerNotifications{
+    NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+    //add notification observer for application status change
+    [nc addObserver:self selector:@selector(didReceiveMemoryWarning:) name:UIApplicationDidReceiveMemoryWarningNotification object:nil];
+    [nc addObserver:self selector:@selector(willResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+    [nc addObserver:self selector:@selector(didBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+-(void)willResignActive:(NSNotification*)notification{
+    [self pause];
+}
+
+-(void)didBecomeActive:(NSNotification*)notification{
+    if (self.status == JJMoviePlaybackStatusPause){
+        [self play];
+    }
+}
+
+-(void)didReceiveMemoryWarning:(NSNotification*)notification{
+    UIApplicationState states = [UIApplication sharedApplication].applicationState;
+    if (states == UIApplicationStateBackground || states == UIApplicationStateInactive){
+        [self stop];
+    }
 }
 
 #pragma mark - display video
@@ -587,7 +653,7 @@ typedef struct VideoState
     //create an input stream object before init ffmpeg
     [self createInputStream];
     
-    [self.ffmpegLock lock];
+    [[[self class] ffmpeglock] lock];
 	AVFormatContext *pFormatCtx = NULL;
     
     // Register all formats and codecs
@@ -630,7 +696,7 @@ typedef struct VideoState
     
     subtitle_index = av_find_best_stream(pFormatCtx, AVMEDIA_TYPE_SUBTITLE, -1, -1, NULL, 0);
     
-    [self.ffmpegLock unlock];
+    [[[self class] ffmpeglock] unlock];
     
 	if(audio_index >= 0)
 	{
@@ -649,14 +715,12 @@ typedef struct VideoState
         return NO;
 	}
     
-    ASS_Library* lib = ass_library_init();
-    
     return YES;
 }
 
 //release ffmpeg
 -(void)ffmpeg_release{
-    [self.ffmpegLock lock];
+    [[[self class] ffmpeglock] lock];
     // Close the codec
     if (pVideoCodecCtx){
         avcodec_close(pVideoCodecCtx);
@@ -677,7 +741,7 @@ typedef struct VideoState
     }
     //release ffmpeg
     av_freep(inputStream);
-    [self.ffmpegLock unlock];
+    [[[self class] ffmpeglock] unlock];
 }
 
 #pragma mark - prepare to play
@@ -913,9 +977,9 @@ typedef struct VideoState
                 break;
             }
             // Decode video frame
-            [self.ffmpegLock lock];
+            [[[self class] ffmpeglock] lock];
             len1 = avcodec_decode_video2(pVideoCodecCtx, ptrFrame, &frameFinished, packet);
-            [self.ffmpegLock unlock];
+            [[[self class] ffmpeglock] unlock];
             // Did we get a video frame?
             if(frameFinished)
             {
@@ -944,11 +1008,23 @@ typedef struct VideoState
 	return 0;
 }
 
+void ass_callback
+(int level, const char *fmt, va_list args, void *data){
+    printf(fmt, args);
+    printf("\n");
+}
+
 #pragma mark - subtitle thread
 -(int)subtitle_thread{
     
+    return 0;
+    
     int finished = 0;
-    AVSubtitle* subtitle = (AVSubtitle*)malloc(sizeof(AVSubtitle));
+    AVSubtitle* subtitle = (AVSubtitle*)av_malloc(sizeof(AVSubtitle));
+    ASS_Library* asslibrary = ass_library_init();
+    ASS_Track* subtrack = ass_new_track(asslibrary);
+    
+    ass_set_message_cb(asslibrary, ass_callback, NULL);
     
     @autoreleasepool {
         while ([[NSThread currentThread] isCancelled] == NO) {
@@ -967,6 +1043,17 @@ typedef struct VideoState
                 
                 if (finished){
                     NSLog(@"subtitle frame");
+                    unsigned int num_rects = subtitle->num_rects;
+                    for (int i = 0; i<num_rects; i++){
+                        AVSubtitleRect* subRect = subtitle->rects[i];
+                        //process subtitle
+                        if (subRect->type == SUBTITLE_ASS){
+                            NSString* string = [NSString stringWithCString:subRect->ass encoding:NSUTF8StringEncoding];
+                            DebugLog(@"%@", string);
+                            ass_process_data(subtrack, subRect->ass, strlen(subRect->ass));
+                            NSLog(@"Process end");
+                        }
+                    }
                     avsubtitle_free(subtitle);
                 }
                 
@@ -974,6 +1061,11 @@ typedef struct VideoState
             }
         }
     }
+    
+    ass_free_track(subtrack);
+    ass_library_done(asslibrary);
+    
+    av_free(subtitle);
     
     return 0;
 }

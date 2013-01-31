@@ -101,11 +101,12 @@ static CGFloat ProgressHUDDuration = 1.5f;
     __block typeof(self) blockSelf = self;
     
     PAPasscodeViewController* passcodeController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionSet];
+    PAPasscodeViewController* blockPass = passcodeController;
     passcodeController.delegate = self;
     passcodeController.didSetBlock = ^{
-        DebugLog(@"passcode did set. code is %@", passcodeController.passcode);
+//        DebugLog(@"passcode did set. code is %@", passcodeController.passcode);
         [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"progress_message_passcodeisenabled", nil) duration:ProgressHUDDuration];
-        [ISUserPreferenceDefine setPasscode:passcodeController.passcode];
+        [ISUserPreferenceDefine setPasscode:blockPass.passcode];
         [blockSelf.tableView reloadData];
         [blockSelf dismissViewControllerAnimated:YES completion:NULL];
     };
@@ -129,7 +130,7 @@ static CGFloat ProgressHUDDuration = 1.5f;
 -(void)changePasscode{
     __block typeof(self) blockSelf = self;
     
-    PAPasscodeViewController* passcodeController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionChange];
+    __block PAPasscodeViewController* passcodeController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionChange];
     passcodeController.delegate = self;
     passcodeController.passcode = [ISUserPreferenceDefine passcode];
     passcodeController.didChangeBlock = ^{

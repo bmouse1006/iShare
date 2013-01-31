@@ -15,6 +15,7 @@
 @interface ISFileBrowserCell ()
 
 @property (nonatomic, strong) FileItem* item;
+@property (nonatomic, strong) FileThumbnailRequest* request;
 
 @end
 
@@ -67,19 +68,24 @@
         self.accessoryView = view;
     }
     
-    self.thumbnailImageView.image = [[FileOperationWrap sharedWrap] thumbnailForFile:self.item.filePath previewEnabled:[ISUserPreferenceDefine enableThumbnail]];
-//    [[FileOperationWrap sharedWrap] requestThumbnailForFile:self.item.filePath
-//                                             previewEnabled:[ISUserPreferenceDefine enableThumbnail]
-//                                            completionBlock:^(UIImage* image){
-//                                                self.thumbnailImageView.image = image;
-//                                            }];
-    
+    [self.request removeDelegate];
+    self.request = [FileThumbnailRequest requestWithFilepath:self.item.filePath size:self.thumbnailImageView.frame.size delegate:self];
+    [self.request startAsync];
+        
     NSString* dateString = [NSString stringWithFormat:@"%@", [self.item.attributes modificationDateWithFormate:@"yyyy-MM-dd HH:mm"]];
     self.detailTextLabel.text = dateString;
     
     NSString* sizeString = [self.item.attributes normalizedFileSize];
     self.sizeLabel.text = sizeString;
     [self.sizeLabel sizeToFit];
+}
+
+-(void)requestFinished:(FileThumbnailRequest *)request thumbnail:(UIImage *)thumbnail{
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.thumbnailImageView.image = thumbnail;
+        [self setNeedsLayout];
+    });
 }
 
 -(FileItem*)cellItem{

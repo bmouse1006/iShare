@@ -137,13 +137,13 @@ struct SwsContext;
  * Return a positive value if pix_fmt is a supported input format, 0
  * otherwise.
  */
-int sws_isSupportedInput(enum AVPixelFormat pix_fmt);
+int sws_isSupportedInput(enum PixelFormat pix_fmt);
 
 /**
  * Return a positive value if pix_fmt is a supported output format, 0
  * otherwise.
  */
-int sws_isSupportedOutput(enum AVPixelFormat pix_fmt);
+int sws_isSupportedOutput(enum PixelFormat pix_fmt);
 
 /**
  * Allocate an empty SwsContext. This must be filled and passed to
@@ -310,8 +310,8 @@ void sws_freeFilter(SwsFilter *filter);
  * are assumed to remain the same.
  */
 struct SwsContext *sws_getCachedContext(struct SwsContext *context,
-                                        int srcW, int srcH, enum AVPixelFormat srcFormat,
-                                        int dstW, int dstH, enum AVPixelFormat dstFormat,
+                                        int srcW, int srcH, enum PixelFormat srcFormat,
+                                        int dstW, int dstH, enum PixelFormat dstFormat,
                                         int flags, SwsFilter *srcFilter,
                                         SwsFilter *dstFilter, const double *param);
 
