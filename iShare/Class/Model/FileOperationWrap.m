@@ -312,7 +312,7 @@
         return FileContentTypeAppleMovie;
     }
     
-    if (UTTypeConformsTo((__bridge CFStringRef)(document.fileType), (CFStringRef)kUTTypeMovie) || [ext isEqualToString:@"mkv"] || [ext isEqualToString:@"rmvb" ] || [ext isEqualToString:@"rm"] || [ext isEqualToString:@"vob"] || [ext isEqualToString:@"asf"] || [ext isEqualToString:@"wmv"] || [ext isEqualToString:@"flv"] || [ext isEqualToString:@"avi"] || [ext isEqualToString:@"f4v"]){
+    if (UTTypeConformsTo((__bridge CFStringRef)(document.fileType), (CFStringRef)kUTTypeMovie) || [ext isEqualToString:@"mkv"] || [ext isEqualToString:@"rmvb" ] || [ext isEqualToString:@"rm"] || [ext isEqualToString:@"vob"] || [ext isEqualToString:@"asf"] || [ext isEqualToString:@"wmv"] || [ext isEqualToString:@"flv"] || [ext isEqualToString:@"avi"] || [ext isEqualToString:@"f4v"] || [ext isEqualToString:@"mpeg"] || [ext isEqualToString:@"mpg"] || [ext isEqualToString:@"ts"] || [ext isEqualToString:@"m2ts"]){
         return FileContentTypeMovie;
     }
     

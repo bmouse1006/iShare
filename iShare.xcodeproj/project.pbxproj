@@ -658,15 +658,6 @@
 		22A82D7F162DAA4B005CDC89 /* Play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22A82D7B162DAA4B005CDC89 /* Play@2x.png */; };
 		22A82D82162DAA85005CDC89 /* ISBTSendingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 22A82D81162DAA85005CDC89 /* ISBTSendingCell.m */; };
 		22A82D84162DAA95005CDC89 /* ISBTSendingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22A82D83162DAA95005CDC89 /* ISBTSendingCell.xib */; };
-		22B31F9416B9092D000C5FDA /* asrc_abuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B31F8D16B9092D000C5FDA /* asrc_abuffer.h */; };
-		22B31F9516B9092D000C5FDA /* avcodec.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B31F8E16B9092D000C5FDA /* avcodec.h */; };
-		22B31F9616B9092D000C5FDA /* avfilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B31F8F16B9092D000C5FDA /* avfilter.h */; };
-		22B31F9716B9092D000C5FDA /* avfiltergraph.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B31F9016B9092D000C5FDA /* avfiltergraph.h */; };
-		22B31F9816B9092D000C5FDA /* buffersink.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B31F9116B9092D000C5FDA /* buffersink.h */; };
-		22B31F9916B9092D000C5FDA /* buffersrc.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B31F9216B9092D000C5FDA /* buffersrc.h */; };
-		22B31F9A16B9092D000C5FDA /* version.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B31F9316B9092D000C5FDA /* version.h */; };
-		22B31F9C16B90963000C5FDA /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B31F9B16B90963000C5FDA /* libavfilter.a */; };
-		22B31F9E16B90981000C5FDA /* libavfilter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B31F9D16B90981000C5FDA /* libavfilter.a */; };
 		22B31FB716B909B5000C5FDA /* ass.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B31FA916B909B5000C5FDA /* ass.h */; };
 		22B31FB816B909B5000C5FDA /* ass_types.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B31FAA16B909B5000C5FDA /* ass_types.h */; };
 		22B31FB916B909B5000C5FDA /* libass.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22B31FAD16B909B5000C5FDA /* libass.a */; };
@@ -1542,15 +1533,6 @@
 		22A82D80162DAA84005CDC89 /* ISBTSendingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISBTSendingCell.h; sourceTree = "<group>"; };
 		22A82D81162DAA85005CDC89 /* ISBTSendingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISBTSendingCell.m; sourceTree = "<group>"; };
 		22A82D83162DAA95005CDC89 /* ISBTSendingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ISBTSendingCell.xib; sourceTree = "<group>"; };
-		22B31F8D16B9092D000C5FDA /* asrc_abuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = asrc_abuffer.h; sourceTree = "<group>"; };
-		22B31F8E16B9092D000C5FDA /* avcodec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avcodec.h; sourceTree = "<group>"; };
-		22B31F8F16B9092D000C5FDA /* avfilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avfilter.h; sourceTree = "<group>"; };
-		22B31F9016B9092D000C5FDA /* avfiltergraph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = avfiltergraph.h; sourceTree = "<group>"; };
-		22B31F9116B9092D000C5FDA /* buffersink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffersink.h; sourceTree = "<group>"; };
-		22B31F9216B9092D000C5FDA /* buffersrc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = buffersrc.h; sourceTree = "<group>"; };
-		22B31F9316B9092D000C5FDA /* version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = version.h; sourceTree = "<group>"; };
-		22B31F9B16B90963000C5FDA /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavfilter.a; sourceTree = "<group>"; };
-		22B31F9D16B90981000C5FDA /* libavfilter.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavfilter.a; sourceTree = "<group>"; };
 		22B31FA916B909B5000C5FDA /* ass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ass.h; sourceTree = "<group>"; };
 		22B31FAA16B909B5000C5FDA /* ass_types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ass_types.h; sourceTree = "<group>"; };
 		22B31FAD16B909B5000C5FDA /* libass.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libass.a; sourceTree = "<group>"; };
@@ -1815,8 +1797,6 @@
 				22436ECA1676D43D008B8A12 /* libavutil.a in Frameworks */,
 				22436ECB1676D43D008B8A12 /* libswresample.a in Frameworks */,
 				22436ECC1676D43D008B8A12 /* libswscale.a in Frameworks */,
-				22B31F9C16B90963000C5FDA /* libavfilter.a in Frameworks */,
-				22B31F9E16B90981000C5FDA /* libavfilter.a in Frameworks */,
 				22B31FB916B909B5000C5FDA /* libass.a in Frameworks */,
 				22B31FBA16B909B5000C5FDA /* libfontconfig.a in Frameworks */,
 				22B31FBB16B909B5000C5FDA /* libfreetype.a in Frameworks */,
@@ -3090,20 +3070,6 @@
 			path = images;
 			sourceTree = "<group>";
 		};
-		22B31F8C16B9092D000C5FDA /* libavfilter */ = {
-			isa = PBXGroup;
-			children = (
-				22B31F8D16B9092D000C5FDA /* asrc_abuffer.h */,
-				22B31F8E16B9092D000C5FDA /* avcodec.h */,
-				22B31F8F16B9092D000C5FDA /* avfilter.h */,
-				22B31F9016B9092D000C5FDA /* avfiltergraph.h */,
-				22B31F9116B9092D000C5FDA /* buffersink.h */,
-				22B31F9216B9092D000C5FDA /* buffersrc.h */,
-				22B31F9316B9092D000C5FDA /* version.h */,
-			);
-			path = libavfilter;
-			sourceTree = "<group>";
-		};
 		22B31F9F16B909B5000C5FDA /* libass */ = {
 			isa = PBXGroup;
 			children = (
@@ -3363,7 +3329,6 @@
 		22FD8D591675E8C90022D4E8 /* include */ = {
 			isa = PBXGroup;
 			children = (
-				22B31F8C16B9092D000C5FDA /* libavfilter */,
 				22FD8D911675EA500022D4E8 /* libavcodec */,
 				22FD8D9B1675EA500022D4E8 /* libavdevice */,
 				22FD8D9E1675EA500022D4E8 /* libavformat */,
@@ -3489,7 +3454,6 @@
 		22FD8E1E1676CEA70022D4E8 /* Release-iphonesimulator */ = {
 			isa = PBXGroup;
 			children = (
-				22B31F9D16B90981000C5FDA /* libavfilter.a */,
 				22436EC11676D43D008B8A12 /* libavcodec.a */,
 				22436EC21676D43D008B8A12 /* libavdevice.a */,
 				22436EC31676D43D008B8A12 /* libavformat.a */,
@@ -3503,7 +3467,6 @@
 		22FD8E1F1676CEAE0022D4E8 /* Release-iphoneos */ = {
 			isa = PBXGroup;
 			children = (
-				22B31F9B16B90963000C5FDA /* libavfilter.a */,
 				22436EB51676D432008B8A12 /* libavcodec.a */,
 				22436EB61676D432008B8A12 /* libavutil.a */,
 				22436EB71676D432008B8A12 /* libswresample.a */,
@@ -3776,13 +3739,6 @@
 				22DFEA9A169850DD00AAF301 /* JJYUVDisplayView.h in Headers */,
 				2201C6F916A147860030EE36 /* JJMovieAudioPlayer.h in Headers */,
 				22C7EEF816AFE39E00EE5E34 /* NSString+movieplayer.h in Headers */,
-				22B31F9416B9092D000C5FDA /* asrc_abuffer.h in Headers */,
-				22B31F9516B9092D000C5FDA /* avcodec.h in Headers */,
-				22B31F9616B9092D000C5FDA /* avfilter.h in Headers */,
-				22B31F9716B9092D000C5FDA /* avfiltergraph.h in Headers */,
-				22B31F9816B9092D000C5FDA /* buffersink.h in Headers */,
-				22B31F9916B9092D000C5FDA /* buffersrc.h in Headers */,
-				22B31F9A16B9092D000C5FDA /* version.h in Headers */,
 				22B31FB716B909B5000C5FDA /* ass.h in Headers */,
 				22B31FB816B909B5000C5FDA /* ass_types.h in Headers */,
 				220A0CB616BAB38F00B9FB47 /* FileThumbnailRequest.h in Headers */,

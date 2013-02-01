@@ -12,7 +12,6 @@
 #import "libavformat/avformat.h"
 #import "libswscale/swscale.h"
 #import "libswresample/swresample.h"
-#import "libavfilter/avfilter.h"
 #import "ass.h"
 
 #import <time.h>
@@ -950,7 +949,7 @@ typedef struct VideoState
                                     packet:pkt];
                 }
                 else if(pkt->stream_index == is->subtitleStream){
-                    NSLog(@"put subtitle packet");
+                    DebugLog(@"put subtitle packet");
                     [self packet_queue_put:&is->subtitleq
                                     packet:pkt];
                 }
@@ -1025,13 +1024,12 @@ void ass_callback
 #pragma mark - subtitle thread
 -(int)subtitle_thread{
     
-    return 0;
-    
     int finished = 0;
     AVSubtitle* subtitle = (AVSubtitle*)av_malloc(sizeof(AVSubtitle));
     ASS_Library* asslibrary = ass_library_init();
+    ASS_Renderer* renderer = ass_renderer_init(asslibrary);
     ASS_Track* subtrack = ass_new_track(asslibrary);
-    
+//    event_format_fallback(subtrack);
     ass_set_message_cb(asslibrary, ass_callback, NULL);
     
     @autoreleasepool {
@@ -1050,16 +1048,19 @@ void ass_callback
                 }
                 
                 if (finished){
-                    NSLog(@"subtitle frame");
                     unsigned int num_rects = subtitle->num_rects;
                     for (int i = 0; i<num_rects; i++){
                         AVSubtitleRect* subRect = subtitle->rects[i];
                         //process subtitle
                         if (subRect->type == SUBTITLE_ASS){
-                            NSString* string = [NSString stringWithCString:subRect->ass encoding:NSUTF8StringEncoding];
-                            DebugLog(@"%@", string);
-                            ass_process_data(subtrack, subRect->ass, strlen(subRect->ass));
-                            NSLog(@"Process end");
+                            long long start = subtitle->pts / AV_TIME_BASE * 1000 + subtitle->start_display_time;
+                            long long duration = subtitle->end_display_time - subtitle->start_display_time;
+//                            NSString* string = [NSString stringWithCString:subRect->ass encoding:NSUTF8StringEncoding];
+                            if (!subtrack->event_format) {
+                                ass_process_codec_private(subtrack, subRect->ass, strlen(subRect->ass));
+                            }
+                            ass_process_chunk(subtrack, subRect->ass, strlen(subRect->ass), start, duration);
+//                            ass_process_data(subtrack, subRect->ass, strlen(subRect->ass));
                         }
                     }
                     avsubtitle_free(subtitle);
@@ -1071,6 +1072,7 @@ void ass_callback
     }
     
     ass_free_track(subtrack);
+    ass_renderer_done(renderer);
     ass_library_done(asslibrary);
     
     av_free(subtitle);
@@ -1144,15 +1146,6 @@ void ass_callback
                     }
                 
                     [self pauseThreadWhenPause];
-//                    
-//                    for (int i = 0 ; i<pFrame->linesize[0]; i++){
-//                        uint8_t unit = *(pFrame->data[0]+i);
-//                        for (int j = 0; j<8; j++){
-//                            printf("%d", unit&1);
-//                            unit = unit>>1;
-//                        }
-//                        printf(" ");
-//                    }
                     
                     //对不是双声道或采用平面编码的音频进行重新采样，采样为立体声双声道，采样率不变（消除噪音），packet audio
                     uint8_t *output;
