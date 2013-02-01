@@ -201,11 +201,11 @@ typedef struct VideoState
 }
 
 -(UIImage*)startSync{
-    return [JJMoviePlayerController internalSnapshotWithFilepath:self.filepath time:1.0];
+    return [JJMoviePlayerController snapshotWithFilepath:self.filepath time:1.0];
 }
 
 -(void)main{
-    UIImage* snapshot = [JJMoviePlayerController internalSnapshotWithFilepath:self.filepath time:1.0];
+    UIImage* snapshot = [JJMoviePlayerController snapshotWithFilepath:self.filepath time:1.0];
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(requestFinished:snapshot:)]){
         DebugLog(@"Snapshot request of %@ finished", self.filepath);
@@ -231,87 +231,95 @@ typedef struct VideoState
     return lock;
 }
 
-+(UIImage*)internalSnapshotWithFilepath:(NSString*)filepath time:(NSTimeInterval)time{
++(UIImage*)snapshotWithFilepath:(NSString*)filepath time:(NSTimeInterval)time{
     
-    [[self ffmpeglock] lock];
-    
-    AVFormatContext *pFormatCtx = NULL;
-    
-    // Register all formats and codecs
-    avcodec_register_all();
-    av_register_all();
-    
-    // Open video file
-    if (avformat_open_input(&pFormatCtx, [filepath cStringUsingEncoding:NSUTF8StringEncoding], NULL, NULL) < 0){
-        return nil;
-    }
-    
-    // Retrieve stream information
-    if (avformat_find_stream_info(pFormatCtx, NULL) < 0){
-        return nil;
-    } // Couldn't find stream information
-    
-    // Find the best video stream
-    int video_index = -1;
-    if ((video_index =  av_find_best_stream(pFormatCtx, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0)) < 0) {
-        return nil;
-    }
-    
-    AVStream* video_st = pFormatCtx->streams[video_index];
-    
-    
-    AVCodecContext *codecCtx;
-    AVCodec *codec;
-    
-    // Get a pointer to the codec context for the video stream
-    codecCtx = pFormatCtx->streams[video_index]->codec;
-    codec = avcodec_find_decoder(codecCtx->codec_id);
-    AVDictionary* opt = NULL;
-    if(!codec || (avcodec_open2(codecCtx, codec, &opt) < 0)){
-        return nil;
-    }
-    //seek frame
-    int64_t targetFrame = av_q2d(video_st->r_frame_rate) * time;
-    avformat_seek_file(pFormatCtx, video_index, targetFrame, targetFrame, targetFrame, AVSEEK_FLAG_FRAME);
-    avcodec_flush_buffers(codecCtx);
-    
-    AVPacket packet, *pkt = &packet;
-    AVFrame *pFrame = avcodec_alloc_frame();
-    // Is this a packet from the video stream?
-    int frameFinished=0;
-    
-    while(!frameFinished && av_read_frame(pFormatCtx, pkt)>=0) {
-        // Is this a packet from the video stream?
-        if(packet.stream_index == video_index) {
-            // Decode video frame
-            avcodec_decode_video2(codecCtx, pFrame, &frameFinished, pkt);
+    @autoreleasepool {
+        [[self ffmpeglock] lock];
+        
+        AVFormatContext *pFormatCtx = NULL;
+        
+        // Register all formats and codecs
+        avcodec_register_all();
+        av_register_all();
+        
+        // Open video file
+        if (avformat_open_input(&pFormatCtx, [filepath cStringUsingEncoding:NSUTF8StringEncoding], NULL, NULL) < 0){
+            return nil;
         }
-        av_free_packet(pkt);
+        
+        // Retrieve stream information
+        if (avformat_find_stream_info(pFormatCtx, NULL) < 0){
+            return nil;
+        } // Couldn't find stream information
+        
+        // Find the best video stream
+        int video_index = -1;
+        if ((video_index =  av_find_best_stream(pFormatCtx, AVMEDIA_TYPE_VIDEO, -1, -1, NULL, 0)) < 0) {
+            return nil;
+        }
+        
+        AVStream* video_st = pFormatCtx->streams[video_index];
+        
+        
+        AVCodecContext *codecCtx;
+        AVCodec *codec;
+        
+        // Get a pointer to the codec context for the video stream
+        codecCtx = pFormatCtx->streams[video_index]->codec;
+        codec = avcodec_find_decoder(codecCtx->codec_id);
+        AVDictionary* opt = NULL;
+        if(!codec || (avcodec_open2(codecCtx, codec, &opt) < 0)){
+            return nil;
+        }
+        //seek frame
+        int64_t targetFrame = av_q2d(video_st->r_frame_rate) * time;
+        avformat_seek_file(pFormatCtx, video_index, targetFrame, targetFrame, targetFrame, AVSEEK_FLAG_FRAME);
+        avcodec_flush_buffers(codecCtx);
+        
+        AVPacket packet, *pkt = &packet;
+        AVFrame *pFrame = avcodec_alloc_frame();
+        // Is this a packet from the video stream?
+        int frameFinished=0;
+        
+        while(!frameFinished && av_read_frame(pFormatCtx, pkt)>=0) {
+            // Is this a packet from the video stream?
+            if(packet.stream_index == video_index) {
+                // Decode video frame
+                avcodec_decode_video2(codecCtx, pFrame, &frameFinished, pkt);
+            }
+            av_free_packet(pkt);
+        }
+        
+        // Setup scaler
+        static NSInteger MaxWidth = 400;
+        NSInteger destWidth = MIN(MaxWidth, codecCtx->width);
+        NSInteger destHeight = (destWidth != MaxWidth)?codecCtx->height:(double)codecCtx->height*((double)MaxWidth/(double)codecCtx->width);
+        
+        AVPicture picture;
+        // Allocate RGB picture
+        enum PixelFormat format = PIX_FMT_RGB24;
+        avpicture_alloc(&picture, format, destWidth, destHeight);
+        
+        struct SwsContext* img_convert_ctx = sws_getContext(codecCtx->width, codecCtx->height, codecCtx->pix_fmt, destWidth, destHeight,format,SWS_BILINEAR, NULL, NULL, NULL);
+        
+        sws_scale (img_convert_ctx, pFrame->data, pFrame->linesize,
+                   0, codecCtx->height,
+                   picture.data, picture.linesize);
+        
+        UIImage* image = [self imageFromAVPicture:picture width:destWidth height:destHeight];
+        
+        image = [UIImage imageWithData:UIImagePNGRepresentation(image)];
+        
+        sws_freeContext(img_convert_ctx);
+        avcodec_free_frame(&pFrame);
+        avcodec_close(codecCtx);
+        avformat_close_input(&pFormatCtx);
+        avpicture_free(&picture);
+        
+        [[self ffmpeglock] unlock];
+        
+        return image;
     }
-    
-    // Release old picture and scaler
-    AVPicture picture;
-    // Allocate RGB picture
-    avpicture_alloc(&picture, PIX_FMT_RGB24, codecCtx->width, codecCtx->height);
-    
-    // Setup scaler
-    struct SwsContext* img_convert_ctx = sws_getContext(codecCtx->width, codecCtx->height, codecCtx->pix_fmt, codecCtx->width, codecCtx->height,PIX_FMT_RGB24,SWS_FAST_BILINEAR, NULL, NULL, NULL);
-    
-    sws_scale (img_convert_ctx, pFrame->extended_data, pFrame->linesize,
-               0, codecCtx->height,
-               picture.data, picture.linesize);
-    
-    UIImage* image = [self imageFromAVPicture:picture width:codecCtx->width height:codecCtx->height];
-    
-    sws_freeContext(img_convert_ctx);
-    avcodec_free_frame(&pFrame);
-    avcodec_close(codecCtx);
-    avformat_close_input(&pFormatCtx);
-    avpicture_free(&picture);
-    
-    [[self ffmpeglock] unlock];
-    
-    return image;
 }
 
 +(UIImage *)imageFromAVPicture:(AVPicture)pict width:(int)width height:(int)height {

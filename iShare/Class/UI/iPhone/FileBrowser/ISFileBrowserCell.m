@@ -70,7 +70,7 @@
     
     [self.request removeDelegate];
     self.request = [FileThumbnailRequest requestWithFilepath:self.item.filePath size:self.thumbnailImageView.frame.size delegate:self];
-    [self.request startAsync];
+    [self.request startAccordingly];
         
     NSString* dateString = [NSString stringWithFormat:@"%@", [self.item.attributes modificationDateWithFormate:@"yyyy-MM-dd HH:mm"]];
     self.detailTextLabel.text = dateString;
@@ -81,11 +81,8 @@
 }
 
 -(void)requestFinished:(FileThumbnailRequest *)request thumbnail:(UIImage *)thumbnail{
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.thumbnailImageView.image = thumbnail;
-        [self setNeedsLayout];
-    });
+    self.thumbnailImageView.image = thumbnail;
+    [self layoutSubviews];
 }
 
 -(FileItem*)cellItem{

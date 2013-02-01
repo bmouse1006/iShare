@@ -160,9 +160,7 @@ static NSString* _cachePath = nil;
         scale = clipSize.height/imageSize.height;
     }
     
-    CGRect imageRect = CGRectMake(0, 0, imageSize.width, imageSize.height);
-    
-    imageRect = CGRectApplyAffineTransform(imageRect, CGAffineTransformMakeScale(scale, scale));
+    CGRect imageRect = CGRectMake(0, 0, imageSize.width * scale, imageSize.height * scale);
     
     UIGraphicsBeginImageContext(imageRect.size);
     

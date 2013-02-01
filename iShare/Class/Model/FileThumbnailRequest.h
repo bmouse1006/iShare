@@ -22,7 +22,7 @@
 
 +(id)requestWithFilepath:(NSString*)filepath size:(CGSize)size delegate:(id<FileThumbnailRequestDelegate>)delegate;
 
--(void)startAsync;
+-(void)startAccordingly;
 -(void)removeDelegate;
 
 @end

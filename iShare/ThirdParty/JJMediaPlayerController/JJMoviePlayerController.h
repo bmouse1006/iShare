@@ -62,6 +62,8 @@ typedef enum {
 @property (nonatomic, readonly) UIView* backgroundView;
 
 @property (nonatomic, weak) id<JJMoviePlayerControllerDelegate> delegate;
+
++(UIImage*)snapshotWithFilepath:(NSString*)filepath time:(NSTimeInterval)time;
 /**
  init of JJMoviePlayerController with file path
  @param filePath
