@@ -308,11 +308,15 @@
         return FileContentTypePDF;
     }
     
-    if ([ext isEqualToString:@"mp4"] || [ext isEqualToString:@"m4v"] || [ext isEqualToString:@"mov"]){
+    NSSet* appleMovieTypes = [NSSet setWithObjects:@"mp4", @"m4v", @"mov", nil];
+    
+    if ([appleMovieTypes containsObject:ext]){
         return FileContentTypeAppleMovie;
     }
     
-    if (UTTypeConformsTo((__bridge CFStringRef)(document.fileType), (CFStringRef)kUTTypeMovie) || [ext isEqualToString:@"mkv"] || [ext isEqualToString:@"rmvb" ] || [ext isEqualToString:@"rm"] || [ext isEqualToString:@"vob"] || [ext isEqualToString:@"asf"] || [ext isEqualToString:@"wmv"] || [ext isEqualToString:@"flv"] || [ext isEqualToString:@"avi"] || [ext isEqualToString:@"f4v"] || [ext isEqualToString:@"mpeg"] || [ext isEqualToString:@"mpg"] || [ext isEqualToString:@"ts"] || [ext isEqualToString:@"m2ts"]){
+    NSSet* movieTypes = [NSSet setWithObjects:@"mkv", @"rmvb", @"rm", @"vob", @"asf", @"wmv", @"flv", @"avi", @"f4v", @"mpeg", @"mpg", @"ts", @"m2ts", nil];
+    
+    if (UTTypeConformsTo((__bridge CFStringRef)(document.fileType), (CFStringRef)kUTTypeMovie) || [movieTypes containsObject:ext]){
         return FileContentTypeMovie;
     }
     
@@ -324,7 +328,8 @@
         return FileContentTypeText;
     }
     
-    if (UTTypeConformsTo((__bridge CFStringRef)(document.fileType), (CFStringRef)kUTTypeInkText)){
+    NSSet* documentTypes = [NSSet setWithObjects:@"docx", @"xlsx", @"pptx", nil];
+    if (UTTypeConformsTo((__bridge CFStringRef)(document.fileType), (CFStringRef)kUTTypeInkText) || [documentTypes containsObject:ext]){
         return FileContentTypeDocument;
     }
     
@@ -332,11 +337,11 @@
         return FileContentTypeZip;
     }
     
-    if ([[[filePath pathExtension] lowercaseString] isEqualToString:@"rar"]){
+    if ([ext isEqualToString:@"rar"]){
         return FileContentTypeRAR;
     }
     
-    if ([[[filePath pathExtension] lowercaseString] isEqualToString:@"7z"]){
+    if ([ext isEqualToString:@"7z"]){
         return FileContentType7Zip;
     }
     

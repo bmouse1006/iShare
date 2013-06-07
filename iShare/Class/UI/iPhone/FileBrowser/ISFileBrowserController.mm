@@ -297,15 +297,13 @@ static CGFloat kMessageTransitionDuration = 1.5f;
                 [self.navigationController pushViewController:textEditor animated:YES];
             }
                 break;
+            case FileContentTypeDocument:
             case FileContentTypeOther:
             {
                 if ([QLPreviewController canPreviewItem:item]){
                     ISFileQuickPreviewController* previewController = [[ISFileQuickPreviewController alloc] initWithPreviewItems:@[item]];
                     [self.navigationController pushViewController:previewController animated:YES];
-                }/*else{
-                    JJMoviePlayerController* controller = [[JJMoviePlayerController alloc] initWithFilepath:item.filePath];
-                    [self.navigationController pushViewController:controller animated:YES];
-                }*/
+                }
             }
                 break;
             default:

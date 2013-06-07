@@ -448,15 +448,16 @@ typedef struct VideoState
 
 //get current audio played duration
 -(float)audioPlayedDuration{
+    
     [self.audioLock lock];
     
     //获取当前buffer中的音频包个数，计算未播放的音频时间
     int queuedbuffer = [self.audioPlayer numberOfQueuedBuffer];
-    int64_t bufferedTimebase = queuedbuffer * _audioPacketDuration;
+    int64_t buffered_ts = queuedbuffer * _audioPacketDuration;
     //计算目前音频播放的大概时间
-    int64_t playedTimebase = _audioCurrentPTS - bufferedTimebase;
-    playedTimebase = (playedTimebase > 0)?playedTimebase:0;
-    double ret = playedTimebase * av_q2d(inputStream->audio_st->time_base);
+    int64_t played_ts = _audioCurrentPTS - buffered_ts;
+    played_ts = (played_ts > 0)?played_ts:0;
+    double ret = played_ts * av_q2d(inputStream->audio_st->time_base);
     
     [self.audioLock unlock];
     
@@ -970,7 +971,7 @@ typedef struct VideoState
 -(int)video_thread{
     int len1, frameFinished = 0;
     standard_refresh_time = 1 / av_q2d(inputStream->video_st->r_frame_rate);
-    
+//    double time_base = av_q2d(inputStream->video_st->time_base);
     AVFrame *ptrFrame = avcodec_alloc_frame();
     while([[NSThread currentThread] isCancelled] == NO)
     {
@@ -983,10 +984,18 @@ typedef struct VideoState
                 DebugLog(@"quit getting packets");
                 break;
             }
+//            if (packet->pts * time_base < [self audioPlayedDuration]){
+//                av_free_packet(packet);
+//                avcodec_flush_buffers(pVideoCodecCtx);
+//                continue;
+//            }//如果视频包的时间大幅落后于音频pts
             // Decode video frame
             [[[self class] ffmpeglock] lock];
             len1 = avcodec_decode_video2(pVideoCodecCtx, ptrFrame, &frameFinished, packet);
             [[[self class] ffmpeglock] unlock];
+            av_free_packet(packet);
+            
+            NSLog(@"picture type is %d", ptrFrame->pict_type);
             // Did we get a video frame?
             if(frameFinished)
             {
@@ -1004,10 +1013,10 @@ typedef struct VideoState
                 }
                 
             }
-            av_free_packet(packet);
         }
 
     }
+    
     avcodec_free_frame(&ptrFrame);
     
     NSLog(@"video thread finished");

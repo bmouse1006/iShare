@@ -30,7 +30,7 @@
 "tab_title_home" = "Home";
 "tab_title_myfiles" = "My Files";
 "tab_title_music" = "Musica";
-"tab_title_share" = "Share";
+"tab_title_share" = "Sharing";
 "tab_title_config" = "Config";
 
 "nav_title_connectedwith" = "Connesso con %@";
@@ -109,8 +109,8 @@
 
 "cell_title_upload" = "Upload";
 "cell_title_download" = "Download";
-"cell_title_wifishare" = "Shared via WIFI";
-"cell_title_bluetooth" = "Shared via Bluetooth";
+"cell_title_wifishare" = "Sharing via WIFI";
+"cell_title_bluetooth" = "Sharing via Bluetooth";
 
 "cell_title_enablehttp" = "Abilita condivisione";
 "cell_title_httpport" = "Porta HTTP";

@@ -99,7 +99,22 @@ typedef enum {
     MPVolumeView* volumeView = [[MPVolumeView alloc] initWithFrame:self.volumeContainer.bounds];
     volumeView.backgroundColor = [UIColor clearColor];
     [volumeView sizeToFit];
+    
+#if TARGET_IPHONE_SIMULATOR
+    [self.simulatorVolumeControl setMinimumTrackImage:progressLeft
+                                   forState:UIControlStateNormal];
+    [self.simulatorVolumeControl setMaximumTrackImage:progressRight
+                                   forState:UIControlStateNormal];
+    [self.simulatorVolumeControl setThumbImage:[UIImage imageNamed:@"PlayProgress_Knob"]
+                            forState:UIControlStateNormal];
+    [self.volumeContainer addSubview:self.simulatorVolumeControl];
+    self.simulatorVolumeControl.frame = self.volumeContainer.bounds;
+    
+#elif TARGET_OS_IPHONE
+    
     [self.volumeContainer addSubview:volumeView];
+    
+#endif
     
     //setup duration label
     NSTimeInterval duration = self.moviePlayerController.playableDuration;
