@@ -12,7 +12,7 @@
 
 @property (nonatomic, assign) BOOL authEnabled;
 
-+(id)sharedSerivce;
++(JJHTTPSerivce*)sharedSerivce;
 +(BOOL)isServiceRunning;
 +(BOOL)authEnabled;
 

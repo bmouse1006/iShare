@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <DropboxSDK/DropboxSDK.h>
 
 @class MainTabBarController;
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, DBNetworkRequestDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

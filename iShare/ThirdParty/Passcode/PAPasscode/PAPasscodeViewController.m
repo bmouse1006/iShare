@@ -137,7 +137,7 @@
     promptLabel.font = [UIFont boldSystemFontOfSize:17];
     promptLabel.shadowColor = [UIColor whiteColor];
     promptLabel.shadowOffset = CGSizeMake(0, 1);
-    promptLabel.textAlignment = UITextAlignmentCenter;
+    promptLabel.textAlignment = NSTextAlignmentCenter;
     promptLabel.numberOfLines = 0;
     [contentView addSubview:promptLabel];
     
@@ -148,7 +148,7 @@
     messageLabel.font = [UIFont systemFontOfSize:14];
     messageLabel.shadowColor = [UIColor whiteColor];
     messageLabel.shadowOffset = CGSizeMake(0, 1);
-    messageLabel.textAlignment = UITextAlignmentCenter;
+    messageLabel.textAlignment = NSTextAlignmentCenter;
     messageLabel.numberOfLines = 0;
 	messageLabel.text = _message;
     [contentView addSubview:messageLabel];
@@ -166,7 +166,7 @@
     failedAttemptsLabel.font = [UIFont boldSystemFontOfSize:15];
     failedAttemptsLabel.shadowColor = [UIColor blackColor];
     failedAttemptsLabel.shadowOffset = CGSizeMake(0, -1);
-    failedAttemptsLabel.textAlignment = UITextAlignmentCenter;
+    failedAttemptsLabel.textAlignment = NSTextAlignmentCenter;
     failedAttemptsLabel.hidden = YES;
     [contentView addSubview:failedAttemptsLabel];
     

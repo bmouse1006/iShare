@@ -101,13 +101,13 @@
 
 		showControl.frame = CGRectMake(showControlX, BUTTON_Y, SHOW_CONTROL_WIDTH, BUTTON_HEIGHT);
 		showControl.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-		showControl.segmentedControlStyle = UISegmentedControlStyleBar;
+//		showControl.segmentedControlStyle = UISegmentedControlStyleBar;
 		showControl.tintColor = [UIColor colorWithWhite:0.8f alpha:1.0f];
 		showControl.selectedSegmentIndex = 0; // Default segment index
 
 		[showControl addTarget:self action:@selector(showControlTapped:) forControlEvents:UIControlEventValueChanged];
 
-		[self addSubview:showControl]; [showControl release];
+		[self addSubview:showControl];
 
 		titleWidth -= (SHOW_CONTROL_WIDTH + BUTTON_SPACE);
 
@@ -119,7 +119,7 @@
 
 			UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleRect];
 
-			titleLabel.textAlignment = UITextAlignmentCenter;
+			titleLabel.textAlignment = NSTextAlignmentCenter;
 			titleLabel.font = [UIFont systemFontOfSize:19.0f]; // 19 pt
 			titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 			titleLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
@@ -128,23 +128,14 @@
 			titleLabel.backgroundColor = [UIColor clearColor];
 			titleLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
 			titleLabel.adjustsFontSizeToFitWidth = YES;
-			titleLabel.minimumFontSize = 14.0f;
+			titleLabel.minimumScaleFactor = 14.0f;
 			titleLabel.text = title;
 
-			[self addSubview:titleLabel]; [titleLabel release];
+			[self addSubview:titleLabel];
 		}
 	}
 
 	return self;
-}
-
-- (void)dealloc
-{
-#ifdef DEBUGX
-	NSLog(@"%s", __FUNCTION__);
-#endif
-
-	[super dealloc];
 }
 
 #pragma mark UISegmentedControl action methods

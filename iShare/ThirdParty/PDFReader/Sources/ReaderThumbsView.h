@@ -55,12 +55,6 @@
 
 	CGPoint lastContentOffset;
 
-	ReaderThumbView *touchedCell;
-
-	NSMutableArray *thumbCellsQueue;
-
-	NSMutableArray *thumbCellsVisible;
-
 	NSInteger _thumbsX, _thumbsY, _thumbX;
 
 	CGSize _thumbSize, _lastViewSize;
@@ -70,6 +64,9 @@
 	BOOL canUpdate;
 }
 
+@property (nonatomic, strong) ReaderThumbView* touchedCell;
+@property (nonatomic, strong) NSMutableArray* thumbCellsQueue;
+@property (nonatomic, strong) NSMutableArray* thumbCellsVisible;
 @property (nonatomic, assign, readwrite) id <ReaderThumbsViewDelegate> delegate;
 
 - (void)setThumbSize:(CGSize)thumbSize;

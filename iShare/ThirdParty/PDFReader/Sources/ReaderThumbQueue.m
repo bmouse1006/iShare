@@ -79,12 +79,6 @@
 #ifdef DEBUGX
 	NSLog(@"%s", __FUNCTION__);
 #endif
-
-	[loadQueue release], loadQueue = nil;
-
-	[workQueue release], workQueue = nil;
-
-	[super dealloc];
 }
 
 - (void)addLoadOperation:(NSOperation *)operation
@@ -169,7 +163,7 @@
 
 	if ((self = [super init]))
 	{
-		_guid = [guid retain];
+		_guid = guid;
 	}
 
 	return self;
@@ -180,10 +174,6 @@
 #ifdef DEBUGX
 	NSLog(@"%s", __FUNCTION__);
 #endif
-
-	[_guid release], _guid = nil;
-
-	[super dealloc];
 }
 
 @end

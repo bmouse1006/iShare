@@ -9,6 +9,6 @@
 #import "ISShareServiceBaseController.h"
 #import <DropboxSDK/DropboxSDK.h>
 
-@interface ISDropBoxViewController : ISShareServiceBaseController<DBSessionDelegate, UIAlertViewDelegate, DBRestClientDelegate>
+@interface ISDropBoxViewController : ISShareServiceBaseController<UIAlertViewDelegate, DBRestClientDelegate, DBSessionDelegate>
 
 @end

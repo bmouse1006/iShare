@@ -88,8 +88,6 @@
 #ifdef DEBUGX
 	NSLog(@"%s", __FUNCTION__);
 #endif
-
-	[super dealloc];
 }
 
 @end

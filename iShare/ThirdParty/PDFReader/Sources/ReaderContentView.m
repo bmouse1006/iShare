@@ -146,14 +146,6 @@ static inline CGFloat ZoomScaleThatFits(CGSize target, CGSize source)
 #endif
 
 	[self removeObserver:self forKeyPath:@"frame"];
-
-	[theContainerView release], theContainerView = nil;
-
-	[theContentView release], theContentView = nil;
-
-	[theThumbView release], theThumbView = nil;
-
-	[super dealloc];
 }
 
 - (void)showPageThumb:(NSURL *)fileURL page:(NSInteger)page password:(NSString *)phrase guid:(NSString *)guid

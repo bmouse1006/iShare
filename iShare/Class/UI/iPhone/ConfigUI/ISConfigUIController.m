@@ -30,7 +30,7 @@
 
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_texture"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_texture"]];
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [UIColor clearColor];
     

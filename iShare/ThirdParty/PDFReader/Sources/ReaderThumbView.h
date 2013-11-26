@@ -31,8 +31,6 @@
 
 	NSUInteger _targetTag;
 
-	NSOperation *_operation;
-
 @protected // Instance variables
 
 	UIImageView *imageView;

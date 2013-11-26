@@ -90,11 +90,11 @@
 
 +(void)customizeUI{
 //    [self customizeButton];
-    [self customizeSegmentedControl];
-    [self customizeBackButton];
-    [self customizeBarButton];
-    [self customizeNavigationBar];
-    [self customizeTableView];
+//    [self customizeSegmentedControl];
+//    [self customizeBackButton];
+//    [self customizeBarButton];
+//    [self customizeNavigationBar];
+//    [self customizeTableView];
 }
 
 @end

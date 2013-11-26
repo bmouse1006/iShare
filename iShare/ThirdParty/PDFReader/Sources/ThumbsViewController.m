@@ -58,9 +58,9 @@
 	{
 		if ((self = [super initWithNibName:nil bundle:nil])) // Designated initializer
 		{
-			updateBookmarked = YES; bookmarked = [NSMutableArray new]; // Bookmarked pages
+			updateBookmarked = YES; self.bookmarked = [NSMutableArray new]; // Bookmarked pages
 
-			document = [object retain]; // Retain the ReaderDocument object for our use
+			self.document = object; // Retain the ReaderDocument object for our use
 
 			thumbs = self; // Return an initialized ThumbsViewController object
 		}
@@ -90,21 +90,21 @@
 
 	NSAssert(!(delegate == nil), @"delegate == nil");
 
-	NSAssert(!(document == nil), @"ReaderDocument == nil");
+	NSAssert(!(self.document == nil), @"ReaderDocument == nil");
 
-	self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+//	self.view.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
 
 	CGRect viewRect = self.view.bounds; // View controller's view bounds
 
-	NSString *toolbarTitle = [document.fileName stringByDeletingPathExtension];
+	NSString *toolbarTitle = [self.document.fileName stringByDeletingPathExtension];
 
 	CGRect toolbarRect = viewRect; toolbarRect.size.height = TOOLBAR_HEIGHT;
 
-	mainToolbar = [[ThumbsMainToolbar alloc] initWithFrame:toolbarRect title:toolbarTitle]; // At top
+	self.mainToolbar = [[ThumbsMainToolbar alloc] initWithFrame:toolbarRect title:toolbarTitle]; // At top
 
-	mainToolbar.delegate = self;
+	self.mainToolbar.delegate = self;
 
-	[self.view addSubview:mainToolbar];
+	[self.view addSubview:self.mainToolbar];
 
 	CGRect thumbsRect = viewRect; UIEdgeInsets insets = UIEdgeInsetsZero;
 
@@ -117,19 +117,19 @@
 		insets.top = TOOLBAR_HEIGHT;
 	}
 
-	theThumbsView = [[ReaderThumbsView alloc] initWithFrame:thumbsRect]; // Rest
+	self.theThumbsView = [[ReaderThumbsView alloc] initWithFrame:thumbsRect]; // Rest
 
-	theThumbsView.contentInset = insets; theThumbsView.scrollIndicatorInsets = insets;
+	self.theThumbsView.contentInset = insets; self.theThumbsView.scrollIndicatorInsets = insets;
 
-	theThumbsView.delegate = self;
+	self.theThumbsView.delegate = self;
 
-	[self.view insertSubview:theThumbsView belowSubview:mainToolbar];
+	[self.view insertSubview:self.theThumbsView belowSubview:self.mainToolbar];
 
 	BOOL large = ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad);
 
 	NSInteger thumbSize = (large ? PAGE_THUMB_LARGE : PAGE_THUMB_SMALL); // Thumb dimensions
 
-	[theThumbsView setThumbSize:CGSizeMake(thumbSize, thumbSize)]; // Thumb size based on device
+	[self.theThumbsView setThumbSize:CGSizeMake(thumbSize, thumbSize)]; // Thumb size based on device
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -140,7 +140,7 @@
 
 	[super viewWillAppear:animated];
 
-	[theThumbsView reloadThumbsCenterOnIndex:([document.pageNumber integerValue] - 1)]; // Page
+	[self.theThumbsView reloadThumbsCenterOnIndex:([self.document.pageNumber integerValue] - 1)]; // Page
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -175,11 +175,6 @@
 #ifdef DEBUGX
 	NSLog(@"%s", __FUNCTION__);
 #endif
-
-	[theThumbsView release], theThumbsView = nil;
-
-	[mainToolbar release], mainToolbar = nil;
-
 	[super viewDidUnload];
 }
 
@@ -224,23 +219,6 @@
 	[super didReceiveMemoryWarning];
 }
 
-- (void)dealloc
-{
-#ifdef DEBUGX
-	NSLog(@"%s", __FUNCTION__);
-#endif
-
-	[bookmarked release], bookmarked = nil;
-
-	[theThumbsView release], theThumbsView = nil;
-
-	[mainToolbar release], mainToolbar = nil;
-
-	[document release], document = nil;
-
-	[super dealloc];
-}
-
 #pragma mark ThumbsMainToolbarDelegate methods
 
 - (void)tappedInToolbar:(ThumbsMainToolbar *)toolbar showControl:(UISegmentedControl *)control
@@ -255,9 +233,9 @@
 		{
 			showBookmarked = NO; // Show all thumbs
 
-			markedOffset = [theThumbsView insetContentOffset];
+			markedOffset = [self.theThumbsView insetContentOffset];
 
-			[theThumbsView reloadThumbsContentOffset:thumbsOffset];
+			[self.theThumbsView reloadThumbsContentOffset:thumbsOffset];
 
 			break; // We're done
 		}
@@ -266,23 +244,23 @@
 		{
 			showBookmarked = YES; // Only bookmarked
 
-			thumbsOffset = [theThumbsView insetContentOffset];
+			thumbsOffset = [self.theThumbsView insetContentOffset];
 
 			if (updateBookmarked == YES) // Update bookmarked list
 			{
-				[bookmarked removeAllObjects]; // Empty the list first
+				[self.bookmarked removeAllObjects]; // Empty the list first
 
-				[document.bookmarks enumerateIndexesUsingBlock: // Enumerate
+				[self.document.bookmarks enumerateIndexesUsingBlock: // Enumerate
 					^(NSUInteger page, BOOL *stop)
 					{
-						[bookmarked addObject:[NSNumber numberWithInteger:page]];
+						[self.bookmarked addObject:[NSNumber numberWithInteger:page]];
 					}
 				];
 
 				markedOffset = CGPointZero; updateBookmarked = NO; // Reset
 			}
 
-			[theThumbsView reloadThumbsContentOffset:markedOffset];
+			[self.theThumbsView reloadThumbsContentOffset:markedOffset];
 
 			break; // We're done
 		}
@@ -306,7 +284,7 @@
 	NSLog(@"%s", __FUNCTION__);
 #endif
 
-	return (showBookmarked ? bookmarked.count : [document.pageCount integerValue]);
+	return (showBookmarked ? self.bookmarked.count : [self.document.pageCount integerValue]);
 }
 
 - (id)thumbsView:(ReaderThumbsView *)thumbsView thumbCellWithFrame:(CGRect)frame
@@ -315,7 +293,7 @@
 	NSLog(@"%s", __FUNCTION__);
 #endif
 
-	return [[[ThumbsPageThumb alloc] initWithFrame:frame] autorelease];
+	return [[ThumbsPageThumb alloc] initWithFrame:frame];
 }
 
 - (void)thumbsView:(ReaderThumbsView *)thumbsView updateThumbCell:(ThumbsPageThumb *)thumbCell forIndex:(NSInteger)index
@@ -326,13 +304,13 @@
 
 	CGSize size = [thumbCell maximumContentSize]; // Get the cell's maximum content size
 
-	NSInteger page = (showBookmarked ? [[bookmarked objectAtIndex:index] integerValue] : (index + 1));
+	NSInteger page = (showBookmarked ? [[self.bookmarked objectAtIndex:index] integerValue] : (index + 1));
 
 	[thumbCell showText:[NSString stringWithFormat:@"%d", page]]; // Page number place holder
 
-	[thumbCell showBookmark:[document.bookmarks containsIndex:page]]; // Show bookmarked status
+	[thumbCell showBookmark:[self.document.bookmarks containsIndex:page]]; // Show bookmarked status
 
-	NSURL *fileURL = document.fileURL; NSString *guid = document.guid; NSString *phrase = document.password; // Document info
+	NSURL *fileURL = self.document.fileURL; NSString *guid = self.document.guid; NSString *phrase = self.document.password; // Document info
 
 	ReaderThumbRequest *thumbRequest = [ReaderThumbRequest forView:thumbCell fileURL:fileURL password:phrase guid:guid page:page size:size];
 
@@ -347,9 +325,9 @@
 	NSLog(@"%s", __FUNCTION__);
 #endif
 
-	NSInteger page = (showBookmarked ? [[bookmarked objectAtIndex:index] integerValue] : (index + 1));
+	NSInteger page = (showBookmarked ? [[self.bookmarked objectAtIndex:index] integerValue] : (index + 1));
 
-	[thumbCell showBookmark:[document.bookmarks containsIndex:page]]; // Show bookmarked status
+	[thumbCell showBookmark:[self.document.bookmarks containsIndex:page]]; // Show bookmarked status
 }
 
 - (void)thumbsView:(ReaderThumbsView *)thumbsView didSelectThumbWithIndex:(NSInteger)index
@@ -358,7 +336,7 @@
 	NSLog(@"%s", __FUNCTION__);
 #endif
 
-	NSInteger page = (showBookmarked ? [[bookmarked objectAtIndex:index] integerValue] : (index + 1));
+	NSInteger page = (showBookmarked ? [[self.bookmarked objectAtIndex:index] integerValue] : (index + 1));
 
 	[delegate thumbsViewController:self gotoPage:page]; // Show the selected page
 
@@ -371,9 +349,9 @@
 	NSLog(@"%s", __FUNCTION__);
 #endif
 
-	NSInteger page = (showBookmarked ? [[bookmarked objectAtIndex:index] integerValue] : (index + 1));
+	NSInteger page = (showBookmarked ? [[self.bookmarked objectAtIndex:index] integerValue] : (index + 1));
 
-	if ([document.bookmarks containsIndex:page]) [document.bookmarks removeIndex:page]; else [document.bookmarks addIndex:page];
+	if ([self.document.bookmarks containsIndex:page]) [self.document.bookmarks removeIndex:page]; else [self.document.bookmarks addIndex:page];
 
 	updateBookmarked = YES; [thumbsView refreshThumbWithIndex:index]; // Refresh page thumb
 }
@@ -441,7 +419,7 @@
 		textLabel.userInteractionEnabled = NO;
 		textLabel.contentMode = UIViewContentModeRedraw;
 		textLabel.autoresizingMask = UIViewAutoresizingNone;
-		textLabel.textAlignment = UITextAlignmentCenter;
+		textLabel.textAlignment = NSTextAlignmentCenter;
 		textLabel.font = [UIFont systemFontOfSize:fontSize];
 		textLabel.textColor = [UIColor colorWithWhite:0.24f alpha:1.0f];
 		textLabel.backgroundColor = [UIColor whiteColor];
@@ -492,23 +470,6 @@
 	}
 
 	return self;
-}
-
-- (void)dealloc
-{
-#ifdef DEBUGX
-	NSLog(@"%s", __FUNCTION__);
-#endif
-
-	[backView release], backView = nil;
-
-	[maskView release], maskView = nil;
-
-	[textLabel release], textLabel = nil;
-
-	[bookMark release], bookMark = nil;
-
-	[super dealloc];
 }
 
 - (CGSize)maximumContentSize

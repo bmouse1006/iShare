@@ -146,7 +146,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     if ((self = [super init])) {
         
         // Defaults
-        self.wantsFullScreenLayout = YES;
+//        self.wantsFullScreenLayout = YES;
         self.hidesBottomBarWhenPushed = YES;
         _photoCount = NSNotFound;
 		_currentPageIndex = 0;
@@ -346,9 +346,9 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     if (SYSTEM_VERSION_LESS_THAN(@"5")) [self viewWillLayoutSubviews];
     
     // Status bar
-    if (self.wantsFullScreenLayout && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         _previousStatusBarStyle = [[UIApplication sharedApplication] statusBarStyle];
-        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:animated];
+        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:animated];
     }
     
     // Navigation bar appearance
@@ -382,7 +382,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     [self setControlsHidden:NO animated:NO permanent:YES];
     
     // Status bar
-    if (self.wantsFullScreenLayout && UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
         [[UIApplication sharedApplication] setStatusBarStyle:_previousStatusBarStyle animated:animated];
     }
     
@@ -886,8 +886,8 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
     [self cancelControlHiding];
 	
 	// Status bar and nav bar positioning
-    if (self.wantsFullScreenLayout) {
-        
+//    if (self.wantsFullScreenLayout) {
+    
         // Get status bar height if visible
         CGFloat statusBarHeight = 0;
         if (![UIApplication sharedApplication].statusBarHidden) {
@@ -913,7 +913,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
         navBarFrame.origin.y = statusBarHeight;
         self.navigationController.navigationBar.frame = navBarFrame;
         
-    }
+//    }
     
     // Captions
     NSMutableSet *captionViews = [[NSMutableSet alloc] initWithCapacity:_visiblePages.count];
@@ -974,7 +974,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
 #pragma mark - Misc
 
 - (void)doneButtonPressed:(id)sender {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)actionButtonPressed:(id)sender {
@@ -1124,7 +1124,7 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
         if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
             emailer.modalPresentationStyle = UIModalPresentationPageSheet;
         }
-        [self presentModalViewController:emailer animated:YES];
+        [self presentViewController:emailer animated:YES completion:NULL];
         [self hideProgressHUD:NO];
     }
 }
@@ -1138,7 +1138,8 @@ navigationBarBackgroundImageLandscapePhone = _navigationBarBackgroundImageLandsc
                                                         delegate:nil cancelButtonTitle:NSLocalizedString(@"Dismiss", nil) otherButtonTitles:nil];
 		[alert show];
     }
-	[self dismissModalViewControllerAnimated:YES];
+    
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 @end

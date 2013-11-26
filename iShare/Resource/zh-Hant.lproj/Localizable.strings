@@ -108,7 +108,7 @@
 "cell_title_upload" = "上傳";
 "cell_title_download" = "下載";
 "cell_title_wifishare" = "通過WIFI共享";
-"cell_title_bluetooth" = "通過藍牙共享";
+"cell_title_nearby" = "周围分享";
 
 "cell_title_enablehttp" = "啟用共享";
 "cell_title_httpport" = "HTTP端口";

@@ -23,7 +23,7 @@
 
 static NSInteger Default_Port = 80;
 
-+(id)sharedSerivce{
++(JJHTTPSerivce*)sharedSerivce{
     static dispatch_once_t onceToken;
     static JJHTTPSerivce* service = nil;
     dispatch_once(&onceToken, ^{

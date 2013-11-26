@@ -105,7 +105,7 @@
             [self dismissViewControllerAnimated:YES completion:NULL];
         };
         
-        [self presentModalViewController:pickerViewController animated:YES];
+        [self presentViewController:pickerViewController animated:YES completion:NULL];
         
         [self.tableView deselectRowAtIndexPath:[self.tableView indexPathForSelectedRow] animated:YES];
     }else if(indexPath.section == 1){

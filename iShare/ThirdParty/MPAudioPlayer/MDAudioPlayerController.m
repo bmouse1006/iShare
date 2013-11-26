@@ -205,8 +205,8 @@ void interruptionListenerCallback (void *userData, UInt32 interruptionState)
 	titleLabel.textColor = [UIColor whiteColor];
 	titleLabel.shadowColor = [UIColor blackColor];
 	titleLabel.shadowOffset = CGSizeMake(0, -1);
-	titleLabel.textAlignment = UITextAlignmentCenter;
-	titleLabel.lineBreakMode = UILineBreakModeTailTruncation;
+	titleLabel.textAlignment = NSTextAlignmentCenter;
+	titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
 	[self.view addSubview:titleLabel];
 	
 	self.artistLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 2, 195, 12)];
@@ -216,8 +216,8 @@ void interruptionListenerCallback (void *userData, UInt32 interruptionState)
 	artistLabel.textColor = [UIColor lightGrayColor];
 	artistLabel.shadowColor = [UIColor blackColor];
 	artistLabel.shadowOffset = CGSizeMake(0, -1);
-	artistLabel.textAlignment = UITextAlignmentCenter;
-	artistLabel.lineBreakMode = UILineBreakModeTailTruncation;
+	artistLabel.textAlignment = NSTextAlignmentCenter;
+	artistLabel.lineBreakMode = NSLineBreakByTruncatingTail;
 	[self.view addSubview:artistLabel];
 	
 	self.albumLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 27, 195, 12)];
@@ -227,8 +227,8 @@ void interruptionListenerCallback (void *userData, UInt32 interruptionState)
 	albumLabel.textColor = [UIColor lightGrayColor];
 	albumLabel.shadowColor = [UIColor blackColor];
 	albumLabel.shadowOffset = CGSizeMake(0, -1);
-	albumLabel.textAlignment = UITextAlignmentCenter;
-	albumLabel.lineBreakMode = UILineBreakModeTailTruncation;
+	albumLabel.textAlignment = NSTextAlignmentCenter;
+	albumLabel.lineBreakMode = NSLineBreakByTruncatingTail;
 	[self.view addSubview:albumLabel];
 
 	navigationBar = nil;
@@ -370,7 +370,7 @@ void interruptionListenerCallback (void *userData, UInt32 interruptionState)
 {
 //    [self stopMusic];
     [self.navigationController popToRootViewControllerAnimated:YES];
-	[self.parentViewController dismissModalViewControllerAnimated:YES];
+	[self.parentViewController dismissViewControllerAnimated:YES completion:NULL];
 }
 
 - (void)showSongFiles
@@ -446,7 +446,7 @@ void interruptionListenerCallback (void *userData, UInt32 interruptionState)
 		indexLabel.shadowColor = [UIColor blackColor];
 		indexLabel.backgroundColor = [UIColor clearColor];
 		indexLabel.textColor = [UIColor whiteColor];
-		indexLabel.textAlignment = UITextAlignmentCenter;
+		indexLabel.textAlignment = NSTextAlignmentCenter;
 		[overlayView addSubview:indexLabel];
 		
 		self.duration = [[UILabel alloc] initWithFrame:CGRectMake(272, 21, 48, 21)];
@@ -463,7 +463,7 @@ void interruptionListenerCallback (void *userData, UInt32 interruptionState)
 		currentTime.shadowColor = [UIColor blackColor];
 		currentTime.backgroundColor = [UIColor clearColor];
 		currentTime.textColor = [UIColor whiteColor];
-		currentTime.textAlignment = UITextAlignmentRight;
+		currentTime.textAlignment = NSTextAlignmentRight;
 		[overlayView addSubview:currentTime];
 		
 		duration.adjustsFontSizeToFitWidth = YES;

@@ -30,11 +30,8 @@
 @class ReaderThumbRequest;
 
 @interface ReaderThumbFetch : ReaderThumbOperation
-{
-@private // Instance variables
 
-	ReaderThumbRequest *request;
-}
+@property (nonatomic, strong) ReaderThumbRequest* request;
 
 - (id)initWithRequest:(ReaderThumbRequest *)object;
 

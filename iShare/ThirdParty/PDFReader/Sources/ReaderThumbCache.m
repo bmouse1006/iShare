@@ -97,8 +97,7 @@
 	NSString *cachePath = [ReaderThumbCache thumbCachePathForGUID:guid]; // Thumb cache path
 
 	[fileManager createDirectoryAtPath:cachePath withIntermediateDirectories:NO attributes:nil error:NULL];
-
-	[fileManager release]; // Cleanup file manager instance
+    // Cleanup file manager instance
 }
 
 + (void)removeThumbCacheWithGUID:(NSString *)guid
@@ -114,8 +113,7 @@
 		NSString *cachePath = [ReaderThumbCache thumbCachePathForGUID:guid]; // Thumb cache path
 
 		[fileManager removeItemAtPath:cachePath error:NULL]; // Remove thumb cache directory
-
-		[fileManager release]; // Cleanup file manager instance
+        // Cleanup file manager instance
 	});
 }
 
@@ -132,8 +130,7 @@
 	NSDictionary *attributes = [NSDictionary dictionaryWithObject:[NSDate date] forKey:NSFileModificationDate];
 
 	[fileManager setAttributes:attributes ofItemAtPath:cachePath error:NULL]; // New modification date
-
-	[fileManager release]; // Cleanup file manager instance
+    // Cleanup file manager instance
 }
 
 + (void)purgeThumbCachesOlderThan:(NSTimeInterval)age
@@ -177,8 +174,7 @@
 				}
 			}
 		}
-
-		[fileManager release]; // Cleanup
+        // Cleanup
 	});
 }
 
@@ -207,10 +203,6 @@
 #ifdef DEBUGX
 	NSLog(@"%s", __FUNCTION__);
 #endif
-
-	[thumbCache release], thumbCache = nil;
-
-	[super dealloc];
 }
 
 - (id)thumbRequest:(ReaderThumbRequest *)request priority:(BOOL)priority
@@ -235,7 +227,7 @@
 
 			request.thumbView.operation = thumbFetch; [thumbFetch setThreadPriority:(priority ? 0.55 : 0.35)]; // Thread priority
 
-			[[ReaderThumbQueue sharedInstance] addLoadOperation:thumbFetch]; [thumbFetch release]; // Queue the operation
+			[[ReaderThumbQueue sharedInstance] addLoadOperation:thumbFetch];// Queue the operation
 		}
 
 		return object; // NSNull or UIImage

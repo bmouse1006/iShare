@@ -46,7 +46,7 @@
 
 	if ((self = [super initWithGUID:object.guid]))
 	{
-		request = [object retain];
+		self.request = object;
 	}
 
 	return self;
@@ -58,11 +58,7 @@
 	NSLog(@"%s", __FUNCTION__);
 #endif
 
-	request.thumbView.operation = nil;
-
-	[request release], request = nil;
-
-	[super dealloc];
+	self.request.thumbView.operation = nil;
 }
 
 - (void)cancel
@@ -71,7 +67,7 @@
 	NSLog(@"%s", __FUNCTION__);
 #endif
 
-	[[ReaderThumbCache sharedInstance] removeNullForKey:request.cacheKey];
+	[[ReaderThumbCache sharedInstance] removeNullForKey:self.request.cacheKey];
 
 	[super cancel];
 }
@@ -82,13 +78,13 @@
 	NSLog(@"%s", __FUNCTION__);
 #endif
 
-	NSFileManager *fileManager = [[NSFileManager new] autorelease]; // File manager instance
+	NSFileManager *fileManager = [[NSFileManager alloc] init]; // File manager instance
 
-	NSString *cachePath = [ReaderThumbCache thumbCachePathForGUID:request.guid]; // Thumb cache path
+	NSString *cachePath = [ReaderThumbCache thumbCachePathForGUID:self.request.guid]; // Thumb cache path
 
 	[fileManager createDirectoryAtPath:cachePath withIntermediateDirectories:NO attributes:nil error:NULL];
 
-	NSString *fileName = [NSString stringWithFormat:@"%@.png", request.thumbName]; // Thumb file name
+	NSString *fileName = [NSString stringWithFormat:@"%@.png", self.request.thumbName]; // Thumb file name
 
 	return [NSURL fileURLWithPath:[cachePath stringByAppendingPathComponent:fileName]]; // File URL
 }
@@ -101,9 +97,9 @@
 
 	if (self.isCancelled == YES) return;
 
-	CFURLRef fileURL = (CFURLRef)request.fileURL; CGImageRef imageRef = NULL;
+	CFURLRef fileURL = (__bridge CFURLRef)self.request.fileURL; CGImageRef imageRef = NULL;
 
-	NSInteger page = request.thumbPage; NSString *password = request.password;
+	NSInteger page = self.request.thumbPage; NSString *password = self.request.password;
 
 	CGPDFDocumentRef thePDFDocRef = CGPDFDocumentCreateX(fileURL, password);
 
@@ -113,8 +109,8 @@
 
 		if (thePDFPageRef != NULL) // Check for non-NULL CGPDFPageRef
 		{
-			CGFloat thumb_w = request.thumbSize.width; // Maximum thumb width
-			CGFloat thumb_h = request.thumbSize.height; // Maximum thumb height
+			CGFloat thumb_w = self.request.thumbSize.width; // Maximum thumb width
+			CGFloat thumb_h = self.request.thumbSize.height; // Maximum thumb height
 
 			CGRect cropBoxRect = CGPDFPageGetBoxRect(thePDFPageRef, kCGPDFCropBox);
 			CGRect mediaBoxRect = CGPDFPageGetBoxRect(thePDFPageRef, kCGPDFMediaBox);
@@ -157,7 +153,7 @@
 
 			if (target_w % 2) target_w--; if (target_h % 2) target_h--; // Even
 
-			target_w *= request.scale; target_h *= request.scale; // Screen scale
+			target_w *= self.request.scale; target_h *= self.request.scale; // Screen scale
 
 			CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB(); // RGB color space
 
@@ -190,15 +186,15 @@
 
 	if (imageRef != NULL) // Create UIImage from CGImage and show it, then save thumb as PNG
 	{
-		UIImage *image = [UIImage imageWithCGImage:imageRef scale:request.scale orientation:0];
+		UIImage *image = [UIImage imageWithCGImage:imageRef scale:self.request.scale orientation:0];
 
-		[[ReaderThumbCache sharedInstance] setObject:image forKey:request.cacheKey]; // Update cache
+		[[ReaderThumbCache sharedInstance] setObject:image forKey:self.request.cacheKey]; // Update cache
 
 		if (self.isCancelled == NO) // Show the image in the target thumb view on the main thread
 		{
-			ReaderThumbView *thumbView = request.thumbView; // Target thumb view for image show
+			ReaderThumbView *thumbView = self.request.thumbView; // Target thumb view for image show
 
-			NSUInteger targetTag = request.targetTag; // Target reference tag for image show
+			NSUInteger targetTag = self.request.targetTag; // Target reference tag for image show
 
 			dispatch_async(dispatch_get_main_queue(), // Queue image show on main thread
 			^{
@@ -206,7 +202,7 @@
 			});
 		}
 
-		CFURLRef thumbURL = (CFURLRef)[self thumbFileURL]; // Thumb cache path with PNG file name URL
+		CFURLRef thumbURL = (__bridge CFURLRef)[self thumbFileURL]; // Thumb cache path with PNG file name URL
 
 		CGImageDestinationRef thumbRef = CGImageDestinationCreateWithURL(thumbURL, (CFStringRef)@"public.png", 1, NULL);
 
@@ -223,7 +219,7 @@
 	}
 	else // No image - so remove the placeholder object from the cache
 	{
-		[[ReaderThumbCache sharedInstance] removeNullForKey:request.cacheKey];
+		[[ReaderThumbCache sharedInstance] removeNullForKey:self.request.cacheKey];
 	}
 }
 

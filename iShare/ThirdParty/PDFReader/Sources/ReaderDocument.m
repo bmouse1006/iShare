@@ -29,18 +29,6 @@
 
 @implementation ReaderDocument
 
-#pragma mark Properties
-
-@synthesize guid = _guid;
-@synthesize fileDate = _fileDate;
-@synthesize fileSize = _fileSize;
-@synthesize pageCount = _pageCount;
-@synthesize pageNumber = _pageNumber;
-@synthesize bookmarks = _bookmarks;
-@synthesize lastOpen = _lastOpen;
-@synthesize password = _password;
-@dynamic fileName, fileURL;
-
 #pragma mark ReaderDocument class methods
 
 + (NSString *)GUID
@@ -56,7 +44,7 @@
 
 	theString = CFUUIDCreateString(NULL, theUUID);
 
-	NSString *unique = [NSString stringWithString:(id)theString];
+	NSString *unique = [NSString stringWithString:(__bridge id)theString];
 
 	CFRelease(theString); CFRelease(theUUID); // Cleanup
 
@@ -91,7 +79,7 @@
 	NSLog(@"%s", __FUNCTION__);
 #endif
 
-	NSFileManager *fileManager = [[NSFileManager new] autorelease]; // File manager instance
+	NSFileManager *fileManager = [[NSFileManager alloc] init]; // File manager instance
 
 	NSURL *pathURL = [fileManager URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:NULL];
 
@@ -150,7 +138,7 @@
 
 		if ((document != nil) && (phrase != nil)) // Set the document password
 		{
-			[document setValue:[[phrase copy] autorelease] forKey:@"password"];
+			[document setValue:[phrase copy] forKey:@"password"];
 		}
 	}
 	@catch (NSException *exception) // Exception handling (just in case O_o)
@@ -175,7 +163,7 @@
 
 	if (document == nil) // Unarchive failed so we create a new ReaderDocument object
 	{
-		document = [[[ReaderDocument alloc] initWithFilePath:filePath password:phrase] autorelease];
+		document = [[ReaderDocument alloc] initWithFilePath:filePath password:phrase];
 	}
 
 	return document;
@@ -229,17 +217,17 @@
 	{
 		if ((self = [super init])) // Initialize the superclass object first
 		{
-			_guid = [[ReaderDocument GUID] retain]; // Create a document GUID
+			_guid = [ReaderDocument GUID]; // Create a document GUID
 
 			_password = [phrase copy]; // Keep a copy of any document password
 
-			_bookmarks = [NSMutableIndexSet new]; // Bookmarked pages index set
+			_bookmarks = [NSMutableIndexSet indexSet]; // Bookmarked pages index set
 
-			_pageNumber = [[NSNumber numberWithInteger:1] retain]; // Start page 1
+			_pageNumber = [NSNumber numberWithInteger:1]; // Start page 1
 
-			_fileName = [[ReaderDocument relativeFilePath:fullFilePath] retain];
+			_fileName = [ReaderDocument relativeFilePath:fullFilePath];
 
-			CFURLRef docURLRef = (CFURLRef)[self fileURL]; // CFURLRef from NSURL
+			CFURLRef docURLRef = (__bridge CFURLRef)[self fileURL]; // CFURLRef from NSURL
 
 			CGPDFDocumentRef thePDFDocRef = CGPDFDocumentCreateX(docURLRef, _password);
 
@@ -247,7 +235,7 @@
 			{
 				NSInteger pageCount = CGPDFDocumentGetNumberOfPages(thePDFDocRef);
 
-				_pageCount = [[NSNumber numberWithInteger:pageCount] retain];
+				_pageCount = [NSNumber numberWithInteger:pageCount];
 
 				CGPDFDocumentRelease(thePDFDocRef); // Cleanup
 			}
@@ -258,15 +246,15 @@
 
 			NSFileManager *fileManager = [NSFileManager new]; // File manager
 
-			_lastOpen = [[NSDate dateWithTimeIntervalSinceReferenceDate:0.0] retain]; // Last opened
+			_lastOpen = [NSDate dateWithTimeIntervalSinceReferenceDate:0.0]; // Last opened
 
 			NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:fullFilePath error:NULL];
 
-			_fileDate = [[fileAttributes objectForKey:NSFileModificationDate] retain]; // File date
+			_fileDate = [fileAttributes objectForKey:NSFileModificationDate]; // File date
 
-			_fileSize = [[fileAttributes objectForKey:NSFileSize] retain]; // File size (bytes)
+			_fileSize = [fileAttributes objectForKey:NSFileSize]; // File size (bytes)
 
-			[fileManager release]; [self saveReaderDocument]; // Save ReaderDocument object
+            [self saveReaderDocument]; // Save ReaderDocument object
 
 			object = self; // Return initialized ReaderDocument object
 		}
@@ -280,28 +268,6 @@
 #ifdef DEBUGX
 	NSLog(@"%s", __FUNCTION__);
 #endif
-
-	[_guid release], _guid = nil;
-
-	[_fileURL release], _fileURL = nil;
-
-	[_password release], _password = nil;
-
-	[_fileName release], _fileName = nil;
-
-	[_pageCount release], _pageCount = nil;
-
-	[_pageNumber release], _pageNumber = nil;
-
-	[_bookmarks release], _bookmarks = nil;
-
-	[_fileSize release], _fileSize = nil;
-
-	[_fileDate release], _fileDate = nil;
-
-	[_lastOpen release], _lastOpen = nil;
-
-	[super dealloc];
 }
 
 - (NSString *)fileName
@@ -389,25 +355,25 @@
 
 	if ((self = [super init])) // Superclass init
 	{
-		_guid = [[decoder decodeObjectForKey:@"FileGUID"] retain];
+		_guid = [decoder decodeObjectForKey:@"FileGUID"];
 
-		_fileName = [[decoder decodeObjectForKey:@"FileName"] retain];
+		_fileName = [decoder decodeObjectForKey:@"FileName"];
 
-		_fileDate = [[decoder decodeObjectForKey:@"FileDate"] retain];
+		_fileDate = [decoder decodeObjectForKey:@"FileDate"];
 
-		_pageCount = [[decoder decodeObjectForKey:@"PageCount"] retain];
+		_pageCount = [decoder decodeObjectForKey:@"PageCount"];
 
-		_pageNumber = [[decoder decodeObjectForKey:@"PageNumber"] retain];
+		_pageNumber = [decoder decodeObjectForKey:@"PageNumber"];
 
 		_bookmarks = [[decoder decodeObjectForKey:@"Bookmarks"] mutableCopy];
 
-		_fileSize = [[decoder decodeObjectForKey:@"FileSize"] retain];
+		_fileSize = [decoder decodeObjectForKey:@"FileSize"];
 
-		_lastOpen = [[decoder decodeObjectForKey:@"LastOpen"] retain];
+		_lastOpen = [decoder decodeObjectForKey:@"LastOpen"];
 
-		if (_bookmarks == nil) _bookmarks = [NSMutableIndexSet new];
+		if (_bookmarks == nil) _bookmarks = [NSMutableIndexSet indexSet];
 
-		if (_guid == nil) _guid = [[ReaderDocument GUID] retain];
+		if (_guid == nil) _guid = [ReaderDocument GUID];
 	}
 
 	return self;

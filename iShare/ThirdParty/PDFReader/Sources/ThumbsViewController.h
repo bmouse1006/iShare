@@ -45,14 +45,6 @@
 {
 @private // Instance variables
 
-	ReaderDocument *document;
-
-	ThumbsMainToolbar *mainToolbar;
-
-	ReaderThumbsView *theThumbsView;
-
-	NSMutableArray *bookmarked;
-
 	BOOL updateBookmarked;
 
 	CGPoint thumbsOffset;
@@ -61,6 +53,11 @@
 	BOOL showBookmarked;
 }
 
+
+@property (nonatomic, strong) ReaderDocument* document;
+@property (nonatomic, strong) ThumbsMainToolbar* mainToolbar;
+@property (nonatomic, strong) ReaderThumbsView* theThumbsView;
+@property (nonatomic, strong) NSMutableArray* bookmarked;
 @property (nonatomic, assign, readwrite) id <ThumbsViewControllerDelegate> delegate;
 
 - (id)initWithReaderDocument:(ReaderDocument *)object;

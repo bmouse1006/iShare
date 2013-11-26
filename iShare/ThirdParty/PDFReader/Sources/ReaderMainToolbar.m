@@ -137,10 +137,10 @@
 
 		[self addSubview:flagButton]; titleWidth -= (MARK_BUTTON_WIDTH + BUTTON_SPACE);
 
-		markButton = [flagButton retain]; markButton.enabled = NO; markButton.tag = NSIntegerMin;
+		self.markButton = flagButton; self.markButton.enabled = NO; self.markButton.tag = NSIntegerMin;
 
-		markImageN = [[UIImage imageNamed:@"Reader-Mark-N.png"] retain]; // N image
-		markImageY = [[UIImage imageNamed:@"Reader-Mark-Y.png"] retain]; // Y image
+		self.markImageN = [UIImage imageNamed:@"Reader-Mark-N.png"] ; // N image
+		self.markImageY = [UIImage imageNamed:@"Reader-Mark-Y.png"]; // Y image
 
 #endif // end of READER_BOOKMARKS Option
 
@@ -200,7 +200,7 @@
 
 			UILabel *titleLabel = [[UILabel alloc] initWithFrame:titleRect];
 
-			titleLabel.textAlignment = UITextAlignmentCenter;
+			titleLabel.textAlignment = NSTextAlignmentCenter;
 			titleLabel.font = [UIFont systemFontOfSize:19.0f]; // 19 pt
 			titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
 			titleLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
@@ -209,10 +209,10 @@
 			titleLabel.backgroundColor = [UIColor clearColor];
 			titleLabel.shadowOffset = CGSizeMake(0.0f, 1.0f);
 			titleLabel.adjustsFontSizeToFitWidth = YES;
-			titleLabel.minimumFontSize = 14.0f;
+			titleLabel.minimumScaleFactor = 14.0f;
 			titleLabel.text = [object.fileName stringByDeletingPathExtension];
 
-			[self addSubview:titleLabel]; [titleLabel release];
+			[self addSubview:titleLabel];
 		}
 	}
 
@@ -224,13 +224,6 @@
 #ifdef DEBUGX
 	NSLog(@"%s", __FUNCTION__);
 #endif
-
-	[markButton release], markButton = nil;
-
-	[markImageN release], markImageN = nil;
-	[markImageY release], markImageY = nil;
-
-	[super dealloc];
 }
 
 - (void)setBookmarkState:(BOOL)state
@@ -241,19 +234,19 @@
 
 #if (READER_BOOKMARKS == TRUE) // Option
 
-	if (state != markButton.tag) // Only if different state
+	if (state != self.markButton.tag) // Only if different state
 	{
 		if (self.hidden == NO) // Only if toolbar is visible
 		{
-			UIImage *image = (state ? markImageY : markImageN);
+			UIImage *image = (state ? self.markImageY : self.markImageN);
 
-			[markButton setImage:image forState:UIControlStateNormal];
+			[self.markButton setImage:image forState:UIControlStateNormal];
 		}
 
-		markButton.tag = state; // Update bookmarked state tag
+		self.markButton.tag = state; // Update bookmarked state tag
 	}
 
-	if (markButton.enabled == NO) markButton.enabled = YES;
+	if (self.markButton.enabled == NO) self.markButton.enabled = YES;
 
 #endif // end of READER_BOOKMARKS Option
 }
@@ -266,16 +259,16 @@
 
 #if (READER_BOOKMARKS == TRUE) // Option
 
-	if (markButton.tag != NSIntegerMin) // Valid tag
+	if (self.markButton.tag != NSIntegerMin) // Valid tag
 	{
-		BOOL state = markButton.tag; // Bookmarked state
+		BOOL state = self.markButton.tag; // Bookmarked state
 
-		UIImage *image = (state ? markImageY : markImageN);
+		UIImage *image = (state ? self.markImageY : self.markImageN);
 
-		[markButton setImage:image forState:UIControlStateNormal];
+		[self.markButton setImage:image forState:UIControlStateNormal];
 	}
 
-	if (markButton.enabled == NO) markButton.enabled = YES;
+	if (self.markButton.enabled == NO) self.markButton.enabled = YES;
 
 #endif // end of READER_BOOKMARKS Option
 }

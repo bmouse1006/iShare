@@ -112,7 +112,7 @@
 "cell_title_upload" = "Upload";
 "cell_title_download" = "Download";
 "cell_title_wifishare" = "Sharing via WIFI";
-"cell_title_bluetooth" = "Sharing via Bluetooth";
+"cell_title_nearby" = "Nearby Sharing";
 
 "cell_title_enablehttp" = "Enable share";
 "cell_title_httpport" = "HTTP port";

@@ -43,14 +43,10 @@
 @end
 
 @interface ReaderMainToolbar : UIXToolbarView
-{
-@private // Instance variables
 
-	UIButton *markButton;
-
-	UIImage *markImageN;
-	UIImage *markImageY;
-}
+@property (nonatomic, strong) UIButton* markButton;
+@property (nonatomic, strong) UIImage* markImageN;
+@property (nonatomic, strong) UIImage* markImageY;
 
 @property (nonatomic, assign, readwrite) id <ReaderMainToolbarDelegate> delegate;
 

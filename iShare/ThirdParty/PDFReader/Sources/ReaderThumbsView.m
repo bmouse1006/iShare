@@ -51,15 +51,15 @@
 
 		[super setDelegate:self]; // Set the superclass UIScrollView delegate
 
-		thumbCellsQueue = [NSMutableArray new]; thumbCellsVisible = [NSMutableArray new]; // Cell management arrays
+		self.thumbCellsQueue = [NSMutableArray array]; self.thumbCellsVisible = [NSMutableArray array]; // Cell management arrays
 
 		UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
 		//tapGesture.numberOfTouchesRequired = 1; tapGesture.numberOfTapsRequired = 1; tapGesture.delegate = self;
-		[self addGestureRecognizer:tapGesture]; [tapGesture release];
+		[self addGestureRecognizer:tapGesture];
 
 		UILongPressGestureRecognizer *pressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(handlePressGesture:)];
 		pressGesture.minimumPressDuration = 0.8; //pressGesture.numberOfTouchesRequired = 1; pressGesture.delegate = self;
-		[self addGestureRecognizer:pressGesture]; [pressGesture release];
+		[self addGestureRecognizer:pressGesture];
 
 		lastContentOffset = CGPointMake(CGFLOAT_MIN, CGFLOAT_MIN);
 	}
@@ -72,14 +72,6 @@
 #ifdef DEBUGX
 	NSLog(@"%s", __FUNCTION__);
 #endif
-
-	[thumbCellsQueue release], thumbCellsQueue = nil;
-
-	[thumbCellsVisible release], thumbCellsVisible = nil;
-
-	[touchedCell release], touchedCell = nil;
-
-	[super dealloc];
 }
 
 - (void)requeueThumbCell:(ReaderThumbView *)tvCell
@@ -88,9 +80,9 @@
 	NSLog(@"%s %d", __FUNCTION__, tvCell.tag);
 #endif
 
-	[thumbCellsQueue addObject:tvCell];
+	[self.thumbCellsQueue addObject:tvCell];
 
-	[thumbCellsVisible removeObject:tvCell];
+	[self.thumbCellsVisible removeObject:tvCell];
 
 	tvCell.tag = NSIntegerMin; tvCell.hidden = YES;
 
@@ -103,16 +95,14 @@
 	NSLog(@"%s", __FUNCTION__);
 #endif
 
-	if (thumbCellsVisible.count > 0)
+	if (self.thumbCellsVisible.count > 0)
 	{
-		NSArray *visible = [thumbCellsVisible copy];
+		NSArray *visible = [self.thumbCellsVisible copy];
 
 		for (ReaderThumbView *tvCell in visible)
 		{
 			[self requeueThumbCell:tvCell];
-		}
-
-		[visible release]; // Cleanup
+		}// Cleanup
 	}
 }
 
@@ -124,17 +114,17 @@
 
 	ReaderThumbView *theCell = nil;
 
-	if (thumbCellsQueue.count > 0) // Reuse existing cell
+	if (self.thumbCellsQueue.count > 0) // Reuse existing cell
 	{
-		theCell = [[thumbCellsQueue objectAtIndex:0] retain];
+		theCell = [self.thumbCellsQueue objectAtIndex:0];
 
-		[thumbCellsQueue removeObjectAtIndex:0]; // Dequeue it
+		[self.thumbCellsQueue removeObjectAtIndex:0]; // Dequeue it
 
 		theCell.frame = frame; // Position the reused cell
 	}
 	else // Allocate a brand new thumb cell subclass for our use
 	{
-		theCell = [[delegate thumbsView:self thumbCellWithFrame:frame] retain];
+		theCell = [delegate thumbsView:self thumbCellWithFrame:frame];
 
 		assert([theCell isKindOfClass:[ReaderThumbView class]]); // Check
 
@@ -143,7 +133,7 @@
 		[self insertSubview:theCell atIndex:0]; // Add
 	}
 
-	[thumbCellsVisible addObject:theCell]; [theCell release];
+	[self.thumbCellsVisible addObject:theCell];
 
 	return theCell;
 }
@@ -182,7 +172,7 @@
 
 	ReaderThumbView *theCell = nil;
 
-	for (ReaderThumbView *tvCell in thumbCellsVisible)
+	for (ReaderThumbView *tvCell in self.thumbCellsVisible)
 	{
 		if (CGRectContainsPoint(tvCell.frame, point) == true)
 		{
@@ -272,7 +262,7 @@
 
 		NSMutableIndexSet *visibleIndexSet = [self visibleIndexSetForContentOffset];
 
-		for (ReaderThumbView *tvCell in thumbCellsVisible) // Enumerate visible cells
+		for (ReaderThumbView *tvCell in self.thumbCellsVisible) // Enumerate visible cells
 		{
 			NSInteger index = tvCell.tag; // Get the cell's index value
 
@@ -439,7 +429,7 @@
 	NSLog(@"%s %d", __FUNCTION__, index);
 #endif
 
-	for (ReaderThumbView *tvCell in thumbCellsVisible) // Enumerate visible cells
+	for (ReaderThumbView *tvCell in self.thumbCellsVisible) // Enumerate visible cells
 	{
 		if (tvCell.tag == index) // Found a visible thumb cell with the index value
 		{
@@ -459,7 +449,7 @@
 	NSLog(@"%s", __FUNCTION__);
 #endif
 
-	for (ReaderThumbView *tvCell in thumbCellsVisible) // Enumerate visible cells
+	for (ReaderThumbView *tvCell in self.thumbCellsVisible) // Enumerate visible cells
 	{
 		if ([delegate respondsToSelector:@selector(thumbsView:refreshThumbCell:forIndex:)])
 		{
@@ -538,7 +528,7 @@
 
 			NSMutableIndexSet *visibleCellSet = [NSMutableIndexSet indexSet]; // Visible set
 
-			for (ReaderThumbView *tvCell in thumbCellsVisible) // Enumerate visible cells
+			for (ReaderThumbView *tvCell in self.thumbCellsVisible) // Enumerate visible cells
 			{
 				if (CGRectIntersectsRect(tvCell.frame, visibleBounds) == true)
 					[visibleCellSet addIndex:tvCell.tag];
@@ -578,7 +568,7 @@
 {
 	[super touchesBegan:touches withEvent:event]; // Message superclass
 
-	if (touchedCell != nil) { [touchedCell showTouched:NO]; [touchedCell release], touchedCell = nil; }
+	if (self.touchedCell != nil) { [self.touchedCell showTouched:NO]; }
 
 	if (touches.count == 1) // Show selection on single touch
 	{
@@ -588,7 +578,10 @@
 
 		ReaderThumbView *tvCell = [self thumbCellContainingPoint:point]; // Look for cell
 
-		if (tvCell != nil) { touchedCell = [tvCell retain]; [touchedCell showTouched:YES]; }
+		if (tvCell != nil) {
+            self.touchedCell = tvCell;
+            [self.touchedCell showTouched:YES];
+        }
 	}
 }
 
@@ -596,14 +589,14 @@
 {
 	[super touchesCancelled:touches withEvent:event]; // Message superclass
 
-	if (touchedCell != nil) { [touchedCell showTouched:NO]; [touchedCell release], touchedCell = nil; }
+	if (self.touchedCell != nil) { [self.touchedCell showTouched:NO];}
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	[super touchesEnded:touches withEvent:event]; // Message superclass
 
-	if (touchedCell != nil) { [touchedCell showTouched:NO]; [touchedCell release], touchedCell = nil; }
+	if (self.touchedCell != nil) { [self.touchedCell showTouched:NO];}
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event

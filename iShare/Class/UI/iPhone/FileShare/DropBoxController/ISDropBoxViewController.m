@@ -25,6 +25,11 @@
 
 @implementation ISDropBoxViewController
 
+-(void)dealloc{
+    [self.dbClient cancelAllRequests];
+    self.dbClient.delegate = nil;
+}
+
 - (id)initWithWorkingPath:(NSString *)workingPath
 {
     self = [super initWithWorkingPath:workingPath];
@@ -143,7 +148,7 @@
 
 #pragma mark - override super class
 -(void)operationCancelled{
-    [self.dbClient cancelAllRequests];
+//    [self.dbClient cancelAllRequests];
     [self.uploadDbClients makeObjectsPerformSelector:@selector(cancelAllRequests)];
 }
 

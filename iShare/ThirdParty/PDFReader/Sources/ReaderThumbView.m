@@ -62,17 +62,6 @@
 	return self;
 }
 
-- (void)dealloc
-{
-#ifdef DEBUGX
-	NSLog(@"%s", __FUNCTION__);
-#endif
-
-	[imageView release], imageView = nil;
-
-	[super dealloc];
-}
-
 - (void)showImage:(UIImage *)image
 {
 #ifdef DEBUGX

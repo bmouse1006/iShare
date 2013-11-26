@@ -41,24 +41,6 @@
 @end
 
 @interface ReaderMainPagebar : UIView
-{
-@private // Instance variables
-
-	ReaderDocument *document;
-
-	ReaderTrackControl *trackControl;
-
-	NSMutableDictionary *miniThumbViews;
-
-	ReaderPagebarThumb *pageThumbView;
-
-	UILabel *pageNumberLabel;
-
-	UIView *pageNumberView;
-
-	NSTimer *enableTimer;
-	NSTimer *trackTimer;
-}
 
 @property (nonatomic, assign, readwrite) id <ReaderMainPagebarDelegate> delegate;
 

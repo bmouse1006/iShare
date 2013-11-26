@@ -40,9 +40,9 @@ static UIInterfaceOrientation currentInterfaceOrientation;
             
             if (_shouldChangeStatusBarStyle)
                 if (IS_IPAD())
-                    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackOpaque animated:YES];
+                    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
                 else
-                    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:YES];
+                    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
             else
                 [[UIApplication sharedApplication] setStatusBarStyle:oldStatusBarStyle animated:YES];
         }

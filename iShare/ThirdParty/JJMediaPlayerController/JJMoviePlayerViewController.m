@@ -37,7 +37,6 @@ typedef enum {
         self.filepath = filepath;
         self.moviePlayerController = [[JJMoviePlayerController alloc] initWithFilepath:self.filepath];
         self.moviePlayerController.delegate = self;
-        self.wantsFullScreenLayout = YES;
         self.contentStyle = JJMovieViewContentAspectFit;
     }
     
@@ -125,7 +124,7 @@ typedef enum {
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent
                                                 animated:YES];
 }
 

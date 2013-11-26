@@ -128,15 +128,16 @@ static CGFloat ProgressHUDDuration = 1.5f;
 }
 
 -(void)changePasscode{
-    __block typeof(self) blockSelf = self;
+    __weak typeof(self) blockSelf = self;
     
-    __block PAPasscodeViewController* passcodeController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionChange];
+    PAPasscodeViewController* passcodeController = [[PAPasscodeViewController alloc] initForAction:PasscodeActionChange];
+    __weak typeof(passcodeController) controller = passcodeController;
     passcodeController.delegate = self;
     passcodeController.passcode = [ISUserPreferenceDefine passcode];
     passcodeController.didChangeBlock = ^{
         [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"progress_message_passcodeischanged", nil) duration:ProgressHUDDuration];
-        DebugLog(@"Passcode did change. New code is %@", passcodeController.passcode);
-        [ISUserPreferenceDefine setPasscode:passcodeController.passcode];
+        DebugLog(@"Passcode did change. New code is %@", controller.passcode);
+        [ISUserPreferenceDefine setPasscode:controller.passcode];
         [blockSelf dismissViewControllerAnimated:YES completion:NULL];
     };
     
@@ -158,7 +159,7 @@ static CGFloat ProgressHUDDuration = 1.5f;
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell* cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-    cell.textLabel.textAlignment = UITextAlignmentCenter;
+    cell.textLabel.textAlignment = NSTextAlignmentCenter;
     
     if ([ISUserPreferenceDefine passcodeEnabled] == YES){
         if (indexPath.row == 0){

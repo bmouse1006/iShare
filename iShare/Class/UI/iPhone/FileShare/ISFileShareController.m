@@ -13,7 +13,6 @@
 #import "ISiCloudServiceViewController.h"
 #import "ISGoogleDriveViewController.h"
 #import "JJHTTPSerivce.h"
-#import "BWStatusBarOverlay.h"
 #import "CustomUIComponents.h"
 #import "SVProgressHUD.h"
 #import "ISUserPreferenceDefine.h"
@@ -61,7 +60,7 @@
     
     self.tableView.backgroundView = nil;
     self.tableView.backgroundColor = [UIColor clearColor];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_texture"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_texture"]];
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -252,7 +251,7 @@
                     UISwitch* bluetoothSwitch = [[UISwitch alloc] init];
                     [bluetoothSwitch addTarget:self action:@selector(bluetoothSwitchChanged:) forControlEvents:UIControlEventValueChanged];
 //                    bluetoothSwitch.on = [JJHTTPSerivce isServiceRunning];
-                    cell.textLabel.text = NSLocalizedString(@"cell_title_bluetooth", nil);
+                    cell.textLabel.text = NSLocalizedString(@"cell_title_nearby", nil);
 //                    cell.accessoryView = bluetoothSwitch;
                     NSString* peerName = [[JJBTFileSharer defaultSharer] nameOfPair];
                     cell.detailTextLabel.text = (peerName.length > 0)?peerName:NSLocalizedString(@"cell_title_notconnected", nil);
@@ -275,7 +274,7 @@
                 {
                     cell.textLabel.text = @"Dropbox";
                     cell.imageView.image = [UIImage imageNamed:@"cell_dropbox"];
-                    if ([[DBSession sharedSession] isLinked]){
+                    if ([[DBSession sharedSession] isLinked] == YES){
                         //add unlink button
                         cell.accessoryView = self.unlinkButton;
                     }
@@ -320,7 +319,8 @@
     UISwitch* wifiSwitch = (UISwitch*)sender;
     if (wifiSwitch.on){
         if ([[JJHTTPSerivce sharedSerivce] startService]){
-            [BWStatusBarOverlay showSuccessWithMessage:NSLocalizedString(@"status_message_httpserverstartfinished", nil) duration:duration animated:YES];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"status_message_httpserverstartfinished", nil)
+                                        duration:0.2];
             [ISUserPreferenceDefine setHttpShareStarted:YES];
         }else{
             UIAlertView* alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"status_message_httpserverstartfailed", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"btn_title_cancel", nil) otherButtonTitles:nil];
@@ -329,7 +329,8 @@
         };
     }else{
         if ([[JJHTTPSerivce sharedSerivce] stopService]){
-            [BWStatusBarOverlay showSuccessWithMessage:NSLocalizedString(@"status_message_httpserverstopfinished", nil) duration:duration animated:YES];
+            [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"status_message_httpserverstopfinished", nil)
+                                        duration:0.2];
             [ISUserPreferenceDefine setHttpShareStarted:NO];
         }else{
 //            [BWStatusBarOverlay showErrorWithMessage:NSLocalizedString(@"status_message_httpserverstopfailed", nil) duration:duration animated:YES];

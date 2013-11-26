@@ -15,6 +15,7 @@
 #import "JJHTTPSerivce.h"
 #import "PAPasscodeViewController.h"
 #import "SVProgressHUD.h"
+#import "JJNearbySharingService.h"
 #import <DropboxSDK/DropboxSDK.h>
 
 @implementation AppDelegate
@@ -27,9 +28,17 @@
     //dropbox init
     NSString* appKey = @"u4pqeo7i6pfxnx1";
     NSString* appSecret = @"1i6qgm4rywi0hrn";
-    NSString *root = kDBRootDropbox;
-    DBSession* session = [[DBSession alloc] initWithAppKey:appKey appSecret:appSecret root:root];
+    
+    DBSession* session = [[DBSession alloc] initWithAppKey:appKey appSecret:appSecret root:kDBRootDropbox];
+    
     [DBSession setSharedSession:session];
+    [DBRequest setNetworkRequestDelegate:self];
+    
+    //init nearby peer to peer connectivity service
+    JJNearbySharingService* s = [[JJNearbySharingService alloc] initWithName:[[UIDevice currentDevice] name]];
+    [JJNearbySharingService setDefaultService:s];
+    [s startService];
+    
     //http server init
     JJHTTPSerivce* service = [JJHTTPSerivce sharedSerivce];
     [service setPort:[ISUserPreferenceDefine httpSharePort]];
@@ -38,13 +47,16 @@
     [service setPassword:[ISUserPreferenceDefine httpSharePassword]];
     
     if ([ISUserPreferenceDefine shouldAutoStartHTTPShare]){
-        [[JJHTTPSerivce sharedSerivce] startService];
+        [service startService];
     }
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.viewController = [[MainTabBarController alloc] initWithNibName:@"MainTabBarController" bundle:nil];
     self.window.rootViewController = self.viewController;
+    
+    self.window.tintColor = [UIColor redColor];
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -62,7 +74,12 @@
     }
     
     if ([scheme hasPrefix:@"db"]){
-        return [[DBSession sharedSession] handleOpenURL:url];
+        if ([[DBSession sharedSession] handleOpenURL:url]) {
+            if ([[DBSession sharedSession] isLinked]) {
+                return YES;
+            }
+        }
+        return NO;
     }
     //    NSString* home = [[FileOperationWrap sharedWrap] homePath];
 //    
@@ -93,6 +110,24 @@
         };
         
         [self.window.rootViewController presentViewController:passcodeController animated:NO completion:NULL];
+    }
+    
+    if ([JJHTTPSerivce isServiceRunning] == NO && [ISUserPreferenceDefine shouldAutoStartHTTPShare]){
+        [[JJHTTPSerivce sharedSerivce] startService];
+    }
+    
+    if ([[JJNearbySharingService defaultService] isRunning] == NO){
+        [[JJNearbySharingService defaultService] startService];
+    }
+}
+
+-(void)applicationWillResignActive:(UIApplication *)application{
+    if ([JJHTTPSerivce isServiceRunning]){
+        [[JJHTTPSerivce sharedSerivce] stopService];
+    }
+    
+    if ([[JJNearbySharingService defaultService] isRunning] == NO){
+        [[JJNearbySharingService defaultService] stopService];
     }
 }
 
@@ -168,6 +203,13 @@
     
 }
 
+#pragma mark - DB Request delegate
+-(void)networkRequestStarted{
+    DebugLog(@"dropbox request started");
+}
 
+-(void)networkRequestStopped{
+    DebugLog(@"dropbox request stopped");
+}
 
 @end

@@ -11,6 +11,7 @@
 
 @interface ISDropBoxDataSource ()
 
+//@property (nonatomic, strong) DBFilesystem* dbFS;
 @property (nonatomic, strong) DBRestClient* dbClient;
 @property (nonatomic, strong) NSString* workingHash;
 

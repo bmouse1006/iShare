@@ -85,10 +85,10 @@
 {
     [super viewDidLoad];
     
-    // Fullscreen
-    if (((AGImagePickerController *)self.navigationController).shouldChangeStatusBarStyle) {
-        self.wantsFullScreenLayout = YES;
-    }
+//    // Fullscreen
+//    if (((AGImagePickerController *)self.navigationController).shouldChangeStatusBarStyle) {
+//        self.wantsFullScreenLayout = YES;
+//    }
     
     // Setup Notifications
     [self createNotifications];

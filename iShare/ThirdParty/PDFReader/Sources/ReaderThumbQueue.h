@@ -53,13 +53,8 @@
 //
 
 @interface ReaderThumbOperation : NSOperation
-{
-@protected // Instance variables
 
-	NSString *_guid;
-}
-
-@property (nonatomic, retain, readonly) NSString *guid;
+@property (nonatomic, strong, readonly) NSString *guid;
 
 - (id)initWithGUID:(NSString *)guid;
 

@@ -8,7 +8,6 @@
 
 #import "ISFileBrowserController.h"
 #import "FileBrowserDataSource.h"
-#import "BWStatusBarOverlay.h"
 #import "SVProgressHUD.h"
 #import "FileOperationWrap.h"
 #import "FilePickerViewController.h"
@@ -116,13 +115,14 @@ static CGFloat kMessageTransitionDuration = 1.5f;
     [self.typeSegmented setTitle:NSLocalizedString(@"seg_title_type", nil) forSegmentAtIndex:2];
     self.typeSegmented.selectedSegmentIndex = 2;
     //view background color
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_texture"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_texture"]];
+//    self.view.backgroundColor = [UIColor blackColor];
     //table view
 //    self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundView = nil;
     self.tableView.tableHeaderView = self.tableHeaderView;
     self.tableView.allowsMultipleSelectionDuringEditing = YES;
-    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
+//    self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
     self.tableView.rowHeight = 60.0f;
     
     self.refreshView = [[[NSBundle mainBundle] loadNibNamed:@"TableHeaderRefreshView" owner:nil options:nil] objectAtIndex:0];
@@ -567,12 +567,10 @@ static CGFloat kMessageTransitionDuration = 1.5f;
         BOOL result = [[FileOperationWrap sharedWrap] saveFile:imageData withName:fileName path:self.filePath];
         dispatch_async(dispatch_get_main_queue(), ^{
             if (result){
-                [BWStatusBarOverlay showSuccessWithMessage:NSLocalizedString(@"status_message_newimagecreated", nil) duration:kMessageTransitionDuration animated:YES];
                 [self.dataSource refresh];
                 [self.tableView reloadData];
                 [SVProgressHUD dismissWithSuccess:NSLocalizedString(@"status_message_savingsuccess", nil)];
             }else{
-                [BWStatusBarOverlay showSuccessWithMessage:NSLocalizedString(@"status_message_newimagecreatefailed", nil) duration:kMessageTransitionDuration animated:YES];
                 [SVProgressHUD dismissWithError:NSLocalizedString(@"status_message_savingfailed", nil)];
             }
             [self dismissViewControllerAnimated:YES completion:NULL];
@@ -600,13 +598,15 @@ static CGFloat kMessageTransitionDuration = 1.5f;
                 NSString* folderName = textField.text;
                 if ([[FileOperationWrap sharedWrap] createDirectoryWithName:folderName path:self.filePath]){
                     //notify create success
-                    [BWStatusBarOverlay showSuccessWithMessage:NSLocalizedString(@"status_message_newfoldercreated", nil) duration:kMessageTransitionDuration animated:YES];
+                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"status_message_newfoldercreated", nil)
+                                                duration:0.2f];
                     //reload tableview
                     [self.dataSource refresh];
                     [self.tableView reloadData];
                 }else{
                     //notify create failed
-                    [BWStatusBarOverlay showSuccessWithMessage:NSLocalizedString(@"status_message_newfoldercreatefailed", nil) duration:kMessageTransitionDuration animated:YES];
+                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"status_message_newfoldercreatefailed", nil)
+                                                duration:0.2f];
                 }
             }
         }
@@ -622,13 +622,15 @@ static CGFloat kMessageTransitionDuration = 1.5f;
                 
                 if ([[FileOperationWrap sharedWrap] createFileWithName:fullname path:self.filePath]){
                     //notify create success
-                    [BWStatusBarOverlay showSuccessWithMessage:NSLocalizedString(@"status_message_newtextcreated", nil) duration:kMessageTransitionDuration animated:YES];
+                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"status_message_newtextcreated", nil)
+                                                duration:0.2f];
                     //reload tableview
                     [self.dataSource refresh];
                     [self.tableView reloadData];
                 }else{
                     //notify create failed
-                    [BWStatusBarOverlay showSuccessWithMessage:NSLocalizedString(@"status_message_newtextcreatefailed", nil) duration:kMessageTransitionDuration animated:YES];
+                    [SVProgressHUD showSuccessWithStatus:NSLocalizedString(@"status_message_newtextcreatefailed", nil)
+                                                duration:0.2f];
                 }
             }
         }

@@ -42,7 +42,7 @@
 {
     [super viewDidLoad];
     
-    self.title = NSLocalizedString(@"cell_title_bluetooth", nil);
+    self.title = NSLocalizedString(@"cell_title_nearby", nil);
     
     
     JJBTFileSharer* btSharer = [JJBTFileSharer defaultSharer];
